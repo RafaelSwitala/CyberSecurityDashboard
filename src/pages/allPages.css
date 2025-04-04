@@ -1,0 +1,15 @@
+:root {
+    --black: #000000;
+    --darkgrey: #2b2b2b;
+    --white: #ffffff;
+    --cream: #e6e6dd;
+    --gold: #959350;
+    --red: #760606;
+    --darkBlue: #0a0524ec;
+}
+
+.abcabc {
+    height: 200px;
+    width: 200px; 
+    background-color: red;
+}
