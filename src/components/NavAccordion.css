@@ -1,0 +1,7 @@
+.navAccordion {
+    height: 839px;
+    width: 12%;
+    background-color: var(--red);
+    float: left;
+    border-right: 2px solid white;
+}

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import NavAccordion from './components/NavAccordion';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
+import Dashboard from './pages/Dashboard';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 
@@ -15,9 +16,10 @@ const App = () => {
       <div>
         <NavBar />
       </div>
-      <div>
+      <div className='mainPage'>
+          <NavAccordion />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/Page1" element={<Page1 />} />
             <Route path="/Page2" element={<Page2 />} />
           </Routes>

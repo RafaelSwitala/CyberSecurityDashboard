@@ -1,0 +1,6 @@
+.navBar {
+    height: 100px;
+    width: 100%;
+    background-color: var(--darkgrey);
+    border-bottom: 2px solid white;
+}

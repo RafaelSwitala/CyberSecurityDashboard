@@ -8,8 +8,10 @@
     --darkBlue: #0a0524ec;
 }
 
-.abcabc {
-    height: 200px;
-    width: 200px; 
-    background-color: red;
+/* Main Pages: Dashboard */
+.mainPageContainer {
+    height: 839px;
+    width: 88%;
+    background-color: var(--gold);
+    float: right;
 }
