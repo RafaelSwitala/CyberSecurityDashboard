@@ -5,7 +5,7 @@ const HomePage = () => {
  
   return (
     <div>
-      <h1>CyberSecurity Dashboard</h1>
+      <h1>CyberSecurity-Dashboard</h1>
     </div>
   );
 };
