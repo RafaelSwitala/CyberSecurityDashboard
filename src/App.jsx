@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Login from './Login';
 import NavAccordion from './components/NavAccordion';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
@@ -11,6 +12,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="app-container">
       <div>
