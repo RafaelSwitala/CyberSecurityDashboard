@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import Carousel from 'react-bootstrap/Carousel';
 import './allPages.css';
 
 const initialLogs = [
@@ -209,7 +210,35 @@ const Dashboard = () => {
 
   return (
     <div className='mainPageContainer'>
-      <div className='logRepresentation'></div>
+      <div className='logRepresentation'>
+      <Carousel>
+  <Carousel.Item>
+    <div style={{ height: '300px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div>
+        <h3>Erste Folie</h3>
+        <p>Beschreibung der ersten Folie</p>
+      </div>
+    </div>
+  </Carousel.Item>
+  <Carousel.Item>
+    <div style={{ height: '300px', backgroundColor: '#dee2e6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div>
+        <h3>Zweite Folie</h3>
+        <p>Hier ist etwas anderer Inhalt</p>
+      </div>
+    </div>
+  </Carousel.Item>
+  <Carousel.Item>
+    <div style={{ height: '300px', backgroundColor: '#ced4da', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div>
+        <h3>Dritte Folie</h3>
+        <p>Mehr Text oder Komponenten gehen auch</p>
+      </div>
+    </div>
+  </Carousel.Item>
+</Carousel>
+
+      </div>
       <div className='logOverview'>
       <div className='logOverviewTableButtonField'>
   <div className='logOverviewTableButtonsContainer'>

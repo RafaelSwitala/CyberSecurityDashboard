@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/RafaelSwitala/CyberSecurityDashboard#readme",
   "dependencies": {
-    "bootstrap": "^5.3.4",
+    "bootstrap": "^5.3.5",
     "css-loader": "^7.1.2",
     "cybersecuritydashboard": "file:",
     "react": "^19.1.0",
