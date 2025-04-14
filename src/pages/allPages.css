@@ -43,7 +43,7 @@
 }
 
 .logOverviewTableButtons {
-    width: 20%;
+    width: 16.666%;
     height: 50px;
 }
 
@@ -67,3 +67,21 @@
     height: 40px;
     font-size: 14px;
 }  
+
+.filterOptions {
+    background-color: var(--darkBlue);
+    width: 16.666%;
+    height: 85px;
+    border-radius: 8px;
+    color: var(--cream);
+    padding-left: 10px;
+}
+
+.filterOptionsSelect {
+    background-color: var(--darkBlue);
+    color: var(--cream);
+    border: 1px solid var(--cream);
+    width: 250px;
+    margin-left: 4px;
+    margin-top: 4px;
+}
