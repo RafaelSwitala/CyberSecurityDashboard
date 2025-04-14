@@ -32,7 +32,7 @@
 
 .logOverviewTableButtonField {
     width: 100%;
-    height: 9.6%;
+    height: 29.2%;
     flex-shrink: 0;
     border-bottom: 2px solid black;
 }
@@ -43,11 +43,27 @@
 }
 
 .logOverviewTableButtons {
-    width: 16.666%;
+    width: 20%;
     height: 50px;
 }
 
 .logOverviewTable {
-    width: 100% !important;
+    width: 100%;
     table-layout: fixed;
 }
+
+.logOverviewTableButtonsContainer {
+    flex-wrap: wrap;
+}
+
+.filterDropdowns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filterDropdowns select {
+    height: 40px;
+    font-size: 14px;
+}  
