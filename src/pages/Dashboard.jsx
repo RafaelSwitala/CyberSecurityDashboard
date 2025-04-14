@@ -1,457 +1,250 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import './allPages.css';
 
-const HomePage = () => {
- 
+const initialLogs = [
+  {
+    timestamp: '2025-04-10 23:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 7052,
+    protocol: 'HTTPS',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTP',
+    action: 'WARNING',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTP',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTP',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTPS',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  },
+  {
+    timestamp: '2025-04-10 22:51',
+    sourceIP: '192.168.2.1',
+    destinationIP: '127.0.0.0',
+    port: 5050,
+    protocol: 'HTTP',
+    action: 'INFO',
+    message: 'Eine Nachricht',
+  } // Der Import wird über JSON oder Datenbank gehen
+];
+
+const Dashboard = () => {
+  const [logs] = useState(initialLogs);
+  const [filterProtocol, setFilterProtocol] = useState('ALL');
+  const [filterAction, setFilterAction] = useState('ALL');
+
+  const handleProtocolChange = (e) => {
+    setFilterProtocol(e.target.value);
+  };
+
+  const handleActionChange = (e) => {
+    setFilterAction(e.target.value);
+  };
+
+  const filteredLogs = logs.filter((log) => {
+    const protocolMatches = filterProtocol === 'ALL' || log.protocol === filterProtocol;
+    const actionMatches = filterAction === 'ALL' || log.action === filterAction;
+    return protocolMatches && actionMatches;
+  });
+
   return (
     <div className='mainPageContainer'>
       <div className='logRepresentation'></div>
       <div className='logOverview'>
         <div className='logOverviewTableButtonField'>
-          <button className='logOverviewTableButtons'>1</button>
-          <button className='logOverviewTableButtons'>2</button>
-          <button className='logOverviewTableButtons'>3</button>
-          <button className='logOverviewTableButtons'>4</button>
-          <button className='logOverviewTableButtons'>5</button>
+          <label>
+            <select onChange={handleProtocolChange} className='logOverviewTableButtons' value={filterProtocol}>
+              <option value="ALL">Alle Protokolle</option>
+              <option value="HTTP">HTTP</option>
+              <option value="HTTPS">HTTPS</option>
+            </select>
+          </label>
+
+          <label>
+            <select onChange={handleActionChange} className='logOverviewTableButtons' value={filterAction}>
+              <option value="ALL">Alle Aktionen</option>
+              <option value="INFO">INFO</option>
+              <option value="WARNING">WARNING</option>
+            </select>
+          </label>
+
+          <button className='logOverviewTableButtons'>Letzte...</button>
+          <button className='logOverviewTableButtons'>Ansicht ändern</button>
+          <button className='logOverviewTableButtons'>Import</button>
+          <button className='logOverviewTableButtons'>Export</button>
+          <button className='logOverviewTableButtons'>Neu Laden</button>
         </div>
+
         <div className='logOverviewTableWrapper'>
-      <Table 
-      className='logOverviewTable'
-      striped bordered hover
-      >
-      <thead>
-        <tr>
-          <th>Timestamp</th>
-          <th>Source IP</th>
-          <th>Destination IP</th>
-          <th>Port</th>
-          <th>Protocol</th>
-          <th>action</th>
-          <th>Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2025-04-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTPS</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 22:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 21:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 20:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8080</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 19:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8000</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 18:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 17:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 16:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>9000</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 15:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 14:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 13:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>9000</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 12:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 11:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 10:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-09 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-08 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-07 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-06 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-05 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-04 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-03 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-03-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>7052</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-02-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-01-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8080</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:50</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>9000</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:49</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:48</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:47</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:46</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:45</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:44</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8000</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:43</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:42</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:41</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:40</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:39</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:38</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8080</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:37</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8080</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>8000</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:51</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:38</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>9000</td>
-          <td>HTTP</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:35</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:52</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5050</td>
-          <td>HTTP</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:53</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5052</td>
-          <td>HTTPS</td>
-          <td>INFO</td>
-          <td>Eine Nachricht</td>
-        </tr>
-        <tr>
-        <td>2025-04-10 23:54</td>
-          <td>192.168.2.1</td>
-          <td>127.0.0.0</td>
-          <td>5051</td>
-          <td>HTTPS</td>
-          <td>WARNING</td>
-          <td>Eine Nachricht</td>
-        </tr>
-      </tbody>
-    </Table>
+          <Table className='logOverviewTable' striped bordered hover>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Source IP</th>
+                <th>Destination IP</th>
+                <th>Port</th>
+                <th>Protocol</th>
+                <th>Action</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredLogs.map((log, index) => (
+                <tr key={index}>
+                  <td>{log.timestamp}</td>
+                  <td>{log.sourceIP}</td>
+                  <td>{log.destinationIP}</td>
+                  <td>{log.port}</td>
+                  <td>{log.protocol}</td>
+                  <td>{log.action}</td>
+                  <td>{log.message}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
     </div>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Dashboard;
