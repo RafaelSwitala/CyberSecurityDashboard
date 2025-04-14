@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => {
     <div className="loginContainer">
       <Form onSubmit={handleSubmit} className="loginForm">
         <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Benutzername</Form.Label>
+          <Form.Label>Benutzername:</Form.Label>
           <Form.Control
             type="text"
             placeholder="Benutzername eingeben"
@@ -30,7 +30,7 @@ const Login = ({ onLogin }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Passwort</Form.Label>
+          <Form.Label>Passwort:</Form.Label>
           <Form.Control
             type="password"
             placeholder="Passwort eingeben"
@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className='loginButton' variant="primary" type="submit">
           Login
         </Button>
       </Form>
