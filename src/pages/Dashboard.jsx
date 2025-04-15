@@ -16,7 +16,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-15T10:30:45+02:00',
+    timestamp: '2025-04-15T15:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -25,7 +25,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-15T10:30:45+02:00',
+    timestamp: '2025-04-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -178,8 +178,31 @@ const Dashboard = () => {
   const [filterProtocol, setFilterProtocol] = useState('ALL');
   const [filterAction, setFilterAction] = useState('ALL');
   const [showFilters, setShowFilters] = useState(false);
+  const [showLastX, setShowLastX] = useState(false);
+  const [timeFilter, setTimeFilter] = useState('ALL');
 
   const toggleFilters = () => setShowFilters(!showFilters);
+  const toggleLastX = () => setShowLastX(!showLastX);
+
+  const getTimeThreshold = (filter) => {
+    const now = new Date();
+    switch (filter) {
+      case '1h':
+        return new Date(now.getTime() - 1 * 60 * 60 * 1000);
+      case '6h':
+        return new Date(now.getTime() - 6 * 60 * 60 * 1000);
+      case '1d':
+        return new Date(now.getTime() - 24 * 60 * 60 * 1000);
+      case '1w':
+        return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      case '1m':
+        return new Date(now.setMonth(now.getMonth() - 1));
+      case '1y':
+        return new Date(now.setFullYear(now.getFullYear() - 1));
+      default:
+        return null;
+    }
+  };
 
   const filteredLogs = logs.filter((log) => {
     const sourceIPMatches = filterSourceIP === 'ALL' || log.sourceIP === filterSourceIP;
@@ -187,7 +210,12 @@ const Dashboard = () => {
     const portMatches = filterPort === 'ALL' || log.port.toString() === filterPort.toString();
     const protocolMatches = filterProtocol === 'ALL' || log.protocol === filterProtocol;
     const actionMatches = filterAction === 'ALL' || log.action === filterAction;
-    return sourceIPMatches && destinationIPMatches && portMatches && protocolMatches && actionMatches;
+
+    const logTime = new Date(log.timestamp);
+    const threshold = getTimeThreshold(timeFilter);
+    const timeMatches = !threshold || logTime >= threshold;
+
+    return sourceIPMatches && destinationIPMatches && portMatches && protocolMatches && actionMatches && timeMatches;
   });
 
   return (
@@ -223,7 +251,9 @@ const Dashboard = () => {
 
       <div className='logOverviewTableButtonField'>
         <div className='logOverviewTableButtonsContainer'>
-          <button className='logOverviewTableButtons'>Letzte...</button>
+          <button className='logOverviewTableButtons' onClick={toggleLastX}>
+            Letzte...
+          </button>
           <button className='logOverviewTableButtons'>Ansicht ändern</button>
           <button className='logOverviewTableButtons'>Import</button>
           <button className='logOverviewTableButtons'>Export</button>
@@ -231,7 +261,9 @@ const Dashboard = () => {
           <button className='logOverviewTableButtons' onClick={toggleFilters}>
             Filtern nach...
           </button>
-        </div> 
+</div>
+
+
       </div>
 
       <div className='logOverview'>
@@ -248,6 +280,12 @@ const Dashboard = () => {
           filterPort={filterPort}
           filterProtocol={filterProtocol}
           filterAction={filterAction}
+        />
+
+        <LastXButton
+        showLastX={showLastX}
+        setTimeFilter={setTimeFilter}
+        currentFilter={timeFilter}
         />
 
         <div className='logOverviewTableWrapper'>
