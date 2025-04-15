@@ -218,6 +218,18 @@ const Dashboard = () => {
     return sourceIPMatches && destinationIPMatches && portMatches && protocolMatches && actionMatches && timeMatches;
   });
 
+  const resetFilters = () => {
+    setFilterSourceIP('ALL');
+    setFilterDestinationIP('ALL');
+    setFilterPort('ALL');
+    setFilterProtocol('ALL');
+    setFilterAction('ALL');
+    setTimeFilter('ALL');
+    setShowFilters(false);
+    setShowLastX(false);
+  };
+  
+
   return (
     <div className='mainPageContainer'>
       <div className='logRepresentation'>
@@ -257,7 +269,7 @@ const Dashboard = () => {
           <button className='logOverviewTableButtons'>Ansicht ändern</button>
           <button className='logOverviewTableButtons'>Import</button>
           <button className='logOverviewTableButtons'>Export</button>
-          <button className='logOverviewTableButtons'>Neu Laden</button>
+          <button className='logOverviewTableButtons' onClick={resetFilters}>Zurücksetzen</button>
           <button className='logOverviewTableButtons' onClick={toggleFilters}>
             Filtern nach...
           </button>
