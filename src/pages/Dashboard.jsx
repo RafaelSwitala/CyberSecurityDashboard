@@ -263,16 +263,19 @@ const Dashboard = () => {
 
       <div className='logOverviewTableButtonField'>
         <div className='logOverviewTableButtonsContainer'>
-          <button className='logOverviewTableButtons' onClick={toggleLastX}>
-            Letzte...
-          </button>
-          <button className='logOverviewTableButtons'>Ansicht ändern</button>
-          <button className='logOverviewTableButtons'>Import</button>
-          <button className='logOverviewTableButtons'>Export</button>
-          <button className='logOverviewTableButtons' onClick={resetFilters}>Zurücksetzen</button>
           <button className='logOverviewTableButtons' onClick={toggleFilters}>
             Filtern nach...
           </button>
+          <button className='logOverviewTableButtons' onClick={toggleLastX}>
+            Letzte...
+          </button>
+          <button className='logOverviewTableButtons' onClick={resetFilters}>Filter Zurücksetzen</button>
+          <button className='logOverviewTableButtons'>Ansicht ändern</button>
+          <button className='logOverviewTableButtons'>Daten Neuladen</button>
+          <button className='logOverviewTableButtons importExportButton'>Import</button>
+          <button className='logOverviewTableButtons importExportButton'>Export</button>
+          
+
 </div>
 
 

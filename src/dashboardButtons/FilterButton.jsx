@@ -55,7 +55,7 @@ const FilterButton = ({
           </label>
 
           <label className='filterOptions'>
-            Aktion:
+            Action:
             <select className='filterOptionsSelect' onChange={handleActionChange} value={filterAction}>
               <option value="ALL">Alle Aktionen</option>
               <option value="INFO">INFO</option>

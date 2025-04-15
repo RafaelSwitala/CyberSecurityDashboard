@@ -55,6 +55,12 @@
     height: 50px;
 }
 
+.importExportButton {
+    background-color: var(--red);
+    color: var(--cream);
+    width: 8.333%;
+}
+
 .logOverviewTable {
     width: 100%;
     table-layout: fixed;
