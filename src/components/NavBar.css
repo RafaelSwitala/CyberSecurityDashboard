@@ -2,7 +2,7 @@
     height: 80px;
     width: 100%;
     background-color: var(--darkgrey);
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid var(--cream);
 }
 
 .logoField {

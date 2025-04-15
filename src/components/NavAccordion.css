@@ -3,5 +3,5 @@
     width: 12%;
     background-color: var(--red);
     float: left;
-    border-right: 2px solid white;
+    border-right: 2px solid var(--cream);
 }
