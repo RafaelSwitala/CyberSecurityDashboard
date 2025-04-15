@@ -5,6 +5,8 @@ Tools:
 - Git
 - Node.js und npm
 - Visual Studio Code
+- React
+- React-Bootstrap
 
 Anleitung - Installation: 
 git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git

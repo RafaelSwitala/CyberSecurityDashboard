@@ -213,7 +213,7 @@ const Dashboard = () => {
       <div className='logRepresentation'>
       <Carousel>
   <Carousel.Item>
-    <div style={{ height: '300px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <div className='carousel'>
       <div>
         <h3>Erste Folie</h3>
         <p>Beschreibung der ersten Folie</p>
@@ -221,7 +221,7 @@ const Dashboard = () => {
     </div>
   </Carousel.Item>
   <Carousel.Item>
-    <div style={{ height: '300px', backgroundColor: '#dee2e6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <div className='carousel'>
       <div>
         <h3>Zweite Folie</h3>
         <p>Hier ist etwas anderer Inhalt</p>
@@ -229,7 +229,7 @@ const Dashboard = () => {
     </div>
   </Carousel.Item>
   <Carousel.Item>
-    <div style={{ height: '300px', backgroundColor: '#ced4da', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className='carousel'>
       <div>
         <h3>Dritte Folie</h3>
         <p>Mehr Text oder Komponenten gehen auch</p>

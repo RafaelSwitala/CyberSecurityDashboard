@@ -22,6 +22,14 @@
     border-bottom: 2px solid black;
 }
 
+.carousel {
+    height: 100%; 
+    background-color: #dee2e6; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .logOverview {
     height: 60%;
     width: 100%;
