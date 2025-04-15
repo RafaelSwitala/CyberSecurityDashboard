@@ -15,18 +15,7 @@ const FilterButton = ({
   filterAction,
 }) => {
   return (
-    <div className='logOverviewTableButtonField'>
-      <div className='logOverviewTableButtonsContainer'>
-        <button className='logOverviewTableButtons'>Letzte...</button>
-        <button className='logOverviewTableButtons'>Ansicht ändern</button>
-        <button className='logOverviewTableButtons'>Import</button>
-        <button className='logOverviewTableButtons'>Export</button>
-        <button className='logOverviewTableButtons'>Neu Laden</button>
-        <button className='logOverviewTableButtons' onClick={toggleFilters}>
-          Filtern nach...
-        </button>
-      </div>
-
+    <div>
       {showFilters && (
         <div className='filterDropdowns'>
           <label className='filterOptions'>

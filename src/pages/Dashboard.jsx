@@ -3,10 +3,11 @@ import Table from 'react-bootstrap/Table';
 import Carousel from 'react-bootstrap/Carousel';
 import './allPages.css';
 import FilterButton from '../dashboardButtons/FilterButton';
+import LastXButton from '../dashboardButtons/LastXButton';
 
 const initialLogs = [
   {
-    timestamp: '2025-04-10 23:51',
+    timestamp: '2025-04-15T10:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 7052,
@@ -15,7 +16,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-04-15T10:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -24,7 +25,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-04-15T10:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -33,7 +34,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-04-15T10:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -42,7 +43,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2020-01-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -51,7 +52,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2020-01-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -60,7 +61,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2024-05-25T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -69,7 +70,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-04-12T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -78,7 +79,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2024-05-25T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -87,7 +88,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2024-05-25T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -96,7 +97,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2024-05-25T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -105,7 +106,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-19T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -114,7 +115,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-19T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -123,7 +124,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-19T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -132,7 +133,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-19T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -141,7 +142,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -150,7 +151,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -159,7 +160,7 @@ const initialLogs = [
     message: 'Eine Nachricht',
   },
   {
-    timestamp: '2025-04-10 22:51',
+    timestamp: '2025-03-15T14:30:45+02:00',
     sourceIP: '192.168.2.1',
     destinationIP: '127.0.0.0',
     port: 5050,
@@ -218,6 +219,19 @@ const Dashboard = () => {
             </div>
           </Carousel.Item>
         </Carousel>
+      </div>
+
+      <div className='logOverviewTableButtonField'>
+        <div className='logOverviewTableButtonsContainer'>
+          <button className='logOverviewTableButtons'>Letzte...</button>
+          <button className='logOverviewTableButtons'>Ansicht ändern</button>
+          <button className='logOverviewTableButtons'>Import</button>
+          <button className='logOverviewTableButtons'>Export</button>
+          <button className='logOverviewTableButtons'>Neu Laden</button>
+          <button className='logOverviewTableButtons' onClick={toggleFilters}>
+            Filtern nach...
+          </button>
+        </div> 
       </div>
 
       <div className='logOverview'>
