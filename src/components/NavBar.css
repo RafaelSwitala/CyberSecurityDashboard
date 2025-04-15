@@ -4,3 +4,14 @@
     background-color: var(--darkgrey);
     border-bottom: 2px solid white;
 }
+
+.logoField {
+    width: 330px;
+    height: 80px;
+    background-image: url('../img/Logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 40px;
+  }
+  
