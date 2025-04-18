@@ -9,10 +9,10 @@ Tools:
 - React-Bootstrap
 
 Anleitung - Installation: 
-git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
-cd CyberSecurityDashboard
-npm install
-npm start
+- git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
+- cd CyberSecurityDashboard
+- npm install
+- npm start
 
 Bitte beachten:
 1.	Bevor du mit dem Programmieren loslegst, hol dir zuerst die neueste Version des Projekts:
