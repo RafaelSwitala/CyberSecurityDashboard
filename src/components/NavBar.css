@@ -1,0 +1,17 @@
+.navBar {
+    height: 80px;
+    width: 100%;
+    background-color: var(--darkgrey);
+    border-bottom: 2px solid var(--cream);
+}
+
+.logoField {
+    width: 330px;
+    height: 80px;
+    background-image: url('../img/Logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 40px;
+  }
+  

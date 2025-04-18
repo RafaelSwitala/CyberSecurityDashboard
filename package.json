@@ -1,0 +1,41 @@
+{
+  "name": "cybersecuritydashboard",
+  "version": "1.0.0",
+  "description": "Fallstudie - Software Engineering - Projekt",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelSwitala/CyberSecurityDashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelSwitala/CyberSecurityDashboard/issues"
+  },
+  "homepage": "https://github.com/RafaelSwitala/CyberSecurityDashboard#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.5",
+    "css-loader": "^7.1.2",
+    "cybersecuritydashboard": "file:",
+    "react": "^19.1.0",
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.4.1",
+    "style-loader": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "babel-loader": "^10.0.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
+  }
+}
