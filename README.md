@@ -11,10 +11,10 @@ Tools:
 Anleitung - Installation: 
 git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
 cd CyberSecurityDashboard
-git flow init
 npm install
 npm start
 
+Bitte beachten:
 1.	Bevor du mit dem Programmieren loslegst, hol dir zuerst die neueste Version des Projekts:
 Gib diese Befehle im Terminal ein:
 •	git pull --all (holt alle aktuellen Änderungen)
