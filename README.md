@@ -1,6 +1,8 @@
 # CyberSecurityDashboard
 Fallstudie - Software Engineering - Projekt
 
+Stand: 22.04.2025
+
 Tools:
 - Git
 - Node.js und npm
