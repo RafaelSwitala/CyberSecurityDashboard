@@ -43,4 +43,4 @@ AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums?
 
 Nutzerverwaltung: Admin und Analyst: Datenbank
 
-Dokumentation über Anforderungen schreiben
+Dokumentation über Anforderungen schreiben.
