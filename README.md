@@ -29,3 +29,18 @@ Gib diese Befehle im Terminal ein:
 •	git add .
 •	git commit -m "kurze Beschreibung deiner Änderungen"
 •	git push --all (lädt alles auf GitHub hoch)
+
+
+
+Weitere ToDo´s bis Freitag:
+LogFiles sollen in LogOverview rein
+Oben sollen Diagramme/Angriffsbenachrichtigungen rein
+Unten sollen Tasks rein
+LogFileGenerator an LogOverview binden, BeispielLogs löschen
+
+Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)
+AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
+
+Nutzerverwaltung: Admin und Analyst: Datenbank
+
+Dokumentation über Anforderungen schreiben

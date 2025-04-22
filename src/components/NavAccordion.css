@@ -4,4 +4,14 @@
     background-color: var(--red);
     float: left;
     border-right: 2px solid var(--cream);
+    padding-top: 710px;
+}
+
+.navAccordion > button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 180px;
+    height: 40px;
 }
