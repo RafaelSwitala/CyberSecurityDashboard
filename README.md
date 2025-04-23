@@ -33,10 +33,9 @@ Gib diese Befehle im Terminal ein:
 
 
 Weitere ToDo´s bis Freitag:
-LogFiles sollen in LogOverview rein
 Oben sollen Diagramme/Angriffsbenachrichtigungen rein
 Unten sollen Tasks rein
-LogFileGenerator an LogOverview binden, BeispielLogs löschen
+
 
 Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)
 AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)

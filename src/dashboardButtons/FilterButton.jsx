@@ -1,71 +1,73 @@
 import React from 'react';
 
-const FilterButton = ({ 
+const Select = ({ label, value, onChange, options }) => (
+  <label className="filterOptions">
+    {label}
+    <select className="filterOptionsSelect" value={value} onChange={onChange}>
+      <option value="ALL">Alle {label}</option>
+      {options.map(opt => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
+    </select>
+  </label>
+);
+
+const FilterButton = ({
   showFilters,
-  toggleFilters,
-  handleSourceIPChange,
-  handleDestinationIPChange,
-  handlePortChange,
-  handleProtocolChange,
-  handleActionChange,
   filterSourceIP,
   filterDestinationIP,
   filterPort,
   filterProtocol,
   filterAction,
-}) => {
-  return (
-    <div>
-      {showFilters && (
-        <div className='filterDropdowns'>
-          <label className='filterOptions'>
-            Source IP:
-            <select className='filterOptionsSelect' onChange={handleSourceIPChange} value={filterSourceIP}>
-              <option value="ALL">Alle SourceIPs</option>
-              <option value="192.168.2.1">192.168.2.1</option>
-              <option value="192.168.2.549">192.168.2.549</option>
-            </select>
-          </label>
-
-          <label className='filterOptions'>
-            Destination IP:
-            <select className='filterOptionsSelect' onChange={handleDestinationIPChange} value={filterDestinationIP}>
-              <option value="ALL">Alle Destination IPs</option>
-              <option value="127.0.0.0">127.0.0.0</option>
-              <option value="127.0.0.555">127.0.0.555</option>
-            </select>
-          </label>
-
-          <label className='filterOptions'>
-            Port:
-            <select className='filterOptionsSelect' onChange={handlePortChange} value={filterPort}>
-              <option value="ALL">Alle Ports</option>
-              <option value="5050">5050</option>
-              <option value="8000">8000</option>
-            </select>
-          </label>
-
-          <label className='filterOptions'>
-            Protokoll:
-            <select className='filterOptionsSelect' onChange={handleProtocolChange} value={filterProtocol}>
-              <option value="ALL">Alle Protokolle</option>
-              <option value="HTTP">HTTP</option>
-              <option value="HTTPS">HTTPS</option>
-            </select>
-          </label>
-
-          <label className='filterOptions'>
-            Action:
-            <select className='filterOptionsSelect' onChange={handleActionChange} value={filterAction}>
-              <option value="ALL">Alle Aktionen</option>
-              <option value="INFO">INFO</option>
-              <option value="WARNING">WARNING</option>
-            </select>
-          </label>
-        </div>
-      )}
-    </div>
-  );
-};
+  handleSourceIPChange,
+  handleDestinationIPChange,
+  handlePortChange,
+  handleProtocolChange,
+  handleActionChange,
+  sourceIpOptions,
+  destinationIpOptions,
+  portOptions,
+  protocolOptions,
+  actionOptions,
+}) => (
+  <div>
+    {showFilters && (
+      <div className="filterDropdowns">
+        <Select
+          label="Source IP"
+          value={filterSourceIP}
+          onChange={handleSourceIPChange}
+          options={sourceIpOptions}
+        />
+        <Select
+          label="Destination IP"
+          value={filterDestinationIP}
+          onChange={handleDestinationIPChange}
+          options={destinationIpOptions}
+        />
+        <Select
+          label="Port"
+          value={filterPort}
+          onChange={handlePortChange}
+          options={portOptions}
+        />
+        <Select
+          label="Protokoll"
+          value={filterProtocol}
+          onChange={handleProtocolChange}
+          options={protocolOptions}
+        />
+        <Select
+          label="Action"
+          value={filterAction}
+          onChange={handleActionChange}
+          options={actionOptions}
+        />
+      </div>
+    )}
+  </div>
+);
 
 export default FilterButton;
