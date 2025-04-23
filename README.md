@@ -35,6 +35,8 @@ Gib diese Befehle im Terminal ein:
 Weitere ToDo´s bis Freitag:
 Oben sollen Diagramme/Angriffsbenachrichtigungen rein
 Unten sollen Tasks rein
+logOverviewKomponenten Tabelle soll Pagination und anzahl der Elemente enthalten
+Layout allgemein anpassen
 
 
 Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)

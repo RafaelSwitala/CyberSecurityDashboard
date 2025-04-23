@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Table from 'react-bootstrap/Table';
-import FilterButton from '../dashboardButtons/FilterButton';
-import LastXButton from '../dashboardButtons/LastXButton';
+import FilterButton from '../logOverviewButtons/FilterButton';
+import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../../log-generator/config.json';
 import './allPages.css';
 
