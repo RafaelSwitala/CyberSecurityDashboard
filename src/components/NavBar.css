@@ -3,9 +3,13 @@
     width: 100%;
     background-color: var(--darkgrey);
     border-bottom: 2px solid var(--cream);
-}
-
-.logoField {
+  }
+  
+  .logoLink {
+    display: inline-block; 
+  }
+  
+  .logoField {
     width: 330px;
     height: 80px;
     background-image: url('../img/Logo.png');
