@@ -10,10 +10,13 @@
 
 /* Main Pages: Dashboard */
 .mainPageContainer {
-    height: 879px;
+    flex: 1 1 auto;
     width: 88%;
-    float: right;
-}
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 250px);
+  }
 
 .logRepresentation {
     height: 40%;
