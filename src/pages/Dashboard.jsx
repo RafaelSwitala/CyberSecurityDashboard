@@ -1,33 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Carousel from 'react-bootstrap/Carousel';
 import './allPages.css';
 import FilterButton from '../dashboardButtons/FilterButton';
 import LastXButton from '../dashboardButtons/LastXButton';
 
-const initialLogs = [
-  {
-    timestamp: '2025-03-15T14:30:45+02:00',
-    source_ip: '192.168.2.1',
-    destinationIP: '127.0.0.0',
-    port: 5050,
-    protocol: 'HTTPS',
-    action: 'INFO',
-    message: 'Eine Nachricht',
-  },
-  {
-    timestamp: '2025-03-15T14:30:45+02:00',
-    sourceIP: '192.168.2.1',
-    destinationIP: '127.0.0.0',
-    port: 5050,
-    protocol: 'HTTP',
-    action: 'INFO',
-    message: 'Eine Nachricht',
-  } // Der Import wird über JSON oder Datenbank gehen
-];
 
 const Dashboard = () => {
-  const [logs] = useState(initialLogs);
+  const [logs, setLogs] = useState([]);
   const [filterSourceIP, setFilterSourceIP] = useState('ALL');
   const [filterDestinationIP, setFilterDestinationIP] = useState('ALL');
   const [filterPort, setFilterPort] = useState('ALL');
@@ -36,6 +16,32 @@ const Dashboard = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [showLastX, setShowLastX] = useState(false);
   const [timeFilter, setTimeFilter] = useState('ALL');
+
+  useEffect(() => {
+    fetch('/generated_logs.ndjson')
+      .then((res) => res.text())
+      .then((text) => {
+        const parsedLogs = text
+          .split('\n')
+          .filter(line => line.trim() !== '')
+          .map(line => {
+            try {
+              const obj = JSON.parse(line);
+              return {
+                ...obj,
+                sourceIP: obj.source_ip,
+                destinationIP: obj.destination_ip,
+              };
+            } catch (e) {
+              console.error('Fehler beim Parsen einer Zeile:', line);
+              return null;
+            }
+          })
+          .filter(Boolean);
+        setLogs(parsedLogs);
+      })
+      .catch((err) => console.error('Fehler beim Laden der Logs:', err));
+  }, []);
 
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
@@ -84,7 +90,6 @@ const Dashboard = () => {
     setShowFilters(false);
     setShowLastX(false);
   };
-  
 
   return (
     <div className='mainPageContainer'>
@@ -119,22 +124,14 @@ const Dashboard = () => {
 
       <div className='logOverviewTableButtonField'>
         <div className='logOverviewTableButtonsContainer'>
-          <button className='logOverviewTableButtons' onClick={toggleFilters}>
-            Filtern nach...
-          </button>
-          <button className='logOverviewTableButtons' onClick={toggleLastX}>
-            Letzte...
-          </button>
+          <button className='logOverviewTableButtons' onClick={toggleFilters}>Filtern nach...</button>
+          <button className='logOverviewTableButtons' onClick={toggleLastX}>Letzte...</button>
           <button className='logOverviewTableButtons' onClick={resetFilters}>Filter Zurücksetzen</button>
           <button className='logOverviewTableButtons'>Ansicht ändern</button>
           <button className='logOverviewTableButtons'>Daten Neuladen</button>
           <button className='logOverviewTableButtons importExportButton'>Import</button>
           <button className='logOverviewTableButtons importExportButton'>Export</button>
-          
-
-</div>
-
-
+        </div>
       </div>
 
       <div className='logOverview'>
@@ -154,9 +151,9 @@ const Dashboard = () => {
         />
 
         <LastXButton
-        showLastX={showLastX}
-        setTimeFilter={setTimeFilter}
-        currentFilter={timeFilter}
+          showLastX={showLastX}
+          setTimeFilter={setTimeFilter}
+          currentFilter={timeFilter}
         />
 
         <div className='logOverviewTableWrapper'>
@@ -169,7 +166,7 @@ const Dashboard = () => {
                 <th>Port</th>
                 <th>Protocol</th>
                 <th>Action</th>
-                <th>Message</th>
+                <th>Reason</th>
               </tr>
             </thead>
             <tbody>
@@ -181,7 +178,7 @@ const Dashboard = () => {
                   <td>{log.port}</td>
                   <td>{log.protocol}</td>
                   <td>{log.action}</td>
-                  <td>{log.message}</td>
+                  <td>{log.reason}</td>
                 </tr>
               ))}
             </tbody>
