@@ -1,5 +1,6 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import "./charts.css";
 
 const ProtocolChart = ({ data }) => (
   <ResponsiveContainer width="100%" height={250}>

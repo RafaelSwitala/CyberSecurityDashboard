@@ -1,29 +1,63 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import ProtocolChart from "../charts/ProtocolChart";
+import AccessTrendChart from "../charts/AccessTrendChart";
 import "./allPages.css";
 
 const Dashboard = () => {
   const [protocolData, setProtocolData] = useState([]);
+  const [trendData, setTrendData]       = useState([]);
 
   useEffect(() => {
+    const fetchAndProcessData = () => {
     fetch("/generated_logs.ndjson")
       .then(res => res.text())
-      .then(txt =>
-        txt
-          .trim()
-          .split("\n")
-          .map(JSON.parse)
-          .reduce((acc, { protocol }) => {
+      .then(text => text.trim().split("\n").map(JSON.parse))
+      .then(logs => {
+
+
+          const protoObj = logs.reduce((acc, { protocol }) => {
             acc[protocol] = (acc[protocol] || 0) + 1;
             return acc;
-          }, {})
-      )
-      .then(obj =>
-        Object.entries(obj).map(([protocol, count]) => ({ protocol, count }))
-      )
-      .then(setProtocolData)
-      .catch(console.error);
+          }, {});
+          setProtocolData(
+            Object.entries(protoObj).map(([protocol, count]) => ({ protocol, count }))
+          );
+
+        const now = new Date();
+        const currentHour = new Date(now);
+        currentHour.setMinutes(0, 0, 0);
+        const trendObj = {};
+          logs.forEach(({ timestamp, action }) => {
+            const logTime = new Date(timestamp);
+            const hourBucket = new Date(logTime);
+            hourBucket.setMinutes(0, 0, 0);
+
+            const label = hourBucket.toLocaleTimeString("de-DE", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            });
+
+            if (!trendObj[label]) {
+              trendObj[label] = { time: label, allowed: 0, blocked: 0 };
+            }
+            trendObj[label][action]++;
+          });
+
+          const sorted = Object.values(trendObj)
+            .sort((a, b) => a.time.localeCompare(b.time))
+            .filter((_, idx, arr) => idx >= arr.length -7);
+
+          setTrendData(sorted);
+        })
+        .catch(console.error);
+    };
+
+    fetchAndProcessData();
+    const intervalId = setInterval(fetchAndProcessData, 60 * 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -33,25 +67,21 @@ const Dashboard = () => {
           <Carousel.Item>
             <div className="carousel">
               <h3>Verteilung der Protokolle</h3>
-              {protocolData.length ? (
-                <ProtocolChart data={protocolData} />
-              ) : (
-                <p>lade …</p>
-              )}
+              {protocolData.length ? <ProtocolChart data={protocolData} /> : <p>lade …</p>}
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
             <div className="carousel">
-              <h3>Zweite Folie</h3>
-              <p>Hier ist etwas anderer Inhalt</p>
+              <h3>allowed vs. blocked (5‑Sek‑Intervalle)</h3>
+              {trendData.length ? <AccessTrendChart data={trendData} /> : <p>lade …</p>}
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
             <div className="carousel">
               <h3>Dritte Folie</h3>
-              <p>Mehr Text oder Komponenten gehen auch</p>
+              <p>Mehr Inhalt folgt …</p>
             </div>
           </Carousel.Item>
         </Carousel>
