@@ -6,7 +6,7 @@ import './allPages.css';
 const Dashboard = () => {
   return (
     <div className='mainPageContainer'>
-      <div className='logRepresentation'>
+      <div className='carouselSection'>
         <Carousel>
           <Carousel.Item>
             <div className='carousel'>
@@ -33,6 +33,9 @@ const Dashboard = () => {
             </div>
           </Carousel.Item>
         </Carousel>
+      </div>
+      <div className='taskSection'>
+
       </div>
       </div>
   );

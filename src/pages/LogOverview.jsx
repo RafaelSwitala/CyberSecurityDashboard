@@ -5,6 +5,8 @@ import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../../log-generator/config.json';
 import './allPages.css';
 
+const PAGE_SIZES = [5, 10, 20, 50, 100];
+
 const LogOverview = () => {
   const [logs, setLogs] = useState([]);
   const [filterSourceIP, setFilterSourceIP] = useState('ALL');
@@ -15,6 +17,8 @@ const LogOverview = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [showLastX, setShowLastX] = useState(false);
   const [timeFilter, setTimeFilter] = useState('ALL');
+  const [pageSize, setPageSize]   = useState(PAGE_SIZES[0]);
+  const [currentPage, setCurrent] = useState(1);
 
   useEffect(() => {
     fetch('/generated_logs.ndjson')
@@ -98,6 +102,18 @@ const LogOverview = () => {
     setShowLastX(false);
   };
 
+  const pageCount = Math.max(1, Math.ceil(filteredLogs.length / pageSize));
+  const pagedLogs = filteredLogs.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
+
+  useEffect(() => setCurrent(1), [filterSourceIP, filterDestinationIP,
+    filterPort, filterProtocol, filterAction,
+    timeFilter, pageSize]);
+
+    const goto = p => setCurrent(Math.min(Math.max(1, p), pageCount));
+
   return (
     <div className="mainPageContainer">
       <div className="logOverviewTableButtonField">
@@ -154,7 +170,7 @@ const LogOverview = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredLogs.map((log, index) => (
+              {pagedLogs.map((log, index) => (
                 <tr key={index}>
                   <td>{log.timestamp}</td>
                   <td>{log.sourceIP}</td>
@@ -166,8 +182,48 @@ const LogOverview = () => {
                 </tr>
               ))}
             </tbody>
+
           </Table>
         </div>
+
+
+        <div className="tablePagination">
+        <label>
+          Zeilen pro Seite:&nbsp;
+          <select
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}
+          >
+            {PAGE_SIZES.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+
+        <nav className="pager">
+          <button onClick={() => goto(1)}      disabled={currentPage===1}>≪</button>
+          <button onClick={() => goto(currentPage-1)} disabled={currentPage===1}>‹</button>
+
+          {Array.from({length: pageCount}, (_, i) => i + 1)
+                .slice(Math.max(0, currentPage-3), currentPage+2)
+                .map(p => (
+            <button
+              key={p}
+              onClick={() => goto(p)}
+              className={p===currentPage ? 'active' : undefined}
+            >
+              {p}
+            </button>
+          ))}
+
+          <button onClick={() => goto(currentPage+1)} disabled={currentPage===pageCount}>›</button>
+          <button onClick={() => goto(pageCount)}     disabled={currentPage===pageCount}>≫</button>
+        </nav>
+
+        <span className="totalCount">Gesamt: {logs.length}</span>
+      </div>
+
+
       </div>
     </div>
   );
