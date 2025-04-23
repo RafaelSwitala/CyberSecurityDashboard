@@ -23,7 +23,7 @@ function generateLog() {
 }
 
 function writeToFile(log) {
-  fs.appendFile('generated_logs.jsonl', JSON.stringify(log) + '\n', err => {
+  fs.appendFile('../public/generated_logs.ndjson', JSON.stringify(log) + '\n', err => {
     if (err) console.error("Fehler beim Schreiben:", err);
   });
 }
