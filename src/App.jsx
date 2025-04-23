@@ -5,7 +5,7 @@ import Login from './Login';
 import NavAccordion from './components/NavAccordion';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
-import Page1 from './pages/Page1';
+import LogOverview from './pages/LogOverview';
 import Page2 from './pages/Page2';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,7 +31,7 @@ const App = () => {
           <NavAccordion />
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/Page1" element={<Page1 />} />
+            <Route path="/LogOverview" element={<LogOverview />} />
             <Route path="/Page2" element={<Page2 />} />
           </Routes>
       </div>
