@@ -40,8 +40,9 @@ Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)
 AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
 
 Nutzerverwaltung: Admin und Analyst: Datenbank
-User Stories: Cybersecurity-Dashboard
 
+
+User Stories: Cybersecurity-Dashboard
 Admin-User: 
 1.	Als Admin möchte ich mich sicher mit Benutzername und Passwort einloggen, um auf das Dashboard zugreifen zu können.
 2.	Als Admin möchte ich neue Benutzer anlegen oder löschen können, um den Zugriff zu kontrollieren.
