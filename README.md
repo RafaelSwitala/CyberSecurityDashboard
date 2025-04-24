@@ -1,6 +1,8 @@
 # CyberSecurityDashboard
 Fallstudie - Software Engineering - Projekt
 
+Stand: 22.04.2025
+
 Tools:
 - Git
 - Node.js und npm
@@ -9,12 +11,12 @@ Tools:
 - React-Bootstrap
 
 Anleitung - Installation: 
-git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
-cd CyberSecurityDashboard
-git flow init
-npm install
-npm start
+- git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
+- cd CyberSecurityDashboard
+- npm install
+- npm start
 
+Bitte beachten:
 1.	Bevor du mit dem Programmieren loslegst, hol dir zuerst die neueste Version des Projekts:
 Gib diese Befehle im Terminal ein:
 •	git pull --all (holt alle aktuellen Änderungen)
@@ -27,3 +29,18 @@ Gib diese Befehle im Terminal ein:
 •	git add .
 •	git commit -m "kurze Beschreibung deiner Änderungen"
 •	git push --all (lädt alles auf GitHub hoch)
+
+
+
+Weitere ToDo´s bis Freitag:
+LogFiles sollen in LogOverview rein
+Oben sollen Diagramme/Angriffsbenachrichtigungen rein
+Unten sollen Tasks rein
+LogFileGenerator an LogOverview binden, BeispielLogs löschen
+
+Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)
+AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
+
+Nutzerverwaltung: Admin und Analyst: Datenbank
+
+Dokumentation über Anforderungen schreiben

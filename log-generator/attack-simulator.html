@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Log-Angriffssimulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 40px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .sql { background-color: #f44336; color: white; }
+    .portscan { background-color: #ff9800; color: white; }
+    .malware { background-color: #3f51b5; color: white; }
+    .brute { background-color: #009688; color: white; }
+    .random { background-color: #607d8b; color: white; }
+  </style>
+</head>
+<body>
+  <h1>🔐 Angriffssimulator</h1>
+  <p>Simuliere gezielt Angriffe, die an dein Dashboard gesendet werden</p>
+
+  <button class="sql" onclick="simulate('SQL injection')">SQL Injection</button>
+  <button class="portscan" onclick="simulate('port scan')">Portscan</button>
+  <button class="malware" onclick="simulate('malware')">Malware</button>
+  <button class="brute" onclick="simulate('unauthorized access')">Brute Force</button>
+  <button class="random" onclick="simulateRandom()">Zufälliger Angriff</button>
+
+  <script>
+    const API_URL = "http://localhost:9000/"; // anpassen bei Bedarf
+
+    function generateLog(reason) {
+      return {
+        timestamp: new Date().toISOString(),
+        source_ip: "192.168.1." + Math.floor(Math.random() * 100 + 100),
+        destination_ip: "10.0.0." + Math.floor(Math.random() * 10 + 1),
+        port: [22, 80, 443, 3389, 53][Math.floor(Math.random() * 5)],
+        protocol: ["TCP", "UDP", "HTTPS", "HTTP"][Math.floor(Math.random() * 4)],
+        action: "blocked",
+        reason: reason
+      };
+    }
+
+    function simulate(reason) {
+      const log = generateLog(reason);
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(log)
+      })
+      .then(res => alert(`Angriff gesendet: ${reason}`))
+      .catch(err => alert("Fehler beim Senden: " + err));
+    }
+
+    function simulateRandom() {
+      const reasons = ["SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"];
+      simulate(reasons[Math.floor(Math.random() * reasons.length)]);
+    }
+  </script>
+</body>
+</html>
