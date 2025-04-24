@@ -42,11 +42,6 @@ Mehrere Geräte hinzufügen: Aktuell ist nur einer da (2. Sprint)
 AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
 
 Nutzerverwaltung: Admin und Analyst: Datenbank
-
-Dokumentation über Anforderungen schreiben..
-
-
-
 User Stories: Cybersecurity-Dashboard
 
 Admin-User: 
