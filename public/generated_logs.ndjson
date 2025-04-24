@@ -178,3 +178,4 @@
 {"timestamp":"2025-04-24T14:25:51.758Z","source_ip":"192.168.1.105","destination_ip":"10.0.0.10","port":3389,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T14:28:21.766Z","source_ip":"192.168.1.197","destination_ip":"10.0.0.2","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T14:30:51.771Z","source_ip":"192.168.1.114","destination_ip":"10.0.0.5","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T14:33:21.772Z","source_ip":"192.168.1.172","destination_ip":"10.0.0.4","port":443,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
