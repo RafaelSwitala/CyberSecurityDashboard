@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Login from './Login';
@@ -14,8 +14,21 @@ import './App.css';
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const storedAuth = localStorage.getItem('isAuthenticated');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const handleLogin = () => {
+    localStorage.setItem('isAuthenticated', 'true');
     setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    setIsAuthenticated(false);
   };
 
   if (!isAuthenticated) {
@@ -25,7 +38,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div>
-        <NavBar />
+        <NavBar onLogout={handleLogout} />
       </div>
       <div className='mainPage'>
           <NavAccordion />
