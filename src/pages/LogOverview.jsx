@@ -3,7 +3,6 @@ import Table from 'react-bootstrap/Table';
 import FilterButton from '../logOverviewButtons/FilterButton';
 import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../../log-generator/config.json';
-import AccessTrendChart from '../charts/AccessTrendChart';
 import './allPages.css';
 
 const PAGE_SIZES = [5, 10, 20, 50, 100];
@@ -20,8 +19,6 @@ const LogOverview = () => {
   const [timeFilter, setTimeFilter] = useState('ALL');
   const [pageSize, setPageSize]   = useState(PAGE_SIZES[0]);
   const [currentPage, setCurrent] = useState(1);
-  const [chartHours, setChartHours] = useState(6);
-
 
   useEffect(() => {
     fetch('/generated_logs.ndjson')
@@ -43,9 +40,8 @@ const LogOverview = () => {
 
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
 
-  const chartData = useMemo(() => getHourlyAccessData(filteredLogs, chartHours), [filteredLogs, chartHours]);
-
   const { sourceIps, destinationIps, actions } = useMemo(() => {
+    
     const ipsSrc = new Set();
     const ipsDst = new Set();
     const acts = new Set();
@@ -60,7 +56,6 @@ const LogOverview = () => {
       actions: [...acts].sort(),
     };
   }, [logs]);
-  
 
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
@@ -120,17 +115,17 @@ const LogOverview = () => {
 
     const goto = p => setCurrent(Math.min(Math.max(1, p), pageCount));
 
-    const getHourlyAccessData = (logs, hoursBack) => {
+    const getHourlyAccessData = (logs) => {
       const now = new Date();
       const end = new Date(now);
-      end.setMinutes(0, 0, 0); // ← aktuelle Stunde, keine Zukunft
-      const start = new Date(end.getTime() - hoursBack * 60 * 60 * 1000);
+      end.setMinutes(0, 0, 0);
+      const start = new Date(end.getTime() - 60 * 60 * 1000);
     
       const hourlyData = {};
     
       logs.forEach(log => {
         const logTime = new Date(log.timestamp);
-        if (logTime >= start && logTime < end) {
+        if (logTime >= start && logTime <= new Date(end.getTime() + 60 * 60 * 1000)) {
           const hourLabel = `${logTime.getHours().toString().padStart(2, '0')}:00`;
           if (!hourlyData[hourLabel]) {
             hourlyData[hourLabel] = { time: hourLabel, allowed: 0, blocked: 0 };
@@ -144,7 +139,7 @@ const LogOverview = () => {
       });
     
       const formattedData = [];
-      for (let i = 0; i < hoursBack; i++) {
+      for (let i = 0; i <= 1; i++) {
         const d = new Date(start.getTime() + i * 60 * 60 * 1000);
         const label = `${d.getHours().toString().padStart(2, '0')}:00`;
         if (!hourlyData[label]) {
@@ -155,16 +150,6 @@ const LogOverview = () => {
     
       return formattedData;
     };
-     
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setLogs(prev => [...prev]);
-      }, 60000);
-    
-      return () => clearInterval(interval);
-    }, []);
-    
     
 
   return (
@@ -207,22 +192,7 @@ const LogOverview = () => {
           actionOptions={actions}
         />
 
-      <LastXButton showLastX={showLastX} setTimeFilter={setTimeFilter} currentFilter={timeFilter} />
-
-      <div className="chartTimeSelector">
-        {[1, 3, 6, 12].map(h => (
-          <button
-            key={h}
-            className={`chartHourBtn ${chartHours === h ? 'active' : ''}`}
-            onClick={() => setChartHours(h)}
-          >
-            Letzte {h}h
-          </button>
-        ))}
-    </div>
-
-        <AccessTrendChart data={chartData} />
-
+        <LastXButton showLastX={showLastX} setTimeFilter={setTimeFilter} currentFilter={timeFilter} />
 
         <div className="logOverviewTableWrapper">
           <Table className="logOverviewTable" striped bordered hover>
