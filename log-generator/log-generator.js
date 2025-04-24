@@ -1,13 +1,18 @@
 const fs = require('fs');
 const axios = require('axios');
+const path = require('path');
 
-const SEND_TO_API = false; // true = an API senden, false = Datei schreiben
-const API_URL = 'http://localhost:8000/api/logs/live'; // ggf. anpassen
-const INTERVAL_MS = 2000;
-const ATTACK_CHANCE = 0.3;
+const config = require('./config.json');
 
-const protocols = ["TCP", "UDP", "HTTP", "HTTPS"];
-const reasons = ["normal traffic", "SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"];
+const {
+  SEND_TO_API,
+  API_URL,
+  INTERVAL_MS,
+  ATTACK_CHANCE,
+  protocols,
+  reasons,
+  ports
+} = config;
 
 function generateLog() {
   const attack = Math.random() < ATTACK_CHANCE;
@@ -15,7 +20,7 @@ function generateLog() {
     timestamp: new Date().toISOString(),
     source_ip: `192.168.1.${Math.floor(Math.random() * 100 + 100)}`,
     destination_ip: `10.0.0.${Math.floor(Math.random() * 10 + 1)}`,
-    port: [22, 80, 443, 3389, 53][Math.floor(Math.random() * 5)],
+    port: ports[Math.floor(Math.random() * ports.length)],
     protocol: protocols[Math.floor(Math.random() * protocols.length)],
     action: attack ? "blocked" : "allowed",
     reason: attack ? reasons[Math.floor(Math.random() * (reasons.length - 1) + 1)] : "normal traffic"
@@ -23,7 +28,8 @@ function generateLog() {
 }
 
 function writeToFile(log) {
-  fs.appendFile('generated_logs.jsonl', JSON.stringify(log) + '\n', err => {
+  const filePath = path.join(__dirname, '../public/generated_logs.ndjson');
+  fs.appendFile(filePath, JSON.stringify(log) + '\n', err => {
     if (err) console.error("Fehler beim Schreiben:", err);
   });
 }

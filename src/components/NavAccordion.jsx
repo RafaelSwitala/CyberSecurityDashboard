@@ -1,13 +1,13 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './NavAccordion.css';
 
 const NavAccordion = () => {
   return (
     <nav className="navAccordion">
-      <button>LogOverview</button>
-      <button>Alarme</button>
-      <button>Benutzer</button>
+      <Link to="/LogOverview" className="navAccordionButton">LogOverview</Link>
+      <Link to="/Page2" className="navAccordionButton">Alarme</Link>
+      <Link to="/PageX" className="navAccordionButton">Benutzer</Link>
     </nav>
   );
 };

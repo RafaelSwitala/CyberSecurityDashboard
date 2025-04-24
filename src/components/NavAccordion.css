@@ -1,17 +1,29 @@
 .navAccordion {
-    height: 879px;
-    width: 12%;
-    background-color: var(--red);
-    float: left;
-    border-right: 2px solid var(--cream);
-    padding-top: 710px;
+  min-height: calc(100vh - 250px);
+  width: 12%;
+  background-color: var(--red);
+  float: left;
+  border-right: 2px solid var(--cream);
+  padding-top: 600px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  }
+  
+.navAccordionButton {
+  display: block;
+  margin: 10px auto 0;
+  width: 180px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;             
+  border: 2px solid var(--darkBlue);
+  background-color: var(--cream);
+  color: var(--darkBlue);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
 }
-
-.navAccordion > button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    width: 180px;
-    height: 40px;
-}
+  

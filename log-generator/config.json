@@ -1,0 +1,10 @@
+{
+    "SEND_TO_API": false,
+    "API_URL": "http://localhost:8000/api/logs/live",
+    "INTERVAL_MS": 150000,
+    "ATTACK_CHANCE": 0.3,
+    "protocols": ["TCP", "UDP", "HTTP", "HTTPS"],
+    "reasons": ["normal traffic", "SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"],
+    "ports": [22, 80, 443, 3389, 53]
+  }
+  

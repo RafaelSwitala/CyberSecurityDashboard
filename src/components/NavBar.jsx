@@ -1,12 +1,13 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar = () => {
   return (
     <nav className="navBar">
-      <div className='logoField'></div>
-
+      <Link to="/" className="logoLink">
+        <div className="logoField" />
+      </Link>
     </nav>
   );
 };

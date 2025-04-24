@@ -1,0 +1,8 @@
+.allowedLine {
+    color: green;
+}
+
+.blockedLine {
+    color: red !important;
+    background-color: red !important;
+}
