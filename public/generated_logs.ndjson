@@ -1,6 +1,89 @@
-{"timestamp":"2025-04-18T21:46:37.591Z","source_ip":"192.168.1.171","destination_ip":"10.0.0.3","port":53,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-18T21:46:39.605Z","source_ip":"192.168.1.199","destination_ip":"10.0.0.6","port":53,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-18T21:46:41.607Z","source_ip":"192.168.1.145","destination_ip":"10.0.0.2","port":80,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-18T21:46:43.621Z","source_ip":"192.168.1.105","destination_ip":"10.0.0.2","port":80,"protocol":"HTTP","action":"blocked","reason":"port scan"}
-{"timestamp":"2025-04-18T21:46:45.635Z","source_ip":"192.168.1.117","destination_ip":"10.0.0.10","port":443,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-23T20:21:01.232Z","source_ip":"192.168.1.158","destination_ip":"10.0.0.10","port":53,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:01:03.061Z","source_ip":"192.168.1.121","destination_ip":"10.0.0.3","port":3389,"protocol":"UDP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T06:03:33.065Z","source_ip":"192.168.1.122","destination_ip":"10.0.0.9","port":22,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:06:03.067Z","source_ip":"192.168.1.118","destination_ip":"10.0.0.6","port":22,"protocol":"TCP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-04-24T06:08:33.067Z","source_ip":"192.168.1.141","destination_ip":"10.0.0.7","port":53,"protocol":"HTTPS","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T06:11:03.083Z","source_ip":"192.168.1.156","destination_ip":"10.0.0.4","port":3389,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:13:33.090Z","source_ip":"192.168.1.108","destination_ip":"10.0.0.6","port":22,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:16:03.096Z","source_ip":"192.168.1.169","destination_ip":"10.0.0.6","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:18:33.106Z","source_ip":"192.168.1.130","destination_ip":"10.0.0.7","port":80,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:21:03.113Z","source_ip":"192.168.1.130","destination_ip":"10.0.0.7","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:23:33.116Z","source_ip":"192.168.1.164","destination_ip":"10.0.0.5","port":80,"protocol":"HTTPS","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T06:26:03.122Z","source_ip":"192.168.1.130","destination_ip":"10.0.0.1","port":80,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:28:33.124Z","source_ip":"192.168.1.128","destination_ip":"10.0.0.6","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:31:03.131Z","source_ip":"192.168.1.152","destination_ip":"10.0.0.5","port":443,"protocol":"UDP","action":"blocked","reason":"XSS attempt"}
+{"timestamp":"2025-04-24T06:33:33.133Z","source_ip":"192.168.1.103","destination_ip":"10.0.0.7","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:36:03.134Z","source_ip":"192.168.1.155","destination_ip":"10.0.0.4","port":3389,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:38:33.145Z","source_ip":"192.168.1.166","destination_ip":"10.0.0.3","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:41:03.155Z","source_ip":"192.168.1.147","destination_ip":"10.0.0.5","port":3389,"protocol":"HTTP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T06:43:33.168Z","source_ip":"192.168.1.166","destination_ip":"10.0.0.4","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:46:03.181Z","source_ip":"192.168.1.197","destination_ip":"10.0.0.10","port":3389,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:48:33.190Z","source_ip":"192.168.1.152","destination_ip":"10.0.0.3","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:51:03.191Z","source_ip":"192.168.1.175","destination_ip":"10.0.0.8","port":22,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:53:33.192Z","source_ip":"192.168.1.152","destination_ip":"10.0.0.4","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T06:56:03.198Z","source_ip":"192.168.1.163","destination_ip":"10.0.0.3","port":80,"protocol":"HTTP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T06:58:33.201Z","source_ip":"192.168.1.194","destination_ip":"10.0.0.8","port":53,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:01:03.207Z","source_ip":"192.168.1.177","destination_ip":"10.0.0.4","port":80,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:03:33.214Z","source_ip":"192.168.1.102","destination_ip":"10.0.0.8","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:06:03.225Z","source_ip":"192.168.1.167","destination_ip":"10.0.0.5","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:08:33.237Z","source_ip":"192.168.1.101","destination_ip":"10.0.0.8","port":3389,"protocol":"HTTP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T07:11:03.243Z","source_ip":"192.168.1.175","destination_ip":"10.0.0.8","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:13:33.247Z","source_ip":"192.168.1.198","destination_ip":"10.0.0.10","port":53,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:16:03.251Z","source_ip":"192.168.1.164","destination_ip":"10.0.0.10","port":80,"protocol":"UDP","action":"blocked","reason":"XSS attempt"}
+{"timestamp":"2025-04-24T07:18:33.264Z","source_ip":"192.168.1.186","destination_ip":"10.0.0.5","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:21:03.278Z","source_ip":"192.168.1.166","destination_ip":"10.0.0.5","port":3389,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:23:33.283Z","source_ip":"192.168.1.188","destination_ip":"10.0.0.3","port":22,"protocol":"UDP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T07:26:03.289Z","source_ip":"192.168.1.103","destination_ip":"10.0.0.7","port":22,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:28:33.317Z","source_ip":"192.168.1.141","destination_ip":"10.0.0.3","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:31:03.331Z","source_ip":"192.168.1.188","destination_ip":"10.0.0.10","port":53,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:33:33.344Z","source_ip":"192.168.1.103","destination_ip":"10.0.0.4","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:36:03.352Z","source_ip":"192.168.1.180","destination_ip":"10.0.0.5","port":53,"protocol":"HTTPS","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T07:38:33.356Z","source_ip":"192.168.1.179","destination_ip":"10.0.0.8","port":53,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:41:03.362Z","source_ip":"192.168.1.156","destination_ip":"10.0.0.9","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:43:33.377Z","source_ip":"192.168.1.130","destination_ip":"10.0.0.5","port":3389,"protocol":"UDP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T07:46:03.379Z","source_ip":"192.168.1.185","destination_ip":"10.0.0.9","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:48:33.380Z","source_ip":"192.168.1.153","destination_ip":"10.0.0.10","port":80,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:51:03.386Z","source_ip":"192.168.1.135","destination_ip":"10.0.0.10","port":80,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:53:33.391Z","source_ip":"192.168.1.192","destination_ip":"10.0.0.6","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:56:03.400Z","source_ip":"192.168.1.191","destination_ip":"10.0.0.10","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:58:33.407Z","source_ip":"192.168.1.192","destination_ip":"10.0.0.8","port":80,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:01:03.417Z","source_ip":"192.168.1.196","destination_ip":"10.0.0.8","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:03:33.424Z","source_ip":"192.168.1.173","destination_ip":"10.0.0.7","port":22,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:06:03.439Z","source_ip":"192.168.1.147","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:08:33.442Z","source_ip":"192.168.1.131","destination_ip":"10.0.0.8","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:11:03.451Z","source_ip":"192.168.1.146","destination_ip":"10.0.0.5","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:13:33.451Z","source_ip":"192.168.1.170","destination_ip":"10.0.0.2","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:16:03.452Z","source_ip":"192.168.1.184","destination_ip":"10.0.0.9","port":53,"protocol":"UDP","action":"blocked","reason":"XSS attempt"}
+{"timestamp":"2025-04-24T08:18:33.466Z","source_ip":"192.168.1.185","destination_ip":"10.0.0.9","port":3389,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:21:03.475Z","source_ip":"192.168.1.160","destination_ip":"10.0.0.6","port":22,"protocol":"UDP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T08:23:33.485Z","source_ip":"192.168.1.105","destination_ip":"10.0.0.4","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:26:03.496Z","source_ip":"192.168.1.128","destination_ip":"10.0.0.9","port":53,"protocol":"HTTP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T08:28:33.502Z","source_ip":"192.168.1.182","destination_ip":"10.0.0.7","port":3389,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:31:03.513Z","source_ip":"192.168.1.132","destination_ip":"10.0.0.10","port":443,"protocol":"HTTP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T08:33:33.513Z","source_ip":"192.168.1.162","destination_ip":"10.0.0.8","port":443,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:36:03.518Z","source_ip":"192.168.1.162","destination_ip":"10.0.0.3","port":53,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:38:33.519Z","source_ip":"192.168.1.114","destination_ip":"10.0.0.4","port":53,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:41:03.523Z","source_ip":"192.168.1.134","destination_ip":"10.0.0.5","port":22,"protocol":"UDP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T08:43:33.527Z","source_ip":"192.168.1.112","destination_ip":"10.0.0.6","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:46:03.530Z","source_ip":"192.168.1.195","destination_ip":"10.0.0.9","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:48:33.534Z","source_ip":"192.168.1.192","destination_ip":"10.0.0.7","port":22,"protocol":"TCP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T08:51:03.543Z","source_ip":"192.168.1.159","destination_ip":"10.0.0.6","port":53,"protocol":"HTTP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T08:53:33.555Z","source_ip":"192.168.1.184","destination_ip":"10.0.0.10","port":53,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:56:03.562Z","source_ip":"192.168.1.183","destination_ip":"10.0.0.4","port":443,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T08:58:33.575Z","source_ip":"192.168.1.138","destination_ip":"10.0.0.4","port":22,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:01:03.588Z","source_ip":"192.168.1.142","destination_ip":"10.0.0.10","port":53,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:03:33.596Z","source_ip":"192.168.1.181","destination_ip":"10.0.0.1","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:06:03.607Z","source_ip":"192.168.1.111","destination_ip":"10.0.0.9","port":22,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:08:33.611Z","source_ip":"192.168.1.157","destination_ip":"10.0.0.4","port":53,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:11:03.617Z","source_ip":"192.168.1.151","destination_ip":"10.0.0.6","port":3389,"protocol":"UDP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T09:13:33.630Z","source_ip":"192.168.1.148","destination_ip":"10.0.0.5","port":443,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:16:03.633Z","source_ip":"192.168.1.188","destination_ip":"10.0.0.8","port":443,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:18:33.647Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.6","port":80,"protocol":"HTTPS","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T09:21:03.648Z","source_ip":"192.168.1.176","destination_ip":"10.0.0.3","port":22,"protocol":"UDP","action":"blocked","reason":"malware"}
+{"timestamp":"2025-04-24T09:23:33.668Z","source_ip":"192.168.1.180","destination_ip":"10.0.0.2","port":443,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:28:20.660Z","source_ip":"192.168.1.147","destination_ip":"10.0.0.7","port":80,"protocol":"TCP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-04-24T09:30:50.667Z","source_ip":"192.168.1.149","destination_ip":"10.0.0.7","port":443,"protocol":"UDP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-04-24T09:33:20.675Z","source_ip":"192.168.1.195","destination_ip":"10.0.0.1","port":22,"protocol":"UDP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-04-24T09:35:50.692Z","source_ip":"192.168.1.181","destination_ip":"10.0.0.8","port":22,"protocol":"HTTP","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T09:38:20.694Z","source_ip":"192.168.1.100","destination_ip":"10.0.0.3","port":443,"protocol":"HTTP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-04-24T09:40:50.695Z","source_ip":"192.168.1.155","destination_ip":"10.0.0.2","port":3389,"protocol":"UDP","action":"blocked","reason":"XSS attempt"}
+{"timestamp":"2025-04-24T09:43:20.706Z","source_ip":"192.168.1.145","destination_ip":"10.0.0.9","port":22,"protocol":"TCP","action":"blocked","reason":"malware"}
