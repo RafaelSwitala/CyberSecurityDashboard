@@ -135,7 +135,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\RafaelSwitala\\Desktop\\Informatik Duales Studium\\5. Semester\\Fallstudie Software Engineering\\CyberSecurityDashboard\\src\\generated\\prisma",
+      "value": "C:\\Fallstudie\\CyberSecurityDashboard\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -149,11 +149,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\RafaelSwitala\\Desktop\\Informatik Duales Studium\\5. Semester\\Fallstudie Software Engineering\\CyberSecurityDashboard\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Fallstudie\\CyberSecurityDashboard\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -163,12 +163,11 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://postgres:neues_passwort@localhost:5433/cybersecurity?schema=public"
       }
     }
   },
