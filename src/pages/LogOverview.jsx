@@ -5,7 +5,7 @@ import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../../log-generator/config.json';
 import './allPages.css';
 
-const PAGE_SIZES = [5, 10, 20, 50, 100];
+const PAGE_SIZES = [10, 20, 50, 100];
 
 const LogOverview = () => {
   const [logs, setLogs] = useState([]);

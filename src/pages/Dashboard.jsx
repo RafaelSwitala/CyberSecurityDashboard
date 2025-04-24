@@ -73,15 +73,15 @@ const Dashboard = () => {
 
           <Carousel.Item>
             <div className="carousel">
-              <h3>allowed vs. blocked (5‑Sek‑Intervalle)</h3>
+              <h3>allowed vs. blocked (1-hour-Intervall)</h3>
               {trendData.length ? <AccessTrendChart data={trendData} /> : <p>lade …</p>}
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
             <div className="carousel">
-              <h3>Dritte Folie</h3>
-              <p>Mehr Inhalt folgt …</p>
+              <h3>Dritte Folie</h3>
+              <p>Mehr Inhalt folgt…</p>
             </div>
           </Carousel.Item>
         </Carousel>
