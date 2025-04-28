@@ -152,7 +152,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -171,8 +171,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel UserAuthentication {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique\n  password  String\n  role      UserRole\n  createdAt DateTime @default(now())\n}\n\nmodel LogData {\n  id        Int      @id @default(autoincrement())\n  message   String\n  port      Int\n  sourceIP  String\n  timestamp DateTime @default(now())\n}\n\nenum UserRole {\n  ADMIN\n  ANALYST\n}\n",
-  "inlineSchemaHash": "dc05019c8abcdabf72d59d8cbdcd24d4153907a85492fcfc1ec2a0768ccb2c8a",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel UserAuthentication {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique\n  password  String\n  role      UserRole\n  createdAt DateTime @default(now())\n}\n\nmodel LogData {\n  id        Int      @id @default(autoincrement())\n  message   String\n  port      Int\n  sourceIP  String\n  timestamp DateTime @default(now())\n}\n\nenum UserRole {\n  ADMIN\n  ANALYST\n}\n",
+  "inlineSchemaHash": "9adee301af6e610be6c5820b09e542a9e6e3cc8f875d3cfdccc7560d83bf40ed",
   "copyEngine": true
 }
 config.dirname = '/'

@@ -1,12 +1,10 @@
-// server.js
-
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const prisma = new PrismaClient();
 
 app.use(express.json());
 
@@ -28,20 +26,32 @@ app.post('/register', async (req, res) => {
 
 // Benutzer anmelden
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body; 
   const user = await prisma.userAuthentication.findUnique({
     where: { username },
   });
+  
 
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (!user) {
+    return res.status(401).send('Ungültige Anmeldedaten');
+  }
+
+  // Passwortüberprüfung
+  if (await bcrypt.compare(password, user.password)) {
+    if (user.role !== 'ADMIN' && user.role !== 'ANALYST') {
+      return res.status(403).send('Nur Admins oder Analysten dürfen sich anmelden');
+    }
+
     const token = jwt.sign({ id: user.id, role: user.role }, 'your_jwt_secret', {
       expiresIn: '1h',
     });
     res.json({ token });
   } else {
-    res.status(401).send('Invalid credentials');
+    res.status(401).send('Ungültige Anmeldedaten');
   }
 });
+
+
 
 // LogData speichern
 app.post('/log', async (req, res) => {
