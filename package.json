@@ -4,12 +4,14 @@
   "description": "Fallstudie - Software Engineering - Projekt",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\" \"npm run prisma:studio\"",
+    "start:frontend": "webpack serve --mode development",
+    "start:backend": "nodemon backend/backend.js",
     "build": "webpack --mode production",
-    "backend": "node backend/backend.js",
-    "backend:dev": "nodemon backend/backend.js",
     "prisma:generate": "npx prisma generate",
-    "prisma:studio": "npx prisma studio"
+    "prisma:migrate": "npx prisma migrate dev", 
+    "prisma:studio": "npx prisma studio",
+    "log-generator": "node src/tools/log-generator/log-generator.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +29,6 @@
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.5",
     "css-loader": "^7.1.2",
-    "cybersecuritydashboard": "file:",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -43,6 +44,7 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "babel-loader": "^10.0.0",
+    "concurrently": "^9.1.2",
     "nodemon": "^3.1.10",
     "prisma": "^6.6.0",
     "webpack": "^5.98.0",
