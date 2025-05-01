@@ -14,6 +14,7 @@ import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -22,6 +23,7 @@ const App = () => {
         const decodedToken = jwtDecode(token);
         if (decodedToken.exp * 1000 > Date.now()) {
           setIsAuthenticated(true);
+          setUsername(decodedToken.username);
         } else {
           localStorage.removeItem('token');
         }
@@ -30,15 +32,18 @@ const App = () => {
         localStorage.removeItem('token');
       }
     }
-  }, []);  
+  }, []);
+  
 
-  const handleLogin = () => {
+  const handleLogin = (usernameFromToken) => {
     setIsAuthenticated(true);
-  };
+    setUsername(usernameFromToken);
+  };  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setUsername('');
   };
 
   if (!isAuthenticated) {
@@ -48,7 +53,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div>
-        <NavBar onLogout={handleLogout} />
+      <NavBar username={username} onLogout={handleLogout} />
       </div>
       <div className="mainPage">
         <NavAccordion />
@@ -64,5 +69,6 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;

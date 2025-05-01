@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { jwtDecode } from 'jwt-decode';
 import './Login.css';
 
 const Login = ({ onLogin }) => {
@@ -10,8 +11,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted'); 
-    
+
     if (!username || !password) {
       alert('Bitte Benutzername und Passwort eingeben');
       return;
@@ -22,24 +22,23 @@ const Login = ({ onLogin }) => {
       return;
     }
 
-    console.log("Sending login request:", { username, password, role });
-  
     try {
-      console.log("Daten die gesendet werden:", JSON.stringify({ username, password, role }));
       const response = await fetch('http://localhost:9555/api/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password, role }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        onLogin();
+        const decodedToken = jwtDecode(data.token);
+        console.log('Decoded Token:', decodedToken);
+        onLogin(decodedToken.username); 
       } else {
         setErrorMessage(data.message || 'Login fehlgeschlagen');
       }
@@ -48,7 +47,10 @@ const Login = ({ onLogin }) => {
       alert('Serverfehler beim Login');
     }
   };
-  
+
+
+
+
   return (
     <div className="loginContainer">
       <Form onSubmit={handleSubmit} className="loginForm">
