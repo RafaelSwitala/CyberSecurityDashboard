@@ -29,6 +29,9 @@
   color: var(--cream);
   padding: 10px;
   font-weight: bold;
+  display: flex;
+  align-items: center; 
+  gap: 10px;
 }
 
 .dropdownMenu {
@@ -51,4 +54,14 @@
 
 .dropdownItem:hover {
   background-color: #f0f0f0;
+}
+
+.userNameField {
+  width: 30px;
+  height: 30px;
+  background-image: url('../img//icons/user.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 30px;
 }

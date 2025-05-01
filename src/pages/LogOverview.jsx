@@ -167,8 +167,14 @@ const LogOverview = () => {
           </button>
           <button className="logOverviewTableButtons">Ansicht ändern</button>
           <button className="logOverviewTableButtons">Daten neuladen</button>
-          <button className="logOverviewTableButtons importExportButton">Import</button>
-          <button className="logOverviewTableButtons importExportButton">Export</button>
+          <button className="logOverviewTableButtons importExportButton">
+            <span className="icon downloadIcon" />
+            Import
+          </button>
+          <button className="logOverviewTableButtons importExportButton">
+            <span className="icon downloadIcon flipped" />
+            Export
+          </button>
         </div>
       </div>
 

@@ -125,8 +125,7 @@
     overflow-y: auto;
     max-height: 699px;
 }
-
-
+  
 /* BenutzerVerwaltung */
 .userList, .createNewUser {
     color: var(--cream);
@@ -141,3 +140,20 @@
     float: left;
     border-right: 2px solid var(--cream);
   }
+
+  .deleteButton {
+    width: 24px;
+    height: 24px;
+    background-image: url('../img/icons/delete.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .deleteButton:hover {
+    filter: brightness(0.8); 
+  }
+  

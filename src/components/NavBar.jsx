@@ -27,6 +27,7 @@ const NavBar = ({ username, onLogout }) => {
 
       {username && (
         <div className="userMenu" onClick={() => setDropdownOpen(!dropdownOpen)}>
+          <div className="userNameField" />
           {username}
           {dropdownOpen && (
             <div className="dropdownMenu">
