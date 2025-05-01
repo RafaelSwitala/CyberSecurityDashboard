@@ -5,37 +5,50 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('ADMIN'); // Standardmäßig "ADMIN"
+  const [role, setRole] = useState('ADMIN');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log('Form submitted'); 
+    
     if (!username || !password) {
       alert('Bitte Benutzername und Passwort eingeben');
       return;
     }
 
+    if (!['ADMIN', 'ANALYST'].includes(role)) {
+      alert('Ungültige Rolle');
+      return;
+    }
+
+    console.log("Sending login request:", { username, password, role });
+  
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      console.log("Daten die gesendet werden:", JSON.stringify({ username, password, role }));
+      const response = await fetch('http://localhost:9555/api/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, role }), // Rolle mitschicken
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password, role }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         localStorage.setItem('token', data.token);
         onLogin();
       } else {
-        alert('Fehler beim Login: ' + data.message);
+        setErrorMessage(data.message || 'Login fehlgeschlagen');
       }
     } catch (error) {
       console.error('Fehler beim Login:', error);
       alert('Serverfehler beim Login');
     }
   };
-
+  
   return (
     <div className="loginContainer">
       <Form onSubmit={handleSubmit} className="loginForm">
@@ -45,7 +58,7 @@ const Login = ({ onLogin }) => {
             type="text"
             placeholder="Benutzername eingeben"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.trim())}
           />
         </Form.Group>
 
@@ -78,6 +91,8 @@ const Login = ({ onLogin }) => {
             />
           </div>
         </Form.Group>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <Button className='loginButton' variant="primary" type="submit">
           Login

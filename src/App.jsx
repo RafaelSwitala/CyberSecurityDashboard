@@ -30,7 +30,7 @@ const App = () => {
         localStorage.removeItem('token');
       }
     }
-  }, []);
+  }, []);  
 
   const handleLogin = () => {
     setIsAuthenticated(true);

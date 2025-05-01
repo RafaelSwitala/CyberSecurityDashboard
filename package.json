@@ -6,10 +6,10 @@
   "scripts": {
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\" \"npm run prisma:studio\"",
     "start:frontend": "webpack serve --mode development",
-    "start:backend": "nodemon backend/backend.js",
+    "start:backend": "node backend/backend.js",
     "build": "webpack --mode production",
     "prisma:generate": "npx prisma generate",
-    "prisma:migrate": "npx prisma migrate dev", 
+    "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio",
     "log-generator": "node src/tools/log-generator/log-generator.js"
   },
@@ -28,7 +28,9 @@
     "@prisma/client": "^6.6.0",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.5",
+    "cors": "^2.8.5",
     "css-loader": "^7.1.2",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
