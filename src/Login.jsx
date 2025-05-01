@@ -48,9 +48,6 @@ const Login = ({ onLogin }) => {
     }
   };
 
-
-
-
   return (
     <div className="loginContainer">
       <Form onSubmit={handleSubmit} className="loginForm">

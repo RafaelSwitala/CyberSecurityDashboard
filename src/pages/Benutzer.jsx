@@ -31,7 +31,7 @@ const Benutzer = () => {
       setMessage('✅ Benutzer erstellt!');
       setUsername('');
       setPassword('');
-      fetchUsers(); // Neu laden
+      fetchUsers();
     } else {
       setMessage(data.message || '❌ Fehler bei der Erstellung');
     }

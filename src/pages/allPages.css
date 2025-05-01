@@ -8,10 +8,6 @@
     --darkBlue: #0a0524ec;
 }
 
-
-
-
-
 /* Main Pages: Dashboard */
 .mainPageContainer {
     flex: 1 1 auto;
@@ -45,7 +41,6 @@
 }
 
 /* Main Pages: logOverview */
-
 .logOverviewTableButtons {
     width: 16.666%;
     height: 50px;
@@ -87,17 +82,10 @@
     margin-top: 4px;
 }
 
-
-
-
-
 .logOverviewTable {
     width: 100%;
     table-layout: fixed;
-    /* height: 500px !important; */
 }
-
-
 
 .tablePagination {
     height: 40px;
@@ -111,28 +99,27 @@
     align-items:center;
     gap:1rem;
     flex-wrap:wrap;
-  }
-  .tablePagination .pager button{
+}
+.tablePagination .pager button{
     margin:0 2px;
     padding:4px 8px;
     border:1px solid var(--darkBlue);
     background:var(--cream);
     cursor:pointer;
-  }
-  .tablePagination .pager button.active{
+}
+.tablePagination .pager button.active{
     font-weight:700;
     background:var(--darkBlue);
     color:var(--cream);
-  }
-  .tablePagination .pager button:disabled{
+}
+.tablePagination .pager button:disabled{
     opacity:.4; cursor:default;
-  }
-  .tablePagination .totalCount{
+}
+.tablePagination .totalCount{
     margin-left:auto;
     font-weight:600;
-  }
+}
   
-
 .logOverviewTableWrapper {
     flex-grow: 1;
     overflow-y: auto;
