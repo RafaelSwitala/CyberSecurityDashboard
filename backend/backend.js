@@ -2,46 +2,29 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = 9555;
 
+const prisma = new PrismaClient();
+
+prisma.$use(async (params, next) => {
+  if (params.model === 'UserAuthentication' && ['create', 'update'].includes(params.action)) {
+    const { password } = params.args.data;
+    if (password) {
+      params.args.data.password = await bcrypt.hash(password, 10);
+    }
+  }
+  return next(params);
+});
+
+
 // Middleware
 app.use(cors({ origin: 'http://localhost:9000' }));
 app.use(express.json());
-
 console.log('Server-Setup beginnt...');
-
-// Test-Route
-app.get('/', (req, res) => {
-  console.log('GET / aufgerufen');
-  res.setHeader('Content-Type', 'text/plain');
-  res.status(200).send('Hello from backend!');
-});
-
-// // Benutzer Erstellen
-// fetch('http://localhost:9555/api/register', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify({
-//     username: 'NewUser',
-//     password: 'admin123',
-//     role: 'ADMIN'
-//   }),
-// })
-// .then(response => response.json())
-// .then(data => {
-//   console.log('Benutzer erfolgreich erstellt:', data);
-// })
-// .catch(error => {
-//   console.error('Fehler beim Erstellen des Benutzers:', error);
-// });
-
 
 // Benutzerlogin
 app.post('/api/login', async (req, res) => {
@@ -71,6 +54,31 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+// Benutzer erstellen
+app.post('/api/create-user', async (req, res) => {
+  const { username, password, role } = req.body;
+
+  if (!username || !password || !['ADMIN', 'ANALYST'].includes(role)) {
+    return res.status(400).json({ message: 'Ungültige Eingabedaten.' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await prisma.userAuthentication.create({
+      data: {
+        username,
+        password: hashedPassword,
+        role,
+      },
+    });
+
+    res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Benutzers:', error);
+    res.status(500).json({ message: 'Fehler beim Erstellen des Benutzers' });
+  }
+});
 
 // Logdaten speichern
 app.post('/api/log', async (req, res) => {
@@ -105,19 +113,6 @@ process.on('SIGINT', async () => {
   await prisma.$disconnect();
   process.exit();
 });
-
-prisma.$use(async (params, next) => {
-  if (params.model == 'userAuthentication' && ['create', 'update'].includes(params.action)) {
-    const { password } = params.args.data;
-
-    if (password) {
-      params.args.data.password = await bcrypt.hash(password, 10);
-    }
-  }
-
-  return next(params);
-});
-
 
 // Server starten
 app.listen(PORT, () => {

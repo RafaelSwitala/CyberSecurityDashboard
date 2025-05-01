@@ -7,7 +7,7 @@ const NavAccordion = () => {
     <nav className="navAccordion">
       <Link to="/LogOverview" className="navAccordionButton">LogOverview</Link>
       <Link to="/Page2" className="navAccordionButton">Alarme</Link>
-      <Link to="/PageX" className="navAccordionButton">Benutzer</Link>
+      <Link to="/Benutzer" className="navAccordionButton">Benutzer</Link>
     </nav>
   );
 };

@@ -22,7 +22,7 @@ rl.question('Gib einen Benutzernamen ein: ', (username) => {
         },
       });
 
-      console.log('✅ Benutzer erfolgreich erstellt:', user);
+      console.log('Benutzer erfolgreich erstellt:', user);
 
       rl.close();
       prisma.$disconnect();

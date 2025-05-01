@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import LogOverview from './pages/LogOverview';
 import Page2 from './pages/Page2';
+import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -60,6 +61,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/LogOverview" element={<LogOverview />} />
+          <Route path="/Benutzer" element={<Benutzer />} />
           <Route path="/Page2" element={<Page2 />} />
         </Routes>
       </div>
