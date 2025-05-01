@@ -9,13 +9,20 @@ const AlertIcon = () => {
       fetch('http://localhost:9555/api/logs')
         .then(res => res.json())
         .then(data => {
-          const attackLogs = data.filter(log => log.action === "blocked");
-          setAlerts(attackLogs);
+          const now = new Date();
+          const tenSecondsAgo = new Date(now.getTime() - 10000);
+  
+          const recentAttacks = data.filter(log => {
+            return log.action === "blocked" && new Date(log.timestamp) > tenSecondsAgo;
+          });
+  
+          setAlerts(recentAttacks);
         });
-    }, 5000); 
-
+    }, 5000);
+  
     return () => clearInterval(interval);
   }, []);
+  
 
   return (
     <div style={{ position: 'relative' }}>

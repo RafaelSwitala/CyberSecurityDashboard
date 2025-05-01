@@ -27,6 +27,22 @@ const AttackSimulator = () => {
     }
   };
 
+  const simulateAttackBurst = (reason, count = 5, duration = 10000) => {
+    const interval = duration / count;
+    let sent = 0;
+  
+    const sendNext = () => {
+      if (sent < count) {
+        simulate(reason);
+        sent++;
+        setTimeout(sendNext, interval);
+      }
+    };
+  
+    sendNext();
+  };
+  
+
   const simulateRandom = () => {
     const reasons = ["SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"];
     simulate(reasons[Math.floor(Math.random() * reasons.length)]);
@@ -34,8 +50,10 @@ const AttackSimulator = () => {
 
   return (
     <div style={{ textAlign: 'center', padding: '40px' }}>
-      <h1>🔐 Angriffssimulator</h1>
+      <h1>Angriffssimulator</h1>
       <p>Simuliere gezielte Angriffe auf das Frontend</p>
+      <button onClick={() => simulateAttackBurst('SQL injection')}>SQL Injection</button>
+      <button onClick={() => simulateAttackBurst('port scan')}>Portscan</button>
       <button onClick={() => simulate('SQL injection')}>SQL Injection</button>
       <button onClick={() => simulate('port scan')}>Portscan</button>
       <button onClick={() => simulate('malware')}>Malware</button>

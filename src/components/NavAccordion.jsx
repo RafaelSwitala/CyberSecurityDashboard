@@ -8,6 +8,7 @@ const NavAccordion = () => {
       <Link to="/LogOverview" className="navAccordionButton">LogOverview</Link>
       <Link to="/Page2" className="navAccordionButton">Alarme</Link>
       <Link to="/Benutzer" className="navAccordionButton">Benutzer</Link>
+      <Link to="/AttackSimulator" className="navAccordionButton">Attack Simulator</Link>
     </nav>
   );
 };

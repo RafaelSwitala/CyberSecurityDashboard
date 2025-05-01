@@ -129,14 +129,18 @@ process.on('SIGINT', async () => {
 });
 
 // Angriffe simulieren: Alert-Icon
-app.get('/api/logs', async (req, res) => {
-  try {
-    const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
-    res.json(logs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
-  }
+app.post('/api/log', (req, res) => {
+  const logEntry = req.body;
+  const logLine = JSON.stringify(logEntry) + '\n';
+  const filePath = path.join(__dirname, '../public/generated_logs.ndjson');
+
+  fs.appendFile(filePath, logLine, (err) => {
+    if (err) {
+      console.error('Fehler beim Schreiben in Logdatei:', err);
+      return res.status(500).json({ message: 'Fehler beim Speichern' });
+    }
+    res.status(200).json({ message: 'Log gespeichert' });
+  });
 });
 
 
