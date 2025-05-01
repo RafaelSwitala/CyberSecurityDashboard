@@ -9,6 +9,10 @@ Tools:
 - Visual Studio Code
 - React
 - React-Bootstrap
+- Express
+- CORS
+- Prisma Studio
+- pg Admin: PostgreSQL
 
 Anleitung - Installation: 
 - git clone https://github.com/RafaelSwitala/CyberSecurityDashboard.git
@@ -60,3 +64,15 @@ System:
 10.	 Als System möchte ich neue Logs automatisch verarbeiten und abspeichern, um jederzeit aktuelle Daten bereitzustellen.
 11.	 Als System möchte ich automatisch Alerts auslösen, wenn ein kritischer Angriff erkannt wird, um Benutzer zu informieren.
 12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten.
+
+
+
+Dokumentation-Inhalt:
+- Projekttitel, Zielsetzung, Zielgruppe, Motivation: Offen
+- Rollen und Aufgabenverteilung: Atakan
+- Technologie: Rafael
+- Datenmodelle, Tabellen, Felderbeschreibung: Aziz 
+- API-Dokumentation, create, user, login: Aziz
+- Beschreibung der Tools: Log-Generator, Attacksimmulator sowie Angriffsarten : Atakan
+- Umgesetzte Anforderungen pro Sprint, Meilensteine, offene Punke: Rafael
+- Sicherheitsbezug: Atakan

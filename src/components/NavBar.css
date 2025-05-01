@@ -1,21 +1,54 @@
 .navBar {
-    height: 80px;
-    width: 100%;
-    background-color: var(--darkgrey);
-    border-bottom: 2px solid var(--cream);
-  }
-  
-  .logoLink {
-    display: inline-block; 
-  }
-  
-  .logoField {
-    width: 330px;
-    height: 80px;
-    background-image: url('../img/Logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: 40px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  background-color: var(--darkgrey);
+  border-bottom: 2px solid var(--cream);
+  padding: 0 40px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+}
+
+.logoField {
+  width: 330px;
+  height: 80px;
+  background-image: url('../img/Logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.userMenu {
+  position: relative;
+  cursor: pointer;
+  color: var(--cream);
+  padding: 10px;
+  font-weight: bold;
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdownItem {
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}

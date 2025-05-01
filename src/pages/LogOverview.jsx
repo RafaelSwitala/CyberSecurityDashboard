@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Table from 'react-bootstrap/Table';
 import FilterButton from '../logOverviewButtons/FilterButton';
 import LastXButton from '../logOverviewButtons/LastXButton';
-import config from '../../log-generator/config.json';
+import config from '../tools/log-generator/config.json';
 import './allPages.css';
 
 const PAGE_SIZES = [10, 20, 50, 100];

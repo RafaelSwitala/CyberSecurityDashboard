@@ -133,33 +133,6 @@
   }
   
 
-
-
-
-
-/* .logRepresentationn {
-    height: 40%;
-    width: 100%;
-    background-color: var(--cream);
-    border-bottom: 2px solid black;
-} */
-
-
-/* .logOverview {
-    height: 8%;
-    width: 100%;
-    background-color: var(--cream);
-    display: flex;
-    flex-direction: column;
-} */
-
-/* .logOverviewTableButtonField {
-    width: 100%;
-    height: 0.6%;
-    flex-shrink: 0;
-    border-bottom: 2px solid black;
-} */
-
 .logOverviewTableWrapper {
     flex-grow: 1;
     overflow-y: auto;
@@ -167,12 +140,17 @@
 }
 
 
+/* BenutzerVerwaltung */
+.userList, .createNewUser {
+    color: var(--cream);
+    padding: 10px;
+    width: 50%;
+    height: 600px;
+    display: inline-block;
+    border-bottom: 2px solid var(--cream);
+  }
 
-
-
-
-
-/* .logOverviewTableButtonsContainer {
-    flex-wrap: wrap;
-} */
-
+  .userList {
+    float: left;
+    border-right: 2px solid var(--cream);
+  }
