@@ -49,7 +49,8 @@ const AttackSimulator = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '40px' }}>
+    <div className='mainPageContainer'>
+      <div style={{ textAlign: 'center', padding: '40px' }}>
       <h1>Angriffssimulator</h1>
       <p>Simuliere gezielte Angriffe auf das Frontend</p>
       <button onClick={() => simulateAttackBurst('SQL injection')}>SQL Injection</button>
@@ -60,6 +61,8 @@ const AttackSimulator = () => {
       <button onClick={() => simulate('unauthorized access')}>Brute Force</button>
       <button onClick={simulateRandom}>Zufälliger Angriff</button>
     </div>
+    </div>
+    
   );
 };
 
