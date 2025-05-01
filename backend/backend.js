@@ -132,14 +132,14 @@ process.on('SIGINT', async () => {
 app.post('/api/log', (req, res) => {
   const logEntry = req.body;
   const logLine = JSON.stringify(logEntry) + '\n';
-  const filePath = path.join(__dirname, '../public/generated_logs.ndjson');
+  const filePath = path.join(__dirname, 'public', 'generated_logs.ndjson');
 
-  fs.appendFile(filePath, logLine, (err) => {
+  fs.appendFile(filePath, logLine, err => {
     if (err) {
-      console.error('Fehler beim Schreiben in Logdatei:', err);
-      return res.status(500).json({ message: 'Fehler beim Speichern' });
+      console.error('Fehler beim Schreiben:', err);
+      return res.status(500).send('Fehler beim Schreiben');
     }
-    res.status(200).json({ message: 'Log gespeichert' });
+    res.status(200).send('Gespeichert');
   });
 });
 
