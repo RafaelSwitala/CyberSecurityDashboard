@@ -35,10 +35,35 @@ function writeToFile(log) {
 }
 
 function sendToApi(log) {
-  axios.post(API_URL, log)
-    .then(res => console.log(`Gesendet (${res.status})`))
-    .catch(err => console.error("Fehler beim Senden:", err.message));
-}
+  const payload = {
+    message: log.reason,
+    port: log.port,
+    sourceIP: log.source_ip,
+    destinationIP: log.destination_ip,
+    protocol: log.protocol,
+    action: log.action,
+    reason: log.reason,
+    timestamp: log.timestamp
+  };
+
+  axios.post(API_URL, payload)
+    .then(res => console.log(`✅ Gesendet (${res.status})`))
+    .catch(err => {
+      console.error("❌ Fehler beim Senden:");
+      if (err.response) {
+        console.error("Status:", err.response.status);
+        console.error("Daten:", err.response.data);
+      } else if (err.request) {
+        console.error("Request wurde gesendet, aber keine Antwort erhalten");
+        console.error(err.request);
+      } else {
+        console.error("Fehler beim Erstellen der Anfrage:", err.message);
+      }
+    });
+
+  }
+    
+
 
 function main() {
   setInterval(() => {
@@ -49,3 +74,4 @@ function main() {
 }
 
 main();
+

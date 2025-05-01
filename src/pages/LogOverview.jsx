@@ -21,26 +21,25 @@ const LogOverview = () => {
   const [currentPage, setCurrent] = useState(1);
 
   useEffect(() => {
-    fetch('/generated_logs.ndjson')
-      .then(res => res.text())
-      .then(text =>
-        text
-          .trim()
-          .split('\n')
-          .map(JSON.parse)
-          .map(obj => ({
-            ...obj,
-            sourceIP: obj.source_ip,
-            destinationIP: obj.destination_ip,
-          })),
-      )
-      .then(setLogs)
-      .catch(console.error);
+    fetch('http://localhost:3000/api/logs')
+      .then(res => res.json())
+      .then(data => {
+        setLogs(data); // echte Daten direkt übernehmen
+      })
+      .catch(error => {
+        console.error('❌ Fehler beim Laden der Logs:', error);
+      });
   }, []);
+  
+
+
 
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
 
   const { sourceIps, destinationIps, actions } = useMemo(() => {
+
+   
+    
     
     const ipsSrc = new Set();
     const ipsDst = new Set();

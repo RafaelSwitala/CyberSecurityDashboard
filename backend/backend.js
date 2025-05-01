@@ -44,7 +44,7 @@ app.post('/login', async (req, res) => {
 });
 
 // LogData speichern
-app.post('/log', async (req, res) => {
+app.post('/api/logs', async (req, res) => {
   const { message, port, sourceIP } = req.body;
 
   const log = await prisma.logData.create({
@@ -57,6 +57,25 @@ app.post('/log', async (req, res) => {
 
   res.json(log);
 });
+
+//config.json
+/*
+{
+    "SEND_TO_API": false,
+    "API_URL": "http://localhost:8000/api/logs/live",
+    "INTERVAL_MS": 150000,
+    "ATTACK_CHANCE": 0.3,
+    "protocols": ["TCP", "UDP", "HTTP", "HTTPS"],
+    "reasons": ["normal traffic", "SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"],
+    "ports": [22, 80, 443, 3389, 53]
+  }
+  
+  {
+  "SEND_TO_API": true,
+"API_URL": "http://localhost:3000/api/logs"
+}
+*/
+
 
 // Server starten
 const PORT = process.env.PORT || 3000;

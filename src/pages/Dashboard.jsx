@@ -10,9 +10,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchAndProcessData = () => {
-    fetch("/generated_logs.ndjson")
-      .then(res => res.text())
-      .then(text => text.trim().split("\n").map(JSON.parse))
+      fetch("http://localhost:3000/api/logs")
+      .then(res => res.json())
       .then(logs => {
 
 
@@ -24,10 +23,7 @@ const Dashboard = () => {
             Object.entries(protoObj).map(([protocol, count]) => ({ protocol, count }))
           );
 
-        const now = new Date();
-        const currentHour = new Date(now);
-        currentHour.setMinutes(0, 0, 0);
-        const trendObj = {};
+          const trendObj = {};
           logs.forEach(({ timestamp, action }) => {
             const logTime = new Date(timestamp);
             const hourBucket = new Date(logTime);

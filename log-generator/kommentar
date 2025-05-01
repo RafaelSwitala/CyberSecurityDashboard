@@ -1,0 +1,23 @@
+/*Log-generator.js
+function sendToApi(log) {
+  axios.post(API_URL, log)
+    .then(res => console.log(`Gesendet (${res.status})`))
+    .catch(err => console.error("Fehler beim Senden:", err.message));
+}
+
+function sendToApi(log) {
+  // Backend erwartet: message, port, sourceIP
+  const payload = {
+    message: log.reason,
+    port: log.port,
+    sourceIP: log.source_ip
+  };
+
+  axios.post(API_URL, payload)
+    .then(res => console.log(`Gesendet (${res.status})`))
+    .catch(err => console.error("Fehler beim Senden:", err.message));
+}
+Log Overvie.jsx
+fetch('/generated_logs.ndjson') (Bei use_effect)
+*/
+

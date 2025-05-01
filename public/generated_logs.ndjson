@@ -1,4 +1,4 @@
-{"timestamp":"2025-04-24T07:01:03.207Z","source_ip":"192.168.1.177","destination_ip":"10.0.0.4","port":80,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
+{"timestamp":"2025-04-24T07:01:03.207Z","source_ip":"123.456.1.789","destination_ip":"10.0.0.4","port":123,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T07:03:33.214Z","source_ip":"192.168.1.102","destination_ip":"10.0.0.8","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T07:06:03.225Z","source_ip":"192.168.1.167","destination_ip":"10.0.0.5","port":3389,"protocol":"HTTPS","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T07:08:33.237Z","source_ip":"192.168.1.101","destination_ip":"10.0.0.8","port":3389,"protocol":"HTTP","action":"blocked","reason":"unauthorized access"}
