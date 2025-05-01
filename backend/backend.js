@@ -80,6 +80,20 @@ app.post('/api/create-user', async (req, res) => {
   }
 });
 
+// Benutzer löschen
+app.delete('/api/delete-user/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.userAuthentication.delete({ where: { id: parseInt(id) } });
+    res.json({ message: 'Benutzer gelöscht' });
+  } catch (error) {
+    console.error('Fehler beim Löschen des Benutzers:', error);
+    res.status(500).json({ message: 'Fehler beim Löschen des Benutzers' });
+  }
+});
+
+
 // Logdaten speichern
 app.post('/api/log', async (req, res) => {
   const { message, port, sourceIP } = req.body;

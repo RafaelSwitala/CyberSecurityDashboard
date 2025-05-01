@@ -8,15 +8,17 @@ const Benutzer = () => {
   const [role, setRole] = useState('ADMIN');
   const [message, setMessage] = useState('');
 
-  // Benutzer laden
   useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = () => {
     fetch('http://localhost:9555/api/users')
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error('Fehler beim Laden der Benutzer:', err));
-  }, []);
+  };
 
-  // Benutzer erstellen
   const handleCreateUser = async () => {
     const response = await fetch('http://localhost:9555/api/create-user', {
       method: 'POST',
@@ -27,28 +29,58 @@ const Benutzer = () => {
     const data = await response.json();
     if (response.ok) {
       setMessage('✅ Benutzer erstellt!');
-      setUsers((prev) => [...prev, data.user]);
       setUsername('');
       setPassword('');
+      fetchUsers(); // Neu laden
     } else {
       setMessage(data.message || '❌ Fehler bei der Erstellung');
     }
   };
 
+  const handleDeleteUser = async (id) => {
+    const response = await fetch(`http://localhost:9555/api/delete-user/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      setUsers(users.filter(user => user.id !== id));
+      setMessage('🗑️ Benutzer gelöscht.');
+    } else {
+      const data = await response.json();
+      setMessage(data.message || '❌ Fehler beim Löschen');
+    }
+  };
+
   return (
-    <div className="mainPageContainer" style={{ display: 'flex', gap: '40px' }}>
-      {/* Linke Seite: Benutzerliste */}
-      <div style={{ flex: 1 }}>
+    <div className="mainPageContainer">
+      <div className="mainPageContainerBenutzerVerwaltung">
+      <div className="userList">
         <h3>Benutzerliste</h3>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>{user.username} – {user.role}</li>
-          ))}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Benutzername</th>
+              <th>Rolle</th>
+              <th>Aktion</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.username}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button onClick={() => handleDeleteUser(user.id)}>Löschen</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      {/* Rechte Seite: Benutzerformular */}
-      <div style={{ flex: 1 }}>
+      <div className="createNewUser">
         <h3>Neuen Benutzer erstellen</h3>
         <input
           type="text"
@@ -84,6 +116,8 @@ const Benutzer = () => {
         <button onClick={handleCreateUser}>Erstellen</button>
         <p>{message}</p>
       </div>
+      </div>
+
     </div>
   );
 };
