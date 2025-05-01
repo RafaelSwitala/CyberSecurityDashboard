@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import AlertIcon from './AlertIcon';
 import './NavBar.css';
 
 const NavBar = ({ username, onLogout }) => {
@@ -19,6 +20,10 @@ const NavBar = ({ username, onLogout }) => {
       <Link to="/" className="logoLink">
         <div className="logoField" />
       </Link>
+
+      <div className="alerts">
+        <AlertIcon />
+      </div>
 
       {username && (
         <div className="userMenu" onClick={() => setDropdownOpen(!dropdownOpen)}>

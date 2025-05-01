@@ -128,6 +128,18 @@ process.on('SIGINT', async () => {
   process.exit();
 });
 
+// Angriffe simulieren: Alert-Icon
+app.get('/api/logs', async (req, res) => {
+  try {
+    const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
+    res.json(logs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
+  }
+});
+
+
 // Server starten
 app.listen(PORT, () => {
   console.log(`Server läuft auf http://localhost:${PORT}`);
