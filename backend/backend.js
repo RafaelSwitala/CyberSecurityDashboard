@@ -6,10 +6,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = 9555;
+const PORT = process.env.PORT || 9555;
 
 const prisma = new PrismaClient();
 
+// Middleware
+app.use(cors({ origin: 'http://localhost:9000' }));
+app.use(express.json());
+console.log('Server-Setup beginnt...');
+
+// Passwort-Hashing Middleware für Prisma
 prisma.$use(async (params, next) => {
   if (params.model === 'UserAuthentication' && ['create', 'update'].includes(params.action)) {
     const { password } = params.args.data;
@@ -20,13 +26,26 @@ prisma.$use(async (params, next) => {
   return next(params);
 });
 
+// Benutzer registrieren (Create)
+app.post('/api/create-user', async (req, res) => {
+  const { username, password, role } = req.body;
 
-// Middleware
-app.use(cors({ origin: 'http://localhost:9000' }));
-app.use(express.json());
-console.log('Server-Setup beginnt...');
+  if (!username || !password || !['ADMIN', 'ANALYST'].includes(role)) {
+    return res.status(400).json({ message: 'Ungültige Eingabedaten.' });
+  }
 
-// Benutzerlogin
+  try {
+    const user = await prisma.userAuthentication.create({
+      data: { username, password, role }
+    });
+    res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Benutzers:', error);
+    res.status(500).json({ message: 'Fehler beim Erstellen des Benutzers' });
+  }
+});
+
+// Benutzer anmelden (Login)
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -42,41 +61,15 @@ app.post('/api/login', async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || 'your_jwt_secret',
       { expiresIn: '1h' }
     );
-    
+
     console.log('Login erfolgreich für:', username);
     res.json({ token });
   } catch (error) {
     console.error('Fehler beim Login:', error);
     res.status(500).json({ message: 'Interner Fehler' });
-  }
-});
-
-// Benutzer erstellen
-app.post('/api/create-user', async (req, res) => {
-  const { username, password, role } = req.body;
-
-  if (!username || !password || !['ADMIN', 'ANALYST'].includes(role)) {
-    return res.status(400).json({ message: 'Ungültige Eingabedaten.' });
-  }
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.userAuthentication.create({
-      data: {
-        username,
-        password: hashedPassword,
-        role,
-      },
-    });
-
-    res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
-  } catch (error) {
-    console.error('Fehler beim Erstellen des Benutzers:', error);
-    res.status(500).json({ message: 'Fehler beim Erstellen des Benutzers' });
   }
 });
 
@@ -93,9 +86,19 @@ app.delete('/api/delete-user/:id', async (req, res) => {
   }
 });
 
+// Alle Benutzer anzeigen (Admin/Test)
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await prisma.userAuthentication.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Benutzer' });
+  }
+});
 
 // Logdaten speichern
-app.post('/api/log', async (req, res) => {
+app.post('/api/logs', async (req, res) => {
   const { message, port, sourceIP } = req.body;
 
   if (!message || !port || !sourceIP) {
@@ -112,23 +115,7 @@ app.post('/api/log', async (req, res) => {
   }
 });
 
-// Alle Benutzer anzeigen (zum Testen)
-app.get('/api/users', async (req, res) => {
-  try {
-    const users = await prisma.userAuthentication.findMany();
-    res.json(users);
-  } catch (error) {
-    console.error('Fehler beim Abrufen der Benutzer:', error);
-    res.status(500).json({ message: 'Fehler beim Abrufen der Benutzer' });
-  }
-});
-
-process.on('SIGINT', async () => {
-  await prisma.$disconnect();
-  process.exit();
-});
-
-// Angriffe simulieren: Alert-Icon
+// Logs abrufen (z. B. für Alerts im Dashboard)
 app.get('/api/logs', async (req, res) => {
   try {
     const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
@@ -139,6 +126,11 @@ app.get('/api/logs', async (req, res) => {
   }
 });
 
+// Prisma Disconnect beim Beenden
+process.on('SIGINT', async () => {
+  await prisma.$disconnect();
+  process.exit();
+});
 
 // Server starten
 app.listen(PORT, () => {

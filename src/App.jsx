@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import LogOverview from './pages/LogOverview';
 import Page2 from './pages/Page2';
-import Benutzer from './pages/Benutzer';
+import UserManagement from './pages/UserManagement';
 import { jwtDecode } from 'jwt-decode';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,35 +15,40 @@ import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const [username, setUsername] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const decodedToken = jwtDecode(token);
-        if (decodedToken.exp * 1000 > Date.now()) {
+        const decoded = jwtDecode(token);
+        if (decoded.exp * 1000 > Date.now()) {
           setIsAuthenticated(true);
-          setUsername(decodedToken.username);
+          setUserRole(decoded.role); // Rolle aus Token
+          setUsername(decoded.username);
         } else {
           localStorage.removeItem('token');
         }
-      } catch (error) {
-        console.error('Ungültiges Token', error);
+      } catch (err) {
+        console.error('Ungültiges Token', err);
         localStorage.removeItem('token');
       }
     }
   }, []);
-  
 
-  const handleLogin = (usernameFromToken) => {
+  const handleLogin = (token) => {
+    const decoded = jwtDecode(token);
     setIsAuthenticated(true);
-    setUsername(usernameFromToken);
-  };  
+    setUsername(decoded.username);
+    setUserRole(decoded.role);
+  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setUserRole(null);
     setUsername('');
   };
 
@@ -53,24 +58,21 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <div>
       <NavBar username={username} onLogout={handleLogout} />
-      </div>
       <div className="mainPage">
         <NavAccordion />
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/LogOverview" element={<LogOverview />} />
-          <Route path="/Benutzer" element={<Benutzer />} />
           <Route path="/Page2" element={<Page2 />} />
+          {userRole === 'ADMIN' && (
+            <Route path="/Benutzerverwaltung" element={<UserManagement />} />
+          )}
         </Routes>
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
-
 
 export default App;

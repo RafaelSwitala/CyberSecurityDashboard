@@ -12,7 +12,6 @@ const NavAccordion = () => {
       {role === "ADMIN" && (
         <Link to="/Benutzerverwaltung" className="navAccordionButton">Benutzer</Link>
       )}
-      <Link to="/Benutzer" className="navAccordionButton">Benutzer</Link>
       <Link to="/AttackSimulator" className="navAccordionButton">Attack Simulator</Link>
     </nav>
   );

@@ -6,7 +6,6 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('ADMIN');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -17,11 +16,6 @@ const Login = ({ onLogin }) => {
       return;
     }
 
-    if (!['ADMIN', 'ANALYST'].includes(role)) {
-      alert('Ungültige Rolle');
-      return;
-    }
-
     try {
       const response = await fetch('http://localhost:9555/api/login', {
         method: 'POST',
@@ -29,27 +23,26 @@ const Login = ({ onLogin }) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password, role }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        const decodedToken = jwtDecode(data.token);
-        console.log('Decoded Token:', decodedToken);
-        onLogin(decodedToken.username); 
+        const { token } = data;
+        localStorage.setItem('token', token);
+        const decoded = jwtDecode(token);
+
+        console.log('✅ Eingeloggt als:', decoded.username, 'Rolle:', decoded.role);
+        onLogin(token); // Token an App zurückgeben
       } else {
         setErrorMessage(data.message || 'Login fehlgeschlagen');
       }
     } catch (error) {
-      console.error('Fehler beim Login:', error);
+      console.error('❌ Login-Fehler:', error);
       alert('Serverfehler beim Login');
     }
   };
-
-
-
 
   return (
     <div className="loginContainer">
@@ -74,29 +67,9 @@ const Login = ({ onLogin }) => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Rolle auswählen:</Form.Label>
-          <div>
-            <Form.Check
-              type="radio"
-              label="Admin"
-              value="ADMIN"
-              checked={role === 'ADMIN'}
-              onChange={() => setRole('ADMIN')}
-            />
-            <Form.Check
-              type="radio"
-              label="Analyst"
-              value="ANALYST"
-              checked={role === 'ANALYST'}
-              onChange={() => setRole('ANALYST')}
-            />
-          </div>
-        </Form.Group>
-
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <Button className='loginButton' variant="primary" type="submit">
+        <Button className="loginButton" variant="primary" type="submit">
           Login
         </Button>
       </Form>

@@ -20,23 +20,33 @@ const LogOverview = () => {
   const [pageSize, setPageSize]   = useState(PAGE_SIZES[0]);
   const [currentPage, setCurrent] = useState(1);
 
+  const DATA_SOURCE = 'file'; // 'file' oder 'api'
+
   useEffect(() => {
-    fetch('/generated_logs.ndjson')
-      .then(res => res.text())
-      .then(text =>
-        text
-          .trim()
-          .split('\n')
-          .map(JSON.parse)
-          .map(obj => ({
+    const loadLogs = async () => {
+      try {
+        if (DATA_SOURCE === 'file') {
+          const res = await fetch('/generated_logs.ndjson');
+          const text = await res.text();
+          const parsed = text.trim().split('\n').map(JSON.parse).map(obj => ({
             ...obj,
             sourceIP: obj.source_ip,
             destinationIP: obj.destination_ip,
-          })),
-      )
-      .then(setLogs)
-      .catch(console.error);
+          }));
+          setLogs(parsed);
+        } else if (DATA_SOURCE === 'api') {
+          const res = await fetch('http://localhost:3000/api/logs');
+          const data = await res.json();
+          setLogs(data);
+        }
+      } catch (err) {
+        console.error('Fehler beim Laden der Logs:', err);
+      }
+    };
+  
+    loadLogs();
   }, []);
+  
 
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
 
