@@ -99,6 +99,7 @@
     align-items:center;
     gap:1rem;
     flex-wrap:wrap;
+    color: var(--cream);
 }
 .tablePagination .pager button{
     margin:0 2px;
@@ -118,6 +119,7 @@
 .tablePagination .totalCount{
     margin-left:auto;
     font-weight:600;
+    color: var(--cream);
 }
   
 .logOverviewTableWrapper {

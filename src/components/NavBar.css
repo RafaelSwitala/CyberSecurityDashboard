@@ -50,6 +50,8 @@
   padding: 10px 20px;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
+  color: var(--darkgrey);
 }
 
 .dropdownItem:hover {

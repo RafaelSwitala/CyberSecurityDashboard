@@ -6,8 +6,10 @@ import NavAccordion from './components/NavAccordion';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import LogOverview from './pages/LogOverview';
-import Page2 from './pages/Page2';
-import UserManagement from './pages/UserManagement';
+import UserProfile from './pages/UserProfile';
+import AttackSimulator from './tools/AttackSimulator';
+// import UserManagement from './pages/UserManagement';
+import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -64,9 +66,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/LogOverview" element={<LogOverview />} />
-          <Route path="/Page2" element={<Page2 />} />
+          <Route path="/AttackSimulator" element={<AttackSimulator />} />
+          {/* <Route path="/Page2" element={<UserProfile />} /> */}
           {userRole === 'ADMIN' && (
-            <Route path="/Benutzerverwaltung" element={<UserManagement />} />
+            <Route path="/Benutzerverwaltung" element={<Benutzer />} />
           )}
         </Routes>
       </div>

@@ -9,9 +9,7 @@ const NavAccordion = () => {
     <nav className="navAccordion">
       <Link to="/LogOverview" className="navAccordionButton">LogOverview</Link>
       <Link to="/Page2" className="navAccordionButton">Alarme</Link>
-      {role === "ADMIN" && (
-        <Link to="/Benutzerverwaltung" className="navAccordionButton">Benutzer</Link>
-      )}
+      <Link to="/Benutzerverwaltung" className="navAccordionButton">Benutzer</Link>
       <Link to="/AttackSimulator" className="navAccordionButton">Attack Simulator</Link>
     </nav>
   );

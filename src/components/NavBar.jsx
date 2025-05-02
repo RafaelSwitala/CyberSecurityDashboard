@@ -32,6 +32,7 @@ const NavBar = ({ username, onLogout }) => {
           {dropdownOpen && (
             <div className="dropdownMenu">
               <Link to="/profile" className="dropdownItem">Profil</Link>
+              <div className="dropdownItem">Postfach</div>
               <div className="dropdownItem" onClick={handleLogout}>Abmelden</div>
             </div>
           )}

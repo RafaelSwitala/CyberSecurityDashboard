@@ -1,4 +1,5 @@
 import React from 'react';
+import './AttackSimulator.css';
 
 const AttackSimulator = () => {
   const API_URL = "http://localhost:9000/api/log";
@@ -49,17 +50,17 @@ const AttackSimulator = () => {
   };
 
   return (
-    <div className='mainPageContainer'>
+    <div className='mainPageContainer attacksimulator'>
       <div style={{ textAlign: 'center', padding: '40px' }}>
       <h1>Angriffssimulator</h1>
       <p>Simuliere gezielte Angriffe auf das Frontend</p>
-      <button onClick={() => simulateAttackBurst('SQL injection')}>SQL Injection</button>
-      <button onClick={() => simulateAttackBurst('port scan')}>Portscan</button>
-      <button onClick={() => simulate('SQL injection')}>SQL Injection</button>
-      <button onClick={() => simulate('port scan')}>Portscan</button>
-      <button onClick={() => simulate('malware')}>Malware</button>
-      <button onClick={() => simulate('unauthorized access')}>Brute Force</button>
-      <button onClick={simulateRandom}>Zufälliger Angriff</button>
+      <button className='attackButton' onClick={() => simulateAttackBurst('SQL injection')}>SQL Injection</button>
+      <button className='attackButton' onClick={() => simulateAttackBurst('port scan')}>Portscan</button>
+      <button className='attackButton' onClick={() => simulate('SQL injection')}>SQL Injection</button>
+      <button className='attackButton' onClick={() => simulate('port scan')}>Portscan</button>
+      <button className='attackButton' onClick={() => simulate('malware')}>Malware</button>
+      <button className='attackButton' onClick={() => simulate('unauthorized access')}>Brute Force</button>
+      <button className='attackButton' onClick={simulateRandom}>Zufälliger Angriff</button>
     </div>
     </div>
     

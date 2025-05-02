@@ -72,8 +72,7 @@ const Benutzer = () => {
                 <td>{user.username}</td>
                 <td>{user.role}</td>
                 <td>
-                <button className="deleteButton" onClick={() => handleDeleteUser(user.id)} />
-
+                  <button onClick={() => handleDeleteUser(user.id)}>Löschen</button>
                 </td>
               </tr>
             ))}

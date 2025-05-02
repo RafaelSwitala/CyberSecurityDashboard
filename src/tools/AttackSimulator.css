@@ -1,0 +1,11 @@
+.attacksimulator {
+    color: #e6e6dd;
+}
+
+.attackButton {
+    background-color: #bc3813;
+    color: #e6e6dd;
+    height: 50px;
+    width: 180px;
+    margin-right: 10px;
+}
