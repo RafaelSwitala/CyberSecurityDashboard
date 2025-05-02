@@ -95,7 +95,7 @@ app.delete('/api/delete-user/:id', async (req, res) => {
 
 
 // Logdaten speichern
-app.post('/api/api/logs', async (req, res) => {
+app.post('/api/log', async (req, res) => {
   const { message, port, sourceIP } = req.body;
 
   if (!message || !port || !sourceIP) {
@@ -129,38 +129,15 @@ process.on('SIGINT', async () => {
 });
 
 // Angriffe simulieren: Alert-Icon
-app.post('/api/log', (req, res) => {
-  const logEntry = req.body;
-  const logLine = JSON.stringify(logEntry) + '\n';
-  const filePath = path.join(__dirname, 'public', 'generated_logs.ndjson');
-
-  fs.appendFile(filePath, logLine, err => {
-    if (err) {
-      console.error('Fehler beim Schreiben:', err);
-      return res.status(500).send('Fehler beim Schreiben');
-    }
-    res.status(200).send('Gespeichert');
-  });
-});
-
-
-//config.json
-/*
-{
-    "SEND_TO_API": false,
-    "API_URL": "http://localhost:8000/api/logs/live",
-    "INTERVAL_MS": 150000,
-    "ATTACK_CHANCE": 0.3,
-    "protocols": ["TCP", "UDP", "HTTP", "HTTPS"],
-    "reasons": ["normal traffic", "SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"],
-    "ports": [22, 80, 443, 3389, 53]
+app.get('/api/logs', async (req, res) => {
+  try {
+    const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
+    res.json(logs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
   }
-  
-  {
-  "SEND_TO_API": true,
-"API_URL": "http://localhost:3000/api/logs"
-}
-*/
+});
 
 
 // Server starten

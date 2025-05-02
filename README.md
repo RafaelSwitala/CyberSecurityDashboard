@@ -75,4 +75,4 @@ Dokumentation-Inhalt:
 - API-Dokumentation, create, user, login: Aziz
 - Beschreibung der Tools: Log-Generator, Attacksimmulator sowie Angriffsarten : Atakan
 - Umgesetzte Anforderungen pro Sprint, Meilensteine, offene Punke: Rafael
-- Sicherheitsbezug: Atakan
+- Sicherheitsbezug: Atakan 

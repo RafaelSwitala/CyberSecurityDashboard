@@ -10,10 +10,8 @@ const Login = ({ onLogin }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
-  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
     if (!username || !password) {
       alert('Bitte Benutzername und Passwort eingeben');
       return;
@@ -49,6 +47,9 @@ const Login = ({ onLogin }) => {
       alert('Serverfehler beim Login');
     }
   };
+
+
+
 
   return (
     <div className="loginContainer">
@@ -104,4 +105,3 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
-
