@@ -6,7 +6,7 @@ const AlertIcon = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch('http://localhost:9555/api/logs')
+      fetch('http://localhost:3000/api/logs')
         .then(res => res.json())
         .then(data => {
           const now = new Date();

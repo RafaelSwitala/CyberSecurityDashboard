@@ -34,6 +34,9 @@ Gib diese Befehle im Terminal ein:
 •	git commit -m "kurze Beschreibung deiner Änderungen"
 •	git push --all (lädt alles auf GitHub hoch)
 
+
+
+
 User Stories: Cybersecurity-Dashboard
 Admin-User: 
 <!-- 1.	Als Admin möchte ich mich sicher mit Benutzername und Passwort einloggen, um auf das Dashboard zugreifen zu können. -->
@@ -49,9 +52,12 @@ Analyst-User:
 9.	Als Analyst möchte ich Logs exportieren können, um sie in anderen Tools weiterzuverarbeiten.
 
 System:
-<!-- 10.	 Als System möchte ich neue Logs automatisch verarbeiten und abspeichern, um jederzeit aktuelle Daten bereitzustellen. -->
+<!-- 10. Als System möchte ich neue Logs automatisch verarbeiten und abspeichern, um jederzeit aktuelle Daten bereitzustellen. -->
 11.	 Als System möchte ich automatisch Alerts auslösen, wenn ein kritischer Angriff erkannt wird, um Benutzer zu informieren.
 12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten.
+
+
+
 
 Weitere ToDo´s:
 Oben sollen Diagramme/Angriffsbenachrichtigungen rein
