@@ -1,12 +1,18 @@
+<<<<<<< HEAD
+=======
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+ 
+>>>>>>> feature/Sprint1Aziz
 generator client {
   provider = "prisma-client-js"
 }
-
+ 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
+ 
 model UserAuthentication {
   id        Int      @id @default(autoincrement())
   username  String   @unique
@@ -14,15 +20,20 @@ model UserAuthentication {
   role      UserRole
   createdAt DateTime @default(now())
 }
-
+ 
 model LogData {
-  id        Int      @id @default(autoincrement())
-  message   String
-  port      Int
-  sourceIP  String
-  timestamp DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  message        String
+  port           Int
+  sourceIP       String
+  destinationIP  String
+  protocol       String
+  action         String
+  reason         String
+  timestamp      DateTime @default(now())
 }
 
+ 
 enum UserRole {
   ADMIN
   ANALYST

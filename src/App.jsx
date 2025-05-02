@@ -10,42 +10,36 @@ import Page2 from './pages/Page2';
 import Benutzer from './pages/Benutzer';
 import AttackSimulator from './tools/AttackSimulator';
 import { jwtDecode } from 'jwt-decode';
+import UserManagement from './pages/UserManagement';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [username, setUsername] = useState('');
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        if (decodedToken.exp * 1000 > Date.now()) {
-          setIsAuthenticated(true);
-          setUsername(decodedToken.username);
-        } else {
-          localStorage.removeItem('token');
-        }
-      } catch (error) {
-        console.error('Ungültiges Token', error);
-        localStorage.removeItem('token');
-      }
+    const storedAuth = localStorage.getItem('isAuthenticated');
+    const storedRole = localStorage.getItem('userRole');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
+      setUserRole(storedRole);
     }
   }, []);
-  
 
-  const handleLogin = (usernameFromToken) => {
-    setIsAuthenticated(true);
-    setUsername(usernameFromToken);
-  };  
+  const handleLogin = () => {
+    localStorage.setItem('isAuthenticated', 'true');
+    const role = localStorage.getItem('userRole');
+  setIsAuthenticated(true);
+  setUserRole(role);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    setUsername('');
+    setUserRole(null);
   };
 
   if (!isAuthenticated) {
@@ -57,15 +51,16 @@ const App = () => {
       <div>
       <NavBar username={username} onLogout={handleLogout} />
       </div>
-      <div className="mainPage">
-        <NavAccordion />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/LogOverview" element={<LogOverview />} />
-          <Route path="/Benutzer" element={<Benutzer />} />
-          <Route path="/AttackSimulator" element={<AttackSimulator />} />
-          <Route path="/Page2" element={<Page2 />} />
-        </Routes>
+      <div className='mainPage'>
+          <NavAccordion />
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/LogOverview" element={<LogOverview />} />
+            <Route path="/Page2" element={<Page2 />} />
+            {userRole === 'ADMIN' && (
+            <Route path="/Benutzerverwaltung" element={<UserManagement />} />
+          )}
+          </Routes> 
       </div>
       <div>
         <Footer />
