@@ -20,7 +20,7 @@ function sendToApi(log) {
 Log Overvie.jsx
 fetch('/generated_logs.ndjson') (Bei use_effect)
   useEffect(() => {
-    fetch('http://localhost:3000/api/logs')
+    fetch('http://localhost:3000/api/logs') 
       .then(res => res.text())
       .then(text =>
         text

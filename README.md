@@ -57,8 +57,6 @@ System:
 12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten.
 
 
-
-
 Weitere ToDo´s:
 Oben sollen Diagramme/Angriffsbenachrichtigungen rein
 Unten sollen Tasks rein
