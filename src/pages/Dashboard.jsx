@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import ProtocolChart from "../charts/ProtocolChart";
 import AccessTrendChart from "../charts/AccessTrendChart";
+import TaskOverview from "./TaskOverview";
 import "./allPages.css";
 
 const Dashboard = () => {
@@ -87,7 +88,9 @@ const Dashboard = () => {
         </Carousel>
       </div>
 
-      <div className="taskSection"></div>
+      <div className="taskSection">
+        <TaskOverview />
+      </div>
     </div>
   );
 };
