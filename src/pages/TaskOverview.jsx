@@ -1,9 +1,10 @@
 import React from "react";
+import Table from 'react-bootstrap/Table';
 import "./allPages.css";
 
 const mockTasks = [
   {
-    task: "Netzwerk Scan",
+    task: "Log-Generator",
     status: "In Progress",
     progress: 65,
     reports: 2,
@@ -11,7 +12,7 @@ const mockTasks = [
     target: "192.168.0.1",
   },
   {
-    task: "SQL Injection Test",
+    task: "Windows-Logs",
     status: "Completed",
     progress: 100,
     reports: 5,
@@ -19,7 +20,7 @@ const mockTasks = [
     target: "10.0.0.5",
   },
   {
-    task: "Malware Beacon Monitor",
+    task: "Attacks",
     status: "Pending",
     progress: 0,
     reports: 0,
@@ -63,6 +64,37 @@ const TaskOverview = () => {
           ))}
         </tbody>
       </table>
+
+
+      <Table className="logOverviewTable" striped bordered hover>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th>Reports</th>
+                <th>Last Scan</th>
+                <th>Target</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+
+                </tr>
+              
+            </tbody>
+
+          </Table>
+
+
     </div>
   );
 };
