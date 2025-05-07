@@ -13,14 +13,14 @@ const Benutzer = () => {
   }, []);
 
   const fetchUsers = () => {
-    fetch('http://localhost:9555/api/users')
+    fetch('http://localhost:3000/api/users')
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error('Fehler beim Laden der Benutzer:', err));
   };
 
   const handleCreateUser = async () => {
-    const response = await fetch('http://localhost:9555/api/create-user', {
+    const response = await fetch('http://localhost:3000/api/create-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, role }),
@@ -38,7 +38,7 @@ const Benutzer = () => {
   };
 
   const handleDeleteUser = async (id) => {
-    const response = await fetch(`http://localhost:9555/api/delete-user/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/delete-user/${id}`, {
       method: 'DELETE',
     });
 

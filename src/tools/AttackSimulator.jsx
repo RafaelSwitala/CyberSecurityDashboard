@@ -3,7 +3,7 @@ import './AttackSimulator.css';
 // import "../../public/"
 
 const AttackSimulator = () => {
-  const API_URL = "http://localhost:9555/api/simulated-log";
+  const API_URL = "http://localhost:3000/api/simulated-log";
 
   const generateLog = (reason) => ({
     timestamp: new Date().toISOString(),
