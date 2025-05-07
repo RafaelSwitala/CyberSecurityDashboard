@@ -184,7 +184,7 @@ app.post('/api/simulated-log', async (req, res) => {
       return res.status(400).json({ message: 'Fehlende erforderliche Felder in den Log-Daten.' });
     }
 
-    const logDir = path.join(__dirname, '../src/tools');
+    const logDir = path.join(__dirname, '../public/tools');
     if (!fs.existsSync(logDir)) {
       fs.mkdirSync(logDir, { recursive: true });
     }

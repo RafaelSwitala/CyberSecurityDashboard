@@ -1,0 +1,5 @@
+{"timestamp":"2025-05-07T20:38:33.569Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746650313568"}
+{"timestamp":"2025-05-07T20:38:33.878Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746650313568"}
+{"timestamp":"2025-05-07T20:38:56.453Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":21,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746650336452"}
+{"timestamp":"2025-05-07T20:39:02.774Z","source_ip":"192.168.1.106","destination_ip":"10.0.0.8","port":443,"protocol":"TCP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T20:39:17.406Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746650357406"}

@@ -697,14 +697,3 @@
 {"timestamp":"2025-04-24T13:13:21.456Z","source_ip":"192.168.1.117","destination_ip":"10.0.0.6","port":443,"protocol":"UDP","action":"allowed","reason":"normal traffic"}
 {"timestamp":"2025-04-24T13:15:51.470Z","source_ip":"192.168.1.146","destination_ip":"10.0.0.1","port":3389,"protocol":"TCP","action":"blocked","reason":"XSS attempt"}
 {"timestamp":"2025-04-24T13:18:21.479Z","source_ip":"192.168.1.151","destination_ip":"10.0.0.10","port":443,"protocol":"TCP","action":"blocked","reason":"XSS attempt"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
-{"timestamp":"2025-04-24T13:20:51.494Z","source_ip":"192.168.1.115","destination_ip":"10.0.0.3","port":80,"protocol":"TCP","action":"allowed","reason":"normal traffic"}
