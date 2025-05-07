@@ -4,6 +4,8 @@ require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 9555;
@@ -37,12 +39,58 @@ app.post('/api/create-user', async (req, res) => {
     const user = await prisma.userAuthentication.create({
       data: { username, password, role }
     });
+
+    // JSON-Datei im Verzeichnis public/userData schreiben
+    const userDir = path.join(__dirname, '../public/userData');
+    if (!fs.existsSync(userDir)) {
+      fs.mkdirSync(userDir, { recursive: true });
+    }
+
+    const userJson = {
+      Username: username,
+      Userrolle: role
+    };
+
+    const filePath = path.join(userDir, `${username}.json`);
+    await fs.promises.writeFile(filePath, JSON.stringify(userJson, null, 2));
+
     res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
   } catch (error) {
     console.error('Fehler beim Erstellen des Benutzers:', error);
     res.status(500).json({ message: 'Fehler beim Erstellen des Benutzers' });
   }
 });
+
+// Benutzerprofil abrufen
+app.get('/api/user-profile/:username', async (req, res) => {
+  const username = req.params.username;
+  const filePath = path.join(__dirname, '../public/userData', `${username}.json`);
+
+  try {
+    const fileData = await fs.promises.readFile(filePath, 'utf-8');
+    res.json(JSON.parse(fileData));
+  } catch (error) {
+    console.error('Fehler beim Laden des Benutzerprofils:', error);
+    res.status(404).json({ message: 'Benutzerprofil nicht gefunden' });
+  }
+});
+
+// Benutzerprofil speichern
+app.post('/api/user-profile/:username', async (req, res) => {
+  const username = req.params.username;
+  const filePath = path.join(__dirname, '../public/userData', `${username}.json`);
+
+  try {
+    const data = req.body;
+    await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
+    res.status(200).json({ message: 'Benutzerprofil gespeichert' });
+  } catch (error) {
+    console.error('Fehler beim Speichern des Benutzerprofils:', error);
+    res.status(500).json({ message: 'Fehler beim Speichern' });
+  }
+});
+
+
 
 // Benutzer anmelden (Login)
 app.post('/api/login', async (req, res) => {
@@ -127,8 +175,6 @@ app.get('/api/logs', async (req, res) => {
 
 
 // Erstellen von Attack-Simulator Logs
-const fs = require('fs');
-const path = require('path');
 
 app.post('/api/simulated-log', async (req, res) => {
   try {
