@@ -61,7 +61,7 @@ const TaskOverview = () => {
 
     const fetchAttackData = async () => {
       try {
-        const res = await fetch("/attackLogs.ndjson");
+        const res = await fetch("/tools/attackLogs.ndjson");
         const text = await res.text();
         const lines = text.trim().split("\n");
         const logs = lines.map(line => JSON.parse(line));
@@ -124,8 +124,8 @@ const TaskOverview = () => {
             <td>abcd</td>
             <td>abcd</td>
             <td>abcd</td>
-            <td>abcd</td>
-            <td>abcd</td>
+            <td>-</td>
+            <td>-</td>
           </tr>
           <tr>
             <td>Attacks</td>
