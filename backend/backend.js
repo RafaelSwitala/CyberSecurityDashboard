@@ -6,8 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 9555;
 const prisma = new PrismaClient();
 
 // Middleware
@@ -125,6 +124,41 @@ app.get('/api/logs', async (req, res) => {
     res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
   }
 });
+
+
+// Erstellen von Attack-Simulator Logs
+const fs = require('fs');
+const path = require('path');
+
+app.post('/api/simulated-log', async (req, res) => {
+  try {
+    const log = req.body;
+
+    if (!log.timestamp || !log.source_ip || !log.destination_ip || !log.port || !log.protocol || !log.action || !log.reason) {
+      return res.status(400).json({ message: 'Fehlende erforderliche Felder in den Log-Daten.' });
+    }
+
+    const logDir = path.join(__dirname, '../src/tools');
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+
+    const filePath = path.join(logDir, 'attackLogs.ndjson');
+    const logLine = JSON.stringify(log) + '\n';
+
+    await fs.promises.appendFile(filePath, logLine);
+    console.log(`🛡️  Angriff-Log gespeichert unter: ${filePath}`);
+
+    res.status(200).json({ message: 'Angriff erfolgreich gespeichert.' });
+  } catch (err) {
+    console.error('Fehler beim Schreiben der Log-Datei:', err);
+    res.status(500).json({ message: 'Fehler beim Schreiben der Datei.' });
+  }
+});
+
+
+
+
 
 // Prisma Disconnect beim Beenden
 process.on('SIGINT', async () => {

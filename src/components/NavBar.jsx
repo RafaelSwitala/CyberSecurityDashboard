@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AlertIcon from './AlertIcon';
+import UserProfile from '../pages/UserProfile';
 import './NavBar.css';
 
 const NavBar = ({ username, onLogout }) => {

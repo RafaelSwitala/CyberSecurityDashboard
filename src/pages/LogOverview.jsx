@@ -35,7 +35,7 @@ const LogOverview = () => {
           }));
           setLogs(parsed);
         } else if (DATA_SOURCE === 'api') {
-          const res = await fetch('http://localhost:3000/api/logs');
+          const res = await fetch('http://localhost:9555/api/logs');
           const data = await res.json();
           setLogs(data);
         }

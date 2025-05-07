@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import LogOverview from './pages/LogOverview';
 import UserProfile from './pages/UserProfile';
 import AttackSimulator from './tools/AttackSimulator';
+// import TaskOverview from './pages/TaskOverview';
 // import UserManagement from './pages/UserManagement';
 import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
@@ -27,7 +28,7 @@ const App = () => {
         const decoded = jwtDecode(token);
         if (decoded.exp * 1000 > Date.now()) {
           setIsAuthenticated(true);
-          setUserRole(decoded.role); // Rolle aus Token
+          setUserRole(decoded.role);
           setUsername(decoded.username);
         } else {
           localStorage.removeItem('token');
@@ -71,6 +72,7 @@ const App = () => {
           {userRole === 'ADMIN' && (
             <Route path="/Benutzerverwaltung" element={<Benutzer />} />
           )}
+            <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </div>
       <Footer />
