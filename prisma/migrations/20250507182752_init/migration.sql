@@ -18,6 +18,10 @@ CREATE TABLE "LogData" (
     "message" TEXT NOT NULL,
     "port" INTEGER NOT NULL,
     "sourceIP" TEXT NOT NULL,
+    "destinationIP" TEXT NOT NULL,
+    "protocol" TEXT NOT NULL,
+    "action" TEXT NOT NULL,
+    "reason" TEXT NOT NULL,
     "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "LogData_pkey" PRIMARY KEY ("id")
