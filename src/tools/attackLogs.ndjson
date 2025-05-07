@@ -61,3 +61,35 @@
 {"timestamp":"2025-05-07T14:45:45.524Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":445,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746629144021"}
 {"timestamp":"2025-05-07T14:45:45.826Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":3389,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746629144021"}
 {"timestamp":"2025-05-07T14:45:46.127Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":8080,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746629144021"}
+{"timestamp":"2025-05-07T16:42:03.600Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:03.911Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:04.220Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:04.527Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:04.845Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:05.170Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:05.487Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:05.810Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:06.127Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:06.432Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746636123600"}
+{"timestamp":"2025-05-07T16:42:34.961Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":21,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:35.262Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":22,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:35.565Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":23,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:35.860Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":80,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:36.165Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":443,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:36.464Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":445,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:36.765Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":3389,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:37.069Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":8080,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746636154960"}
+{"timestamp":"2025-05-07T16:42:39.959Z","source_ip":"192.168.1.118","destination_ip":"10.0.0.10","port":53,"protocol":"HTTPS","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:41.470Z","source_ip":"192.168.1.120","destination_ip":"10.0.0.1","port":22,"protocol":"HTTP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-05-07T16:42:41.962Z","source_ip":"192.168.1.182","destination_ip":"10.0.0.10","port":3389,"protocol":"UDP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:43.159Z","source_ip":"192.168.1.193","destination_ip":"10.0.0.10","port":3389,"protocol":"HTTP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:46.035Z","source_ip":"192.168.1.105","destination_ip":"10.0.0.3","port":3389,"protocol":"TCP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-05-07T16:42:46.037Z","source_ip":"192.168.1.104","destination_ip":"10.0.0.6","port":80,"protocol":"TCP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:47.149Z","source_ip":"192.168.1.169","destination_ip":"10.0.0.9","port":3389,"protocol":"UDP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-05-07T16:42:48.203Z","source_ip":"192.168.1.132","destination_ip":"10.0.0.4","port":443,"protocol":"TCP","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-05-07T16:42:48.204Z","source_ip":"192.168.1.184","destination_ip":"10.0.0.3","port":3389,"protocol":"HTTPS","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:48.813Z","source_ip":"192.168.1.140","destination_ip":"10.0.0.6","port":80,"protocol":"HTTP","action":"blocked","reason":"unauthorized access"}
+{"timestamp":"2025-05-07T16:42:50.229Z","source_ip":"192.168.1.135","destination_ip":"10.0.0.4","port":80,"protocol":"HTTPS","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-05-07T16:42:50.241Z","source_ip":"192.168.1.120","destination_ip":"10.0.0.5","port":53,"protocol":"HTTP","action":"blocked","reason":"SQL injection"}
+{"timestamp":"2025-05-07T16:42:52.242Z","source_ip":"192.168.1.146","destination_ip":"10.0.0.2","port":443,"protocol":"HTTPS","action":"blocked","reason":"port scan"}
+{"timestamp":"2025-05-07T16:42:52.605Z","source_ip":"192.168.1.110","destination_ip":"10.0.0.8","port":443,"protocol":"HTTPS","action":"blocked","reason":"unauthorized access"}
