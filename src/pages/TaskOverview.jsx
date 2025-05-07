@@ -33,61 +33,50 @@ const TaskOverview = () => {
   return (
     <div className="task-overview">
       <h3>Task Übersicht</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Progress</th>
-            <th>Reports</th>
-            <th>Last Scan</th>
-            <th>Target</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mockTasks.map((t, i) => (
-            <tr key={i}>
-              <td>{t.task}</td>
-              <td>{t.status}</td>
-              <td>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${t.progress}%` }}
-                  />
-                </div>
-              </td>
-              <td>{t.reports}</td>
-              <td>{t.lastScan}</td>
-              <td>{t.target}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
 
 
       <Table className="logOverviewTable" striped bordered hover>
             <thead>
               <tr>
-                <th>Task</th>
-                <th>Status</th>
-                <th>Progress</th>
-                <th>Reports</th>
-                <th>Last Scan</th>
-                <th>Target</th>
+                <th>System</th>
+                <th>Last Attack (TimeStamp)</th>
+                <th>Last Sync (TimeStamp?)</th>
+                <th>Anzahl Logs</th>
+                <th>Anzahl Attacken</th>
+                <th>Checked? (boolean)</th>
+                <th>Last Checked</th>
 
               </tr>
             </thead>
             <tbody>
 
                 <tr>
+                  <td>Log-Generator</td>
                   <td>abcd</td>
                   <td>abcd</td>
                   <td>abcd</td>
                   <td>abcd</td>
                   <td>abcd</td>
                   <td>abcd</td>
-
+                </tr>
+                <tr>
+                  <td>Windows-Logs</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                </tr>
+                <tr>
+                  <td>Attacks</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
+                  <td>abcd</td>
                 </tr>
               
             </tbody>
