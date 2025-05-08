@@ -13,16 +13,23 @@ const Benutzer = () => {
   }, []);
 
   const fetchUsers = () => {
-    fetch('http://localhost:9555/api/users')
+    fetch('http://localhost:3000/api/users', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error('Fehler beim Laden der Benutzer:', err));
   };
 
   const handleCreateUser = async () => {
-    const response = await fetch('http://localhost:9555/api/create-user', {
+    const response = await fetch('http://localhost:3000/api/create-user', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
       body: JSON.stringify({ username, password, role }),
     });
 
@@ -38,8 +45,11 @@ const Benutzer = () => {
   };
 
   const handleDeleteUser = async (id) => {
-    const response = await fetch(`http://localhost:9555/api/delete-user/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/delete-user/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
     });
 
     if (response.ok) {
@@ -66,7 +76,7 @@ const Benutzer = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+          {Array.isArray(users) && users.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.username}</td>

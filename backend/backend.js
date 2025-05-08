@@ -9,7 +9,7 @@ const path = require('path');
 const { sendMailToAdmin } = require('./mailer');
 
 const app = express();
-const PORT = process.env.PORT || 9555;
+const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 // Middleware

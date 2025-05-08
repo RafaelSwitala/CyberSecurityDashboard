@@ -17,7 +17,7 @@ const UserManagement = () => {
   // Benutzer von der API abrufen
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`http://localhost:9555/api/users?page=${page}&limit=${itemsPerPage}`);
+      const res = await fetch(`http://localhost:3000/api/users?page=${page}&limit=${itemsPerPage}`);
       const data = await res.json();
       setUsers(data);
     } catch (err) {
@@ -34,7 +34,7 @@ const UserManagement = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:9555/register', {
+      const res = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, role }),
@@ -60,7 +60,7 @@ const UserManagement = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:9555/api/users/${id}`, {
+      const res = await fetch(`http://localhost:3000/api/users/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) {

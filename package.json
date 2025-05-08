@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\" \"npm run prisma:studio\"",
     "start:frontend": "webpack serve --mode development",
-    "start:backend": "node backend/backend.js",
+    "start:backend": "node backend/backend-with-roles.js",
     "build": "webpack --mode production",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
@@ -55,7 +55,7 @@
     "babel-loader": "^10.0.0",
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.10",
-    "prisma": "^6.6.0",
+    "prisma": "^6.7.0",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
