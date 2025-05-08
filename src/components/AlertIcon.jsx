@@ -1,45 +1,44 @@
-import React from 'react'; 
-import { useEffect, useState } from 'react';
-import { BellAlertIcon } from '@heroicons/react/24/solid';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import "./AlertIcon.css";
 
-function AlertIcon() {
-  const [alerts, setAlerts] = useState([]);
+const AlertIcon = () => {
+  const [hasNewAlerts, setHasNewAlerts] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  const checkAlerts = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:9555/api/alerts/unreviewed/${id}`);
+      const data = await res.json();
+      setHasNewAlerts(data.hasNewAlerts);
+    } catch (err) {
+      console.error("Fehler beim Prüfen der Alerts:", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchAlerts = async () => {
-      try {
-        const res = await axios.get('http://localhost:9555/api/logs');
-        console.log("API-Antwort:", res.data);
-        setAlerts(res.data.alerts || []);
-      } catch (err) {
-        console.error('Fehler beim Laden der Alerts:', err);
-      }
-    };
-    fetchAlerts();
-    const interval = setInterval(fetchAlerts, 8000); // alle 8 Sek. prüfen
-  
-    return () => clearInterval(interval);
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.id);
+      checkAlerts(decoded.id);
+
+      const interval = setInterval(() => {
+        checkAlerts(decoded.id);
+      }, 15000); // alle 15 Sekunden prüfen
+
+      return () => clearInterval(interval);
+    }
   }, []);
 
   return (
-    <div className="relative">
-      <BellAlertIcon className="h-6 w-6 text-red-500" />
-      {alerts.length > 0 && (
-        <div className="absolute top-8 right-0 z-50 w-64 bg-white border border-red-300 shadow-lg p-2 rounded-md text-sm">
-          <ul>
-            {alerts.map((alert, idx) => (
-              <li key={idx} className="mb-2">
-                <strong>Brute Force Login</strong><br />
-                {alert.count} Versuche<br />
-                am {alert.time}
-              </li>
-            ))}
-          </ul>
-        </div>
+    <Link to="/alarme" className="alertIcon">
+      <div className="icon" />
+      {hasNewAlerts && (
+        <span className="alertText">⚠ Neue Alerts verfügbar</span>
       )}
-
-    </div>
+    </Link>
   );
 }
 

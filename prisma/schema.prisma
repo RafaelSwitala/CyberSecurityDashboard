@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./node_modules/@prisma/client"
 }
 
 datasource db {
@@ -25,6 +26,23 @@ model LogData {
   action         String
   reason         String
   timestamp      DateTime @default(now())
+}
+
+model WindowsLog {
+  id         Int      @id @default(autoincrement())
+  timestamp  DateTime @default(now())
+  host       String
+  user       String
+  eventID    Int
+  level      String   // z. B. "Information", "Warning", "Error"
+  message    String
+}
+
+model AlertReview {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  username   String
+  reviewedAt DateTime @default(now())
 }
 
 enum UserRole {

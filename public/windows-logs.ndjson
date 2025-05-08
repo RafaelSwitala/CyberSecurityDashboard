@@ -1,17 +1,1 @@
-{"timestamp":"2025-05-08T11:48:32.082Z","host":"Client-01","user":"j.doe","eventID":4624,"level":"Information","message":"Simulierter Windows-Logeintrag"}
-{"timestamp":"2025-05-08T11:48:37.093Z","host":"Client-01","user":"j.doe","eventID":4624,"level":"Error","message":"Simulierter Windows-Logeintrag"}
-{"timestamp":"2025-05-08T11:48:42.103Z","host":"Client-01","user":"j.doe","eventID":4624,"level":"Error","message":"Simulierter Windows-Logeintrag"}
-{"timestamp":"2025-05-08T11:48:47.110Z","host":"Client-01","user":"j.doe","eventID":6005,"level":"Information","message":"Simulierter Windows-Logeintrag"}
-{"timestamp":"2025-05-08T11:48:52.124Z","host":"Client-01","user":"j.doe","eventID":6005,"level":"Information","message":"Simulierter Windows-Logeintrag"}
-{"timestamp":"2025-05-08T12:07:38.225Z","host":"Client-01","user":"system","eventID":4625,"level":"Warning","message":"Fehlgeschlagene Anmeldung für Benutzer \"admin\""}
-{"timestamp":"2025-05-08T12:07:43.249Z","host":"Laptop-42","user":"admin","eventID":1102,"level":"Error","message":"Das Sicherheitsprotokoll wurde gelöscht"}
-{"timestamp":"2025-05-08T12:07:48.265Z","host":"Server-03","user":"j.doe","eventID":4625,"level":"Warning","message":"Fehlgeschlagene Anmeldung für Benutzer \"admin\""}
-{"timestamp":"2025-05-08T12:07:53.270Z","host":"Laptop-42","user":"system","eventID":1102,"level":"Error","message":"Das Sicherheitsprotokoll wurde gelöscht"}
-{"timestamp":"2025-05-08T12:07:58.279Z","host":"Server-03","user":"j.doe","eventID":4625,"level":"Warning","message":"Fehlgeschlagene Anmeldung für Benutzer \"admin\""}
-{"timestamp":"2025-05-08T12:08:03.294Z","host":"Client-01","user":"admin","eventID":4625,"level":"Warning","message":"Fehlgeschlagene Anmeldung für Benutzer \"admin\""}
-{"timestamp":"2025-05-08T12:08:08.310Z","host":"Laptop-42","user":"j.doe","eventID":4624,"level":"Information","message":"Erfolgreiche Anmeldung: Benutzer \"j.doe\""}
-{"timestamp":"2025-05-08T12:08:13.315Z","host":"Server-03","user":"support","eventID":6005,"level":"Information","message":"Der Ereignisprotokollierungsdienst wurde gestartet"}
-{"timestamp":"2025-05-08T12:08:18.318Z","host":"Client-01","user":"j.doe","eventID":6005,"level":"Information","message":"Der Ereignisprotokollierungsdienst wurde gestartet"}
-{"timestamp":"2025-05-08T12:08:23.320Z","host":"Laptop-42","user":"j.doe","eventID":4726,"level":"Warning","message":"Benutzerkonto \"gast\" wurde gelöscht"}
-{"timestamp":"2025-05-08T12:08:28.324Z","host":"Client-01","user":"j.doe","eventID":6005,"level":"Information","message":"Der Ereignisprotokollierungsdienst wurde gestartet"}
-{"timestamp":"2025-05-08T12:08:33.326Z","host":"Client-01","user":"system","eventID":1102,"level":"Error","message":"Das Sicherheitsprotokoll wurde gelöscht"}
+windows-logs

@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
@@ -28,7 +29,7 @@ function generateLog() {
 }
 
 function writeToFile(log) {
-  const filePath = path.join(__dirname, '../public/generated_logs.ndjson');
+  const filePath = path.join(__dirname, '../../../public/generated_logs.ndjson');
   fs.appendFile(filePath, JSON.stringify(log) + '\n', err => {
     if (err) console.error("Fehler beim Schreiben:", err);
   });
@@ -68,10 +69,15 @@ function sendToApi(log) {
 function main() {
   setInterval(() => {
     const log = generateLog();
-    console.log("Log:", log);
-    SEND_TO_API ? sendToApi(log) : writeToFile(log);
+    console.log("📋 Log:", log);
+  
+    writeToFile(log);         // Immer in Datei schreiben
+  
+    if (SEND_TO_API) {        // Nur wenn erlaubt, auch senden
+      sendToApi(log);
+    }
   }, INTERVAL_MS);
-}
+}  
 
 main();
 
