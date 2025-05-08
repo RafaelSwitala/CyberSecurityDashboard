@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client" 
+  //output   = "./generated/client"
 }
 
 datasource db {
@@ -9,26 +9,36 @@ datasource db {
 }
 
 model UserAuthentication {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  password  String
-  role      UserRole
-  createdAt DateTime @default(now())
+  id                Int       @id @default(autoincrement())
+  username          String    @unique
+  password          String
+  role              UserRole
+  createdAt         DateTime  @default(now())
+  passwordChangedAt DateTime? @db.Timestamp(6)
+  firstName           String?
+  lastName            String?
+  address             String?
+  birthday            DateTime? @db.Timestamp(6)
+  gender              String?
+  language            String?
+  email               String?
+  phone               String?
 }
 
 model LogData {
-  id             Int      @id @default(autoincrement())
-  message        String
-  port           Int
-  sourceIP       String
-  destinationIP  String
-  protocol       String
-  action         String
-  reason         String
-  timestamp      DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  message       String
+  port          Int
+  sourceIP      String
+  timestamp     DateTime @default(now())
+  action        String
+  destinationIP String
+  protocol      String
+  reason        String
 }
 
 enum UserRole {
   ADMIN
   ANALYST
+  User
 }

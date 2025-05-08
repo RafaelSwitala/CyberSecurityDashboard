@@ -41,6 +41,7 @@ const App = () => {
   }, []);
 
   const handleLogin = (token) => {
+    localStorage.setItem('token', token); 
     const decoded = jwtDecode(token);
     setIsAuthenticated(true);
     setUsername(decoded.username);

@@ -4,6 +4,9 @@ import ProtocolChart from "../charts/ProtocolChart";
 import AccessTrendChart from "../charts/AccessTrendChart";
 import TaskOverview from "./TaskOverview";
 import "./allPages.css";
+import LogExportButton from "../components/LogExportButton";
+
+
 
 const Dashboard = () => {
   const [protocolData, setProtocolData] = useState([]);
@@ -63,30 +66,37 @@ const Dashboard = () => {
 
   return (
     <div className="mainPageContainer">
-      <div className="carouselSection">
-        <Carousel>
-          <Carousel.Item>
-            <div className="carousel">
-              <h3>Verteilung der Protokolle</h3>
-              {protocolData.length ? <ProtocolChart data={protocolData} /> : <p>lade …</p>}
-            </div>
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <div className="carousel">
-              <h3>allowed vs. blocked (1-hour-Intervall)</h3>
-              {trendData.length ? <AccessTrendChart data={trendData} /> : <p>lade …</p>}
-            </div>
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <div className="carousel">
-              <h3>Dritte Folie</h3>
-              <p>Mehr Inhalt folgt…</p>
-            </div>
-          </Carousel.Item>
-        </Carousel>
+    <div className="carouselSection">
+  <Carousel>
+    <Carousel.Item>
+      <div className="carousel">
+        <h3>Verteilung der Protokolle</h3>
+        {protocolData.length ? <ProtocolChart data={protocolData} /> : <p>lade …</p>}
       </div>
+    </Carousel.Item>
+
+    <Carousel.Item>
+      <div className="carousel">
+        <h3>allowed vs. blocked (1-hour-Intervall)</h3>
+        {trendData.length ? <AccessTrendChart data={trendData} /> : <p>lade …</p>}
+      </div>
+    </Carousel.Item>
+
+    <Carousel.Item>
+      <div className="carousel">
+        <h3>Dritte Folie</h3>
+        <p>Mehr Inhalt folgt…</p>
+      </div>
+    </Carousel.Item>
+  </Carousel>
+
+  {/* Nur hier kommt der Export-Button */}
+  <div style={{ marginTop: "2rem" }}>
+    <LogExportButton />
+  </div>
+</div>
+
+
 
       <div className="taskSection">
         <TaskOverview />

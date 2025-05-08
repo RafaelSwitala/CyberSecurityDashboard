@@ -30,7 +30,8 @@ export type LogData = $Result.DefaultSelection<Prisma.$LogDataPayload>
 export namespace $Enums {
   export const UserRole: {
   ADMIN: 'ADMIN',
-  ANALYST: 'ANALYST'
+  ANALYST: 'ANALYST',
+  User: 'User'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
@@ -243,8 +244,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -1003,6 +1004,15 @@ export namespace Prisma {
     password: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
+    passwordChangedAt: Date | null
+    firstName: string | null
+    lastName: string | null
+    address: string | null
+    birthday: Date | null
+    gender: string | null
+    language: string | null
+    email: string | null
+    phone: string | null
   }
 
   export type UserAuthenticationMaxAggregateOutputType = {
@@ -1011,6 +1021,15 @@ export namespace Prisma {
     password: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
+    passwordChangedAt: Date | null
+    firstName: string | null
+    lastName: string | null
+    address: string | null
+    birthday: Date | null
+    gender: string | null
+    language: string | null
+    email: string | null
+    phone: string | null
   }
 
   export type UserAuthenticationCountAggregateOutputType = {
@@ -1019,6 +1038,15 @@ export namespace Prisma {
     password: number
     role: number
     createdAt: number
+    passwordChangedAt: number
+    firstName: number
+    lastName: number
+    address: number
+    birthday: number
+    gender: number
+    language: number
+    email: number
+    phone: number
     _all: number
   }
 
@@ -1037,6 +1065,15 @@ export namespace Prisma {
     password?: true
     role?: true
     createdAt?: true
+    passwordChangedAt?: true
+    firstName?: true
+    lastName?: true
+    address?: true
+    birthday?: true
+    gender?: true
+    language?: true
+    email?: true
+    phone?: true
   }
 
   export type UserAuthenticationMaxAggregateInputType = {
@@ -1045,6 +1082,15 @@ export namespace Prisma {
     password?: true
     role?: true
     createdAt?: true
+    passwordChangedAt?: true
+    firstName?: true
+    lastName?: true
+    address?: true
+    birthday?: true
+    gender?: true
+    language?: true
+    email?: true
+    phone?: true
   }
 
   export type UserAuthenticationCountAggregateInputType = {
@@ -1053,6 +1099,15 @@ export namespace Prisma {
     password?: true
     role?: true
     createdAt?: true
+    passwordChangedAt?: true
+    firstName?: true
+    lastName?: true
+    address?: true
+    birthday?: true
+    gender?: true
+    language?: true
+    email?: true
+    phone?: true
     _all?: true
   }
 
@@ -1148,6 +1203,15 @@ export namespace Prisma {
     password: string
     role: $Enums.UserRole
     createdAt: Date
+    passwordChangedAt: Date | null
+    firstName: string | null
+    lastName: string | null
+    address: string | null
+    birthday: Date | null
+    gender: string | null
+    language: string | null
+    email: string | null
+    phone: string | null
     _count: UserAuthenticationCountAggregateOutputType | null
     _avg: UserAuthenticationAvgAggregateOutputType | null
     _sum: UserAuthenticationSumAggregateOutputType | null
@@ -1175,6 +1239,15 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     createdAt?: boolean
+    passwordChangedAt?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    address?: boolean
+    birthday?: boolean
+    gender?: boolean
+    language?: boolean
+    email?: boolean
+    phone?: boolean
   }, ExtArgs["result"]["userAuthentication"]>
 
   export type UserAuthenticationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1183,6 +1256,15 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     createdAt?: boolean
+    passwordChangedAt?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    address?: boolean
+    birthday?: boolean
+    gender?: boolean
+    language?: boolean
+    email?: boolean
+    phone?: boolean
   }, ExtArgs["result"]["userAuthentication"]>
 
   export type UserAuthenticationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1191,6 +1273,15 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     createdAt?: boolean
+    passwordChangedAt?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    address?: boolean
+    birthday?: boolean
+    gender?: boolean
+    language?: boolean
+    email?: boolean
+    phone?: boolean
   }, ExtArgs["result"]["userAuthentication"]>
 
   export type UserAuthenticationSelectScalar = {
@@ -1199,9 +1290,18 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     createdAt?: boolean
+    passwordChangedAt?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    address?: boolean
+    birthday?: boolean
+    gender?: boolean
+    language?: boolean
+    email?: boolean
+    phone?: boolean
   }
 
-  export type UserAuthenticationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "role" | "createdAt", ExtArgs["result"]["userAuthentication"]>
+  export type UserAuthenticationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "role" | "createdAt" | "passwordChangedAt" | "firstName" | "lastName" | "address" | "birthday" | "gender" | "language" | "email" | "phone", ExtArgs["result"]["userAuthentication"]>
 
   export type $UserAuthenticationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserAuthentication"
@@ -1212,6 +1312,15 @@ export namespace Prisma {
       password: string
       role: $Enums.UserRole
       createdAt: Date
+      passwordChangedAt: Date | null
+      firstName: string | null
+      lastName: string | null
+      address: string | null
+      birthday: Date | null
+      gender: string | null
+      language: string | null
+      email: string | null
+      phone: string | null
     }, ExtArgs["result"]["userAuthentication"]>
     composites: {}
   }
@@ -1640,6 +1749,15 @@ export namespace Prisma {
     readonly password: FieldRef<"UserAuthentication", 'String'>
     readonly role: FieldRef<"UserAuthentication", 'UserRole'>
     readonly createdAt: FieldRef<"UserAuthentication", 'DateTime'>
+    readonly passwordChangedAt: FieldRef<"UserAuthentication", 'DateTime'>
+    readonly firstName: FieldRef<"UserAuthentication", 'String'>
+    readonly lastName: FieldRef<"UserAuthentication", 'String'>
+    readonly address: FieldRef<"UserAuthentication", 'String'>
+    readonly birthday: FieldRef<"UserAuthentication", 'DateTime'>
+    readonly gender: FieldRef<"UserAuthentication", 'String'>
+    readonly language: FieldRef<"UserAuthentication", 'String'>
+    readonly email: FieldRef<"UserAuthentication", 'String'>
+    readonly phone: FieldRef<"UserAuthentication", 'String'>
   }
     
 
@@ -2033,11 +2151,11 @@ export namespace Prisma {
     message: string | null
     port: number | null
     sourceIP: string | null
+    timestamp: Date | null
+    action: string | null
     destinationIP: string | null
     protocol: string | null
-    action: string | null
     reason: string | null
-    timestamp: Date | null
   }
 
   export type LogDataMaxAggregateOutputType = {
@@ -2045,11 +2163,11 @@ export namespace Prisma {
     message: string | null
     port: number | null
     sourceIP: string | null
+    timestamp: Date | null
+    action: string | null
     destinationIP: string | null
     protocol: string | null
-    action: string | null
     reason: string | null
-    timestamp: Date | null
   }
 
   export type LogDataCountAggregateOutputType = {
@@ -2057,11 +2175,11 @@ export namespace Prisma {
     message: number
     port: number
     sourceIP: number
+    timestamp: number
+    action: number
     destinationIP: number
     protocol: number
-    action: number
     reason: number
-    timestamp: number
     _all: number
   }
 
@@ -2081,11 +2199,11 @@ export namespace Prisma {
     message?: true
     port?: true
     sourceIP?: true
+    timestamp?: true
+    action?: true
     destinationIP?: true
     protocol?: true
-    action?: true
     reason?: true
-    timestamp?: true
   }
 
   export type LogDataMaxAggregateInputType = {
@@ -2093,11 +2211,11 @@ export namespace Prisma {
     message?: true
     port?: true
     sourceIP?: true
+    timestamp?: true
+    action?: true
     destinationIP?: true
     protocol?: true
-    action?: true
     reason?: true
-    timestamp?: true
   }
 
   export type LogDataCountAggregateInputType = {
@@ -2105,11 +2223,11 @@ export namespace Prisma {
     message?: true
     port?: true
     sourceIP?: true
+    timestamp?: true
+    action?: true
     destinationIP?: true
     protocol?: true
-    action?: true
     reason?: true
-    timestamp?: true
     _all?: true
   }
 
@@ -2204,11 +2322,11 @@ export namespace Prisma {
     message: string
     port: number
     sourceIP: string
+    timestamp: Date
+    action: string
     destinationIP: string
     protocol: string
-    action: string
     reason: string
-    timestamp: Date
     _count: LogDataCountAggregateOutputType | null
     _avg: LogDataAvgAggregateOutputType | null
     _sum: LogDataSumAggregateOutputType | null
@@ -2235,11 +2353,11 @@ export namespace Prisma {
     message?: boolean
     port?: boolean
     sourceIP?: boolean
+    timestamp?: boolean
+    action?: boolean
     destinationIP?: boolean
     protocol?: boolean
-    action?: boolean
     reason?: boolean
-    timestamp?: boolean
   }, ExtArgs["result"]["logData"]>
 
   export type LogDataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2247,11 +2365,11 @@ export namespace Prisma {
     message?: boolean
     port?: boolean
     sourceIP?: boolean
+    timestamp?: boolean
+    action?: boolean
     destinationIP?: boolean
     protocol?: boolean
-    action?: boolean
     reason?: boolean
-    timestamp?: boolean
   }, ExtArgs["result"]["logData"]>
 
   export type LogDataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2259,11 +2377,11 @@ export namespace Prisma {
     message?: boolean
     port?: boolean
     sourceIP?: boolean
+    timestamp?: boolean
+    action?: boolean
     destinationIP?: boolean
     protocol?: boolean
-    action?: boolean
     reason?: boolean
-    timestamp?: boolean
   }, ExtArgs["result"]["logData"]>
 
   export type LogDataSelectScalar = {
@@ -2271,14 +2389,14 @@ export namespace Prisma {
     message?: boolean
     port?: boolean
     sourceIP?: boolean
+    timestamp?: boolean
+    action?: boolean
     destinationIP?: boolean
     protocol?: boolean
-    action?: boolean
     reason?: boolean
-    timestamp?: boolean
   }
 
-  export type LogDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "port" | "sourceIP" | "destinationIP" | "protocol" | "action" | "reason" | "timestamp", ExtArgs["result"]["logData"]>
+  export type LogDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "port" | "sourceIP" | "timestamp" | "action" | "destinationIP" | "protocol" | "reason", ExtArgs["result"]["logData"]>
 
   export type $LogDataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LogData"
@@ -2288,11 +2406,11 @@ export namespace Prisma {
       message: string
       port: number
       sourceIP: string
+      timestamp: Date
+      action: string
       destinationIP: string
       protocol: string
-      action: string
       reason: string
-      timestamp: Date
     }, ExtArgs["result"]["logData"]>
     composites: {}
   }
@@ -2720,11 +2838,11 @@ export namespace Prisma {
     readonly message: FieldRef<"LogData", 'String'>
     readonly port: FieldRef<"LogData", 'Int'>
     readonly sourceIP: FieldRef<"LogData", 'String'>
+    readonly timestamp: FieldRef<"LogData", 'DateTime'>
+    readonly action: FieldRef<"LogData", 'String'>
     readonly destinationIP: FieldRef<"LogData", 'String'>
     readonly protocol: FieldRef<"LogData", 'String'>
-    readonly action: FieldRef<"LogData", 'String'>
     readonly reason: FieldRef<"LogData", 'String'>
-    readonly timestamp: FieldRef<"LogData", 'DateTime'>
   }
     
 
@@ -3110,7 +3228,16 @@ export namespace Prisma {
     username: 'username',
     password: 'password',
     role: 'role',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    passwordChangedAt: 'passwordChangedAt',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    address: 'address',
+    birthday: 'birthday',
+    gender: 'gender',
+    language: 'language',
+    email: 'email',
+    phone: 'phone'
   };
 
   export type UserAuthenticationScalarFieldEnum = (typeof UserAuthenticationScalarFieldEnum)[keyof typeof UserAuthenticationScalarFieldEnum]
@@ -3121,11 +3248,11 @@ export namespace Prisma {
     message: 'message',
     port: 'port',
     sourceIP: 'sourceIP',
+    timestamp: 'timestamp',
+    action: 'action',
     destinationIP: 'destinationIP',
     protocol: 'protocol',
-    action: 'action',
-    reason: 'reason',
-    timestamp: 'timestamp'
+    reason: 'reason'
   };
 
   export type LogDataScalarFieldEnum = (typeof LogDataScalarFieldEnum)[keyof typeof LogDataScalarFieldEnum]
@@ -3145,6 +3272,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3234,6 +3369,15 @@ export namespace Prisma {
     password?: StringFilter<"UserAuthentication"> | string
     role?: EnumUserRoleFilter<"UserAuthentication"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"UserAuthentication"> | Date | string
+    passwordChangedAt?: DateTimeNullableFilter<"UserAuthentication"> | Date | string | null
+    firstName?: StringNullableFilter<"UserAuthentication"> | string | null
+    lastName?: StringNullableFilter<"UserAuthentication"> | string | null
+    address?: StringNullableFilter<"UserAuthentication"> | string | null
+    birthday?: DateTimeNullableFilter<"UserAuthentication"> | Date | string | null
+    gender?: StringNullableFilter<"UserAuthentication"> | string | null
+    language?: StringNullableFilter<"UserAuthentication"> | string | null
+    email?: StringNullableFilter<"UserAuthentication"> | string | null
+    phone?: StringNullableFilter<"UserAuthentication"> | string | null
   }
 
   export type UserAuthenticationOrderByWithRelationInput = {
@@ -3242,6 +3386,15 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    passwordChangedAt?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    birthday?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    language?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
   }
 
   export type UserAuthenticationWhereUniqueInput = Prisma.AtLeast<{
@@ -3253,6 +3406,15 @@ export namespace Prisma {
     password?: StringFilter<"UserAuthentication"> | string
     role?: EnumUserRoleFilter<"UserAuthentication"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"UserAuthentication"> | Date | string
+    passwordChangedAt?: DateTimeNullableFilter<"UserAuthentication"> | Date | string | null
+    firstName?: StringNullableFilter<"UserAuthentication"> | string | null
+    lastName?: StringNullableFilter<"UserAuthentication"> | string | null
+    address?: StringNullableFilter<"UserAuthentication"> | string | null
+    birthday?: DateTimeNullableFilter<"UserAuthentication"> | Date | string | null
+    gender?: StringNullableFilter<"UserAuthentication"> | string | null
+    language?: StringNullableFilter<"UserAuthentication"> | string | null
+    email?: StringNullableFilter<"UserAuthentication"> | string | null
+    phone?: StringNullableFilter<"UserAuthentication"> | string | null
   }, "id" | "username">
 
   export type UserAuthenticationOrderByWithAggregationInput = {
@@ -3261,6 +3423,15 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    passwordChangedAt?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    birthday?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    language?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
     _count?: UserAuthenticationCountOrderByAggregateInput
     _avg?: UserAuthenticationAvgOrderByAggregateInput
     _max?: UserAuthenticationMaxOrderByAggregateInput
@@ -3277,6 +3448,15 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"UserAuthentication"> | string
     role?: EnumUserRoleWithAggregatesFilter<"UserAuthentication"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"UserAuthentication"> | Date | string
+    passwordChangedAt?: DateTimeNullableWithAggregatesFilter<"UserAuthentication"> | Date | string | null
+    firstName?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    address?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    birthday?: DateTimeNullableWithAggregatesFilter<"UserAuthentication"> | Date | string | null
+    gender?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    language?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    email?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"UserAuthentication"> | string | null
   }
 
   export type LogDataWhereInput = {
@@ -3287,11 +3467,11 @@ export namespace Prisma {
     message?: StringFilter<"LogData"> | string
     port?: IntFilter<"LogData"> | number
     sourceIP?: StringFilter<"LogData"> | string
+    timestamp?: DateTimeFilter<"LogData"> | Date | string
+    action?: StringFilter<"LogData"> | string
     destinationIP?: StringFilter<"LogData"> | string
     protocol?: StringFilter<"LogData"> | string
-    action?: StringFilter<"LogData"> | string
     reason?: StringFilter<"LogData"> | string
-    timestamp?: DateTimeFilter<"LogData"> | Date | string
   }
 
   export type LogDataOrderByWithRelationInput = {
@@ -3299,11 +3479,11 @@ export namespace Prisma {
     message?: SortOrder
     port?: SortOrder
     sourceIP?: SortOrder
+    timestamp?: SortOrder
+    action?: SortOrder
     destinationIP?: SortOrder
     protocol?: SortOrder
-    action?: SortOrder
     reason?: SortOrder
-    timestamp?: SortOrder
   }
 
   export type LogDataWhereUniqueInput = Prisma.AtLeast<{
@@ -3314,11 +3494,11 @@ export namespace Prisma {
     message?: StringFilter<"LogData"> | string
     port?: IntFilter<"LogData"> | number
     sourceIP?: StringFilter<"LogData"> | string
+    timestamp?: DateTimeFilter<"LogData"> | Date | string
+    action?: StringFilter<"LogData"> | string
     destinationIP?: StringFilter<"LogData"> | string
     protocol?: StringFilter<"LogData"> | string
-    action?: StringFilter<"LogData"> | string
     reason?: StringFilter<"LogData"> | string
-    timestamp?: DateTimeFilter<"LogData"> | Date | string
   }, "id">
 
   export type LogDataOrderByWithAggregationInput = {
@@ -3326,11 +3506,11 @@ export namespace Prisma {
     message?: SortOrder
     port?: SortOrder
     sourceIP?: SortOrder
+    timestamp?: SortOrder
+    action?: SortOrder
     destinationIP?: SortOrder
     protocol?: SortOrder
-    action?: SortOrder
     reason?: SortOrder
-    timestamp?: SortOrder
     _count?: LogDataCountOrderByAggregateInput
     _avg?: LogDataAvgOrderByAggregateInput
     _max?: LogDataMaxOrderByAggregateInput
@@ -3346,11 +3526,11 @@ export namespace Prisma {
     message?: StringWithAggregatesFilter<"LogData"> | string
     port?: IntWithAggregatesFilter<"LogData"> | number
     sourceIP?: StringWithAggregatesFilter<"LogData"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"LogData"> | Date | string
+    action?: StringWithAggregatesFilter<"LogData"> | string
     destinationIP?: StringWithAggregatesFilter<"LogData"> | string
     protocol?: StringWithAggregatesFilter<"LogData"> | string
-    action?: StringWithAggregatesFilter<"LogData"> | string
     reason?: StringWithAggregatesFilter<"LogData"> | string
-    timestamp?: DateTimeWithAggregatesFilter<"LogData"> | Date | string
   }
 
   export type UserAuthenticationCreateInput = {
@@ -3358,6 +3538,15 @@ export namespace Prisma {
     password: string
     role: $Enums.UserRole
     createdAt?: Date | string
+    passwordChangedAt?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    address?: string | null
+    birthday?: Date | string | null
+    gender?: string | null
+    language?: string | null
+    email?: string | null
+    phone?: string | null
   }
 
   export type UserAuthenticationUncheckedCreateInput = {
@@ -3366,6 +3555,15 @@ export namespace Prisma {
     password: string
     role: $Enums.UserRole
     createdAt?: Date | string
+    passwordChangedAt?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    address?: string | null
+    birthday?: Date | string | null
+    gender?: string | null
+    language?: string | null
+    email?: string | null
+    phone?: string | null
   }
 
   export type UserAuthenticationUpdateInput = {
@@ -3373,6 +3571,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserAuthenticationUncheckedUpdateInput = {
@@ -3381,6 +3588,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserAuthenticationCreateManyInput = {
@@ -3389,6 +3605,15 @@ export namespace Prisma {
     password: string
     role: $Enums.UserRole
     createdAt?: Date | string
+    passwordChangedAt?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    address?: string | null
+    birthday?: Date | string | null
+    gender?: string | null
+    language?: string | null
+    email?: string | null
+    phone?: string | null
   }
 
   export type UserAuthenticationUpdateManyMutationInput = {
@@ -3396,6 +3621,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserAuthenticationUncheckedUpdateManyInput = {
@@ -3404,17 +3638,26 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogDataCreateInput = {
     message: string
     port: number
     sourceIP: string
+    timestamp?: Date | string
+    action: string
     destinationIP: string
     protocol: string
-    action: string
     reason: string
-    timestamp?: Date | string
   }
 
   export type LogDataUncheckedCreateInput = {
@@ -3422,22 +3665,22 @@ export namespace Prisma {
     message: string
     port: number
     sourceIP: string
+    timestamp?: Date | string
+    action: string
     destinationIP: string
     protocol: string
-    action: string
     reason: string
-    timestamp?: Date | string
   }
 
   export type LogDataUpdateInput = {
     message?: StringFieldUpdateOperationsInput | string
     port?: IntFieldUpdateOperationsInput | number
     sourceIP?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     destinationIP?: StringFieldUpdateOperationsInput | string
     protocol?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LogDataUncheckedUpdateInput = {
@@ -3445,11 +3688,11 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     port?: IntFieldUpdateOperationsInput | number
     sourceIP?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     destinationIP?: StringFieldUpdateOperationsInput | string
     protocol?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LogDataCreateManyInput = {
@@ -3457,22 +3700,22 @@ export namespace Prisma {
     message: string
     port: number
     sourceIP: string
+    timestamp?: Date | string
+    action: string
     destinationIP: string
     protocol: string
-    action: string
     reason: string
-    timestamp?: Date | string
   }
 
   export type LogDataUpdateManyMutationInput = {
     message?: StringFieldUpdateOperationsInput | string
     port?: IntFieldUpdateOperationsInput | number
     sourceIP?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     destinationIP?: StringFieldUpdateOperationsInput | string
     protocol?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LogDataUncheckedUpdateManyInput = {
@@ -3480,11 +3723,11 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     port?: IntFieldUpdateOperationsInput | number
     sourceIP?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     destinationIP?: StringFieldUpdateOperationsInput | string
     protocol?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3531,12 +3774,52 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type UserAuthenticationCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    passwordChangedAt?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    address?: SortOrder
+    birthday?: SortOrder
+    gender?: SortOrder
+    language?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type UserAuthenticationAvgOrderByAggregateInput = {
@@ -3549,6 +3832,15 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    passwordChangedAt?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    address?: SortOrder
+    birthday?: SortOrder
+    gender?: SortOrder
+    language?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type UserAuthenticationMinOrderByAggregateInput = {
@@ -3557,6 +3849,15 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    passwordChangedAt?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    address?: SortOrder
+    birthday?: SortOrder
+    gender?: SortOrder
+    language?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type UserAuthenticationSumOrderByAggregateInput = {
@@ -3621,16 +3922,48 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type LogDataCountOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
     port?: SortOrder
     sourceIP?: SortOrder
+    timestamp?: SortOrder
+    action?: SortOrder
     destinationIP?: SortOrder
     protocol?: SortOrder
-    action?: SortOrder
     reason?: SortOrder
-    timestamp?: SortOrder
   }
 
   export type LogDataAvgOrderByAggregateInput = {
@@ -3643,11 +3976,11 @@ export namespace Prisma {
     message?: SortOrder
     port?: SortOrder
     sourceIP?: SortOrder
+    timestamp?: SortOrder
+    action?: SortOrder
     destinationIP?: SortOrder
     protocol?: SortOrder
-    action?: SortOrder
     reason?: SortOrder
-    timestamp?: SortOrder
   }
 
   export type LogDataMinOrderByAggregateInput = {
@@ -3655,11 +3988,11 @@ export namespace Prisma {
     message?: SortOrder
     port?: SortOrder
     sourceIP?: SortOrder
+    timestamp?: SortOrder
+    action?: SortOrder
     destinationIP?: SortOrder
     protocol?: SortOrder
-    action?: SortOrder
     reason?: SortOrder
-    timestamp?: SortOrder
   }
 
   export type LogDataSumOrderByAggregateInput = {
@@ -3677,6 +4010,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -3728,6 +4069,31 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -3796,6 +4162,48 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
 

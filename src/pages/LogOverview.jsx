@@ -4,6 +4,8 @@ import FilterButton from '../logOverviewButtons/FilterButton';
 import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../tools/log-generator/config.json';
 import './allPages.css';
+import LogExportButton from '../components/LogExportButton';
+
 
 const PAGE_SIZES = [10, 20, 50, 100];
 
@@ -177,8 +179,8 @@ const LogOverview = () => {
           </button>
           <button className="logOverviewTableButtons">Ansicht ändern</button>
           <button className="logOverviewTableButtons">Daten neuladen</button>
-          <button className="logOverviewTableButtons importExportButton">Import</button>
-          <button className="logOverviewTableButtons importExportButton">Export</button>
+          <LogExportButton />
+
         </div>
       </div>
 

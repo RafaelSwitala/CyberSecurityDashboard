@@ -31,6 +31,7 @@ const Login = ({ onLogin }) => {
       if (response.ok) {
         const { token } = data;
         localStorage.setItem('token', token);
+        console.log('Token gespeichert:', localStorage.getItem('token')); // 🔍 Bonus-Tipp
         const decoded = jwtDecode(token);
 
         console.log('✅ Eingeloggt als:', decoded.username, 'Rolle:', decoded.role);
