@@ -3,7 +3,6 @@
     --darkgrey: #2b2b2b;
     --white: #ffffff;
     --cream: #e6e6dd;
-    --gold: #959350;
     --red: #760606;
     --darkBlue: #0a0524ec;
 }
@@ -19,14 +18,14 @@
 }
 
 .carouselSection {
-    height: 40%;
+    height: 65%;
     width: 100%;
     background-color: var(--cream);
     border-bottom: 2px solid black;
 }
 
 .taskSection {
-    height: 60%;
+    height: 35%;
     width: 100%;
     background-color: var(--cream);
     border-bottom: 2px solid black;
@@ -38,6 +37,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
 }
 
 /* Main Pages: logOverview */
