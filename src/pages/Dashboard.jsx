@@ -7,16 +7,15 @@ import "./allPages.css";
 
 const Dashboard = () => {
   const [protocolData, setProtocolData] = useState([]);
-  const [trendData, setTrendData]       = useState([]);
+  const [trendData, setTrendData] = useState([]);
+  const [newAlerts, setNewAlerts] = useState(false);
 
   useEffect(() => {
     const fetchAndProcessData = () => {
-    fetch("/generated_logs.ndjson")
-      .then(res => res.text())
-      .then(text => text.trim().split("\n").map(JSON.parse))
-      .then(logs => {
-
-
+      fetch("/generated_logs.ndjson")
+        .then(res => res.text())
+        .then(text => text.trim().split("\n").map(JSON.parse))
+        .then(logs => {
           const protoObj = logs.reduce((acc, { protocol }) => {
             acc[protocol] = (acc[protocol] || 0) + 1;
             return acc;
@@ -25,10 +24,7 @@ const Dashboard = () => {
             Object.entries(protoObj).map(([protocol, count]) => ({ protocol, count }))
           );
 
-        const now = new Date();
-        const currentHour = new Date(now);
-        currentHour.setMinutes(0, 0, 0);
-        const trendObj = {};
+          const trendObj = {};
           logs.forEach(({ timestamp, action }) => {
             const logTime = new Date(timestamp);
             const hourBucket = new Date(logTime);
@@ -48,21 +44,39 @@ const Dashboard = () => {
 
           const sorted = Object.values(trendObj)
             .sort((a, b) => a.time.localeCompare(b.time))
-            .filter((_, idx, arr) => idx >= arr.length -7);
+            .filter((_, idx, arr) => idx >= arr.length - 7);
 
           setTrendData(sorted);
         })
         .catch(console.error);
     };
 
+    const checkAlerts = async () => {
+      try {
+        const res = await fetch("http://localhost:9555/api/alerts");
+        const alerts = await res.json();
+        if (alerts.length > 0) {
+          setNewAlerts(true);
+        }
+      } catch (err) {
+        console.error("Fehler beim Laden der Alerts:", err);
+      }
+    };
+
     fetchAndProcessData();
-    const intervalId = setInterval(fetchAndProcessData, 60 * 1000);
+    checkAlerts();
+
+    const intervalId = setInterval(() => {
+      fetchAndProcessData();
+      checkAlerts();
+    }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div className="mainPageContainer">
+    
       <div className="carouselSection">
         <Carousel>
           <Carousel.Item>

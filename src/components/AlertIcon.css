@@ -1,0 +1,32 @@
+.alertIconContainer {
+    position: relative;
+  }
+  
+  .alertIconLink {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .alertIconSymbol {
+    width: 30px;
+    height: 30px;
+    background-image: url('../img/icons/alert.png'); /* passe den Pfad ggf. an */
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .alertText {
+    color: var(--warning);
+    font-weight: bold;
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+  
+  /* ➕ Neu: zum Ausblenden des Texts, wenn keine neuen Alerts */
+  .alertText.hidden {
+    display: none;
+  }
+  

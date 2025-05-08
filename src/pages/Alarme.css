@@ -1,0 +1,20 @@
+.alertBox {
+    border: 2px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #f9f9f9;
+  }
+  
+  .firewallAlert {
+    border-left: 6px solid #dc3545; /* rot */
+  }
+  
+  .windowsAlert {
+    border-left: 6px solid #007bff; /* blau */
+  }
+  
+  .alertHint {
+    margin-bottom: 1.5rem;
+    color: #555;
+  }

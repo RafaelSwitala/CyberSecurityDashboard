@@ -4,17 +4,19 @@ require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
+const { sendMailToAdmin } = require('./mailer');
 
 const app = express();
 const PORT = process.env.PORT || 9555;
 const prisma = new PrismaClient();
 
-// Middleware
 app.use(cors({ origin: 'http://localhost:9000' }));
 app.use(express.json());
 console.log('Server-Setup beginnt...');
 
-// Passwort-Hashing Middleware für Prisma
+// Passwort-Hashing für Prisma
 prisma.$use(async (params, next) => {
   if (params.model === 'UserAuthentication' && ['create', 'update'].includes(params.action)) {
     const { password } = params.args.data;
@@ -25,7 +27,7 @@ prisma.$use(async (params, next) => {
   return next(params);
 });
 
-// Benutzer registrieren (Create)
+// Benutzer registrieren
 app.post('/api/create-user', async (req, res) => {
   const { username, password, role } = req.body;
 
@@ -44,7 +46,7 @@ app.post('/api/create-user', async (req, res) => {
   }
 });
 
-// Benutzer anmelden (Login)
+// Benutzer anmelden
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -85,7 +87,7 @@ app.delete('/api/delete-user/:id', async (req, res) => {
   }
 });
 
-// Alle Benutzer anzeigen (Admin/Test)
+// Alle Benutzer abrufen
 app.get('/api/users', async (req, res) => {
   try {
     const users = await prisma.userAuthentication.findMany();
@@ -96,17 +98,63 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-// Logdaten speichern
-app.post('/api/logs', async (req, res) => {
-  const { message, port, sourceIP } = req.body;
+// POST /api/alerts/review – speichert wer wann bestätigt hat
+app.post('/api/alerts/review', async (req, res) => {
+  const { userId, username } = req.body;
+  if (!userId || !username) {
+    return res.status(400).json({ message: 'Benutzerdaten fehlen' });
+  }
 
-  if (!message || !port || !sourceIP) {
+  try {
+    await prisma.alertReview.create({
+      data: {
+        userId,
+        username,
+      },
+    });
+    res.json({ message: 'Review gespeichert' });
+  } catch (error) {
+    console.error('Fehler beim Speichern der Review:', error);
+    res.status(500).json({ message: 'Fehler beim Speichern der Bestätigung' });
+  }
+});
+
+// GET /api/alerts/review-history – liefert Verlauf für Admins
+app.get('/api/alerts/review-history', async (req, res) => {
+  try {
+    const history = await prisma.alertReview.findMany({
+      orderBy: { reviewedAt: 'desc' }
+    });
+    res.json(history);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der History:', error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der History' });
+  }
+});
+
+// Firewall-Logs speichern
+app.post('/api/logs', async (req, res) => {
+  const { message, port, sourceIP, destinationIP, protocol, action, reason } = req.body;
+
+  if (!message || !port || !sourceIP || !destinationIP || !protocol || !action || !reason) {
     return res.status(400).json({ message: 'Alle Logfelder sind erforderlich.' });
   }
 
   try {
-    const log = await prisma.logData.create({ data: { message, port, sourceIP } });
+    const log = await prisma.logData.create({
+      data: { message, port, sourceIP, destinationIP, protocol, action, reason }
+    });
+
     console.log('📝 Log gespeichert:', log.id);
+
+    if (action === 'blocked') {
+      console.log('🚨 Blocked-Log erkannt, sende E-Mail...');
+      await sendMailToAdmin({
+        message, port, sourceIP, destinationIP, protocol, action, reason,
+        timestamp: new Date().toISOString()
+      });
+    }
+
     res.json(log);
   } catch (error) {
     console.error('Fehler beim Speichern des Logs:', error);
@@ -114,41 +162,129 @@ app.post('/api/logs', async (req, res) => {
   }
 });
 
-// Logs abrufen (z. B. für Alerts im Dashboard)
+// Firewall-Logs abrufen
 app.get('/api/logs', async (req, res) => {
   try {
-    const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
+    const logs = await prisma.logData.findMany({
+      orderBy: { timestamp: 'desc' },
+      take: 20
+    });
     res.json(logs);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Logs:', error);
     res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
   }
 });
 
+// Windows Logs speichern
+app.post('/api/windows-logs', async (req, res) => {
+  const { timestamp, host, user, eventID, level, message } = req.body;
 
-// Erstellen von Attack-Simulator Logs
-const fs = require('fs');
-const path = require('path');
+  if (!timestamp || !host || !user || !eventID || !level || !message) {
+    return res.status(400).json({ message: 'Alle Felder sind erforderlich.' });
+  }
 
+  try {
+    const log = await prisma.windowsLog.create({
+      data: {
+        timestamp: new Date(timestamp),
+        host,
+        user,
+        eventID,
+        level,
+        message
+      }
+    });
+
+    // ✉️ Mail bei kritischen Logs
+    if (eventID === 4625 || level.toLowerCase() === 'error') {
+      console.log('🚨 Kritisches Windows-Log erkannt, sende E-Mail...');
+      await sendMailToAdmin({ timestamp, host, user, eventID, level, message });
+    }
+
+    res.status(201).json(log);
+  } catch (error) {
+    console.error('Fehler beim Speichern des Windows-Logs:', error);
+    res.status(500).json({ message: 'Fehler beim Speichern.' });
+  }
+});
+
+app.get('/api/alerts', async (req, res) => {
+  try {
+    const firewallLogs = await prisma.logData.findMany({
+      where: { action: 'blocked' },
+      orderBy: { timestamp: 'desc' }
+    });
+
+    const windowsLogs = await prisma.windowsLog.findMany({
+      where: {
+        OR: [
+          { level: 'Error' },
+          { eventID: 4625 }
+        ]
+      },
+      orderBy: { timestamp: 'desc' }
+    });
+
+    const allAlerts = [...firewallLogs, ...windowsLogs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    res.json(allAlerts);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Alerts:', error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der kritischen Logs.' });
+  }
+});
+
+// Monatsstatistik
+app.get('/api/attack-stats/monthly', async (req, res) => {
+  try {
+    const result = await prisma.$queryRaw`
+      SELECT TO_CHAR("timestamp", 'Mon YYYY') AS monat, COUNT(*) AS anzahl
+      FROM "LogData"
+      WHERE "action" = 'blocked'
+      GROUP BY monat
+      ORDER BY MIN("timestamp");
+    `;
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Monatsstatistik' });
+  }
+});
+
+// Angriffsarten-Statistik
+app.get('/api/attack-stats/types', async (req, res) => {
+  try {
+    const result = await prisma.$queryRaw`
+      SELECT "reason", COUNT(*) AS anzahl
+      FROM "LogData"
+      WHERE "action" = 'blocked'
+      GROUP BY "reason"
+      ORDER BY anzahl DESC;
+    `;
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Angriffsarten' });
+  }
+});
+
+// Attack Simulator Logs (in Datei)
 app.post('/api/simulated-log', async (req, res) => {
   try {
     const log = req.body;
 
     if (!log.timestamp || !log.source_ip || !log.destination_ip || !log.port || !log.protocol || !log.action || !log.reason) {
-      return res.status(400).json({ message: 'Fehlende erforderliche Felder in den Log-Daten.' });
+      return res.status(400).json({ message: 'Fehlende Felder in Log-Daten.' });
     }
 
     const logDir = path.join(__dirname, '../src/tools');
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
-    }
+    if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
 
     const filePath = path.join(logDir, 'attackLogs.ndjson');
-    const logLine = JSON.stringify(log) + '\n';
+    await fs.promises.appendFile(filePath, JSON.stringify(log) + '\n');
 
-    await fs.promises.appendFile(filePath, logLine);
     console.log(`🛡️  Angriff-Log gespeichert unter: ${filePath}`);
-
     res.status(200).json({ message: 'Angriff erfolgreich gespeichert.' });
   } catch (err) {
     console.error('Fehler beim Schreiben der Log-Datei:', err);
@@ -156,11 +292,41 @@ app.post('/api/simulated-log', async (req, res) => {
   }
 });
 
+// GET /api/alerts/unreviewed/:userId – prüft, ob es neue Alerts seit der letzten Bestätigung gibt
+app.get('/api/alerts/unreviewed/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId);
 
+  try {
+    const lastReview = await prisma.alertReview.findFirst({
+      where: { userId },
+      orderBy: { reviewedAt: 'desc' },
+    });
 
+    const lastReviewTime = lastReview?.reviewedAt || new Date(0);
 
+    const newFirewallLogs = await prisma.logData.findFirst({
+      where: {
+        action: 'blocked',
+        timestamp: { gt: lastReviewTime }
+      }
+    });
 
-// Prisma Disconnect beim Beenden
+    const newWindowsLogs = await prisma.windowsLog.findFirst({
+      where: {
+        OR: [{ level: 'Error' }, { eventID: 4625 }],
+        timestamp: { gt: lastReviewTime }
+      }
+    });
+
+    const hasNewAlerts = !!newFirewallLogs || !!newWindowsLogs;
+    res.json({ hasNewAlerts });
+  } catch (error) {
+    console.error('Fehler bei Alert-Check:', error);
+    res.status(500).json({ message: 'Fehler beim Prüfen neuer Alerts' });
+  }
+});
+
+// Prisma sauber beenden
 process.on('SIGINT', async () => {
   await prisma.$disconnect();
   process.exit();
@@ -168,5 +334,5 @@ process.on('SIGINT', async () => {
 
 // Server starten
 app.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
+  console.log(`✅ Server läuft auf http://localhost:${PORT}`);
 });

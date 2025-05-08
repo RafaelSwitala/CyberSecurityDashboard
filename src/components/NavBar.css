@@ -23,6 +23,41 @@
   background-position: center;
 }
 
+.alerts {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.alertLink {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alertNotice {
+  color: var(--warning);
+  font-weight: bold;
+  background-color: #fff8dc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.alertLink:hover {
+  text-decoration: underline;
+}
+
+.alertNotice {
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .userMenu {
   position: relative;
   cursor: pointer;
@@ -30,7 +65,7 @@
   padding: 10px;
   font-weight: bold;
   display: flex;
-  align-items: center; 
+  align-items: center;
   gap: 10px;
 }
 
@@ -61,7 +96,7 @@
 .userNameField {
   width: 30px;
   height: 30px;
-  background-image: url('../img//icons/user.png');
+  background-image: url('../img/icons/user.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
