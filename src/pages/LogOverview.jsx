@@ -19,13 +19,17 @@ const LogOverview = () => {
   const [timeFilter, setTimeFilter] = useState('ALL');
   const [pageSize, setPageSize]   = useState(PAGE_SIZES[0]);
   const [currentPage, setCurrent] = useState(1);
+  const [logView, setLogView] = useState('ALL');
+
 
   const DATA_SOURCE = 'file'; // 'file' oder 'api'
 
   useEffect(() => {
     const loadLogs = async () => {
       try {
-        if (DATA_SOURCE === 'file') {
+        const allLogs = [];
+  
+        if (logView === 'ALL' || logView === 'LOG_GENERATOR') {
           const res = await fetch('/generated_logs.ndjson');
           const text = await res.text();
           const parsed = text.trim().split('\n').map(JSON.parse).map(obj => ({
@@ -33,19 +37,31 @@ const LogOverview = () => {
             sourceIP: obj.source_ip,
             destinationIP: obj.destination_ip,
           }));
-          setLogs(parsed);
-        } else if (DATA_SOURCE === 'api') {
-          const res = await fetch('http://localhost:9555/api/logs');
-          const data = await res.json();
-          setLogs(data);
+          allLogs.push(...parsed);
         }
+  
+        if (logView === 'ALL' || logView === 'ATTACK_LOGS') {
+          const res = await fetch('/tools/attackLogs.ndjson');
+          const text = await res.text();
+          const parsed = text.trim().split('\n').map(JSON.parse).map(obj => ({
+            ...obj,
+            sourceIP: obj.source_ip,
+            destinationIP: obj.destination_ip,
+          }));
+          allLogs.push(...parsed);
+        }
+  
+        allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        setLogs(allLogs);
+  
       } catch (err) {
         console.error('Fehler beim Laden der Logs:', err);
       }
     };
   
     loadLogs();
-  }, []);
+  }, [logView]);
+  
   
 
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
@@ -175,7 +191,16 @@ const LogOverview = () => {
           <button className="logOverviewTableButtons" onClick={resetFilters}>
             Filter zurücksetzen
           </button>
-          <button className="logOverviewTableButtons">Ansicht ändern</button>
+          <select
+            className="logOverviewTableButtons"
+            value={logView}
+            onChange={e => setLogView(e.target.value)}
+          >
+            <option value="ALL">Alle</option>
+            <option value="LOG_GENERATOR">Log-Generator</option>
+            <option value="ATTACK_LOGS">Attack-Logs</option>
+          </select>
+
           <button className="logOverviewTableButtons">Daten neuladen</button>
           <button className="logOverviewTableButtons importExportButton">Import</button>
           <button className="logOverviewTableButtons importExportButton">Export</button>
