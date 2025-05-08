@@ -36,10 +36,11 @@ const LogOverview = () => {
             ...obj,
             sourceIP: obj.source_ip,
             destinationIP: obj.destination_ip,
+            system: 'Log-Generator',
           }));
           allLogs.push(...parsed);
         }
-  
+        
         if (logView === 'ALL' || logView === 'ATTACK_LOGS') {
           const res = await fetch('/tools/attackLogs.ndjson');
           const text = await res.text();
@@ -47,9 +48,11 @@ const LogOverview = () => {
             ...obj,
             sourceIP: obj.source_ip,
             destinationIP: obj.destination_ip,
+            system: 'AttackLogs',
           }));
           allLogs.push(...parsed);
         }
+        
   
         allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setLogs(allLogs);
@@ -182,6 +185,15 @@ const LogOverview = () => {
     <div className="mainPageContainer">
       <div className="logOverviewTableButtonField">
         <div className="logOverviewTableButtonsContainer">
+          <select
+            className="logOverviewTableButtons"
+            value={logView}
+            onChange={e => setLogView(e.target.value)}
+          >
+            <option value="ALL">Alle Systeme</option>
+            <option value="LOG_GENERATOR">Log-Generator</option>
+            <option value="ATTACK_LOGS">Attack-Logs</option>
+          </select>
           <button className="logOverviewTableButtons" onClick={toggleFilters}>
             Filtern nach...
           </button>
@@ -189,20 +201,10 @@ const LogOverview = () => {
             Letzte...
           </button>
           <button className="logOverviewTableButtons" onClick={resetFilters}>
-            Filter zurücksetzen
+            Filter zurücksetzen
           </button>
-          <select
-            className="logOverviewTableButtons"
-            value={logView}
-            onChange={e => setLogView(e.target.value)}
-          >
-            <option value="ALL">Alle</option>
-            <option value="LOG_GENERATOR">Log-Generator</option>
-            <option value="ATTACK_LOGS">Attack-Logs</option>
-          </select>
 
-          <button className="logOverviewTableButtons">Daten neuladen</button>
-          <button className="logOverviewTableButtons importExportButton">Import</button>
+
           <button className="logOverviewTableButtons importExportButton">Export</button>
         </div>
       </div>
@@ -234,8 +236,9 @@ const LogOverview = () => {
             <thead>
               <tr>
                 <th>Timestamp</th>
-                <th>Source IP</th>
-                <th>Destination IP</th>
+                <th>System</th>
+                <th>Source IP</th>
+                <th>Destination IP</th>
                 <th>Port</th>
                 <th>Protocol</th>
                 <th>Action</th>
@@ -246,6 +249,7 @@ const LogOverview = () => {
               {pagedLogs.map((log, index) => (
                 <tr key={index}>
                   <td>{log.timestamp}</td>
+                  <td>{log.system}</td>
                   <td>{log.sourceIP}</td>
                   <td>{log.destinationIP}</td>
                   <td>{log.port}</td>

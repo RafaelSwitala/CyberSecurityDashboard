@@ -42,14 +42,13 @@
 
 /* Main Pages: logOverview */
 .logOverviewTableButtons {
-    width: 16.666%;
+    width: 20%;
     height: 50px;
 }
 
 .importExportButton {
     background-color: var(--red);
     color: var(--cream);
-    width: 8.333%;
 }
 
 .filterDropdowns {
