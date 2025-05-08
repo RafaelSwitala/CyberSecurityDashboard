@@ -1,100 +1,162 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import "./allPages.css";
 
-const mockTasks = [
-  {
-    task: "Log-Generator",
-    status: "In Progress",
-    progress: 65,
-    reports: 2,
-    lastScan: "2025-05-06 14:32",
-    target: "192.168.0.1",
-  },
-  {
-    task: "Windows-Logs",
-    status: "Completed",
-    progress: 100,
-    reports: 5,
-    lastScan: "2025-05-05 18:22",
-    target: "10.0.0.5",
-  },
-  {
-    task: "Attacks",
-    status: "Pending",
-    progress: 0,
-    reports: 0,
-    lastScan: "-",
-    target: "192.168.1.200",
-  },
-];
+const formatDate = (isoString) => {
+  const date = new Date(isoString);
+  return date.toLocaleString("de-DE", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 const TaskOverview = () => {
+  const [logGenStats, setLogGenStats] = useState({
+    lastAttack: "-",
+    lastSync: "-",
+    logCount: 0,
+    attackCount: 0,
+  });
+
+  const [attackStats, setAttackStats] = useState({
+    lastAttack: "-",
+    lastSync: "-",
+    logCount: 0,
+    attackCount: 0,
+  });
+
+  const [windowsStats, setWindowsStats] = useState({
+    lastAttack: "-",
+    lastSync: "-",
+    logCount: 0,
+    attackCount: 0,
+  });
+
+  useEffect(() => {
+    const fetchLogGeneratorData = async () => {
+      try {
+        const res = await fetch("/generated_logs.ndjson");
+        const text = await res.text();
+        const lines = text.trim().split("\n");
+        const logs = lines.map(line => JSON.parse(line));
+
+        const logCount = logs.length;
+        const attackLogs = logs.filter(log => log.action === "blocked");
+        const attackCount = attackLogs.length;
+
+        const lastAttack = attackLogs.length > 0
+          ? formatDate(attackLogs[attackLogs.length - 1].timestamp)
+          : "-";
+
+        const lastSync = logs.length > 0
+          ? formatDate(logs[logs.length - 1].timestamp)
+          : "-";
+
+        setLogGenStats({ lastAttack, lastSync, logCount, attackCount });
+      } catch (error) {
+        console.error("Fehler beim Laden der generated_logs.ndjson:", error);
+      }
+    };
+
+    const fetchAttackData = async () => {
+      try {
+        const res = await fetch("/tools/attackLogs.ndjson");
+        const text = await res.text();
+        const lines = text.trim().split("\n");
+        const logs = lines.map(line => JSON.parse(line));
+
+        const logCount = logs.length;
+        const lastTimestamp = logs[logCount - 1]?.timestamp || "-";
+
+        setAttackStats({
+          lastAttack: formatDate(lastTimestamp),
+          lastSync: formatDate(lastTimestamp),
+          logCount,
+          attackCount: logCount,
+        });
+      } catch (error) {
+        console.error("Fehler beim Laden der attackLogs.ndjson:", error);
+      }
+    };
+
+    const fetchWindowsData = async () => {
+      try {
+        const res = await fetch("/windows-logs.ndjson");
+        const text = await res.text();
+        const lines = text.trim().split("\n");
+        const logs = lines.map(line => JSON.parse(line));
+
+        const logCount = logs.length;
+        const attackLogs = logs.filter(log => log.level === "error" || log.level === "critical");
+        const attackCount = attackLogs.length;
+
+        const lastAttack = attackLogs.length > 0
+          ? formatDate(attackLogs[attackLogs.length - 1].timestamp)
+          : "-";
+
+        const lastSync = logs.length > 0
+          ? formatDate(logs[logs.length - 1].timestamp)
+          : "-";
+
+        setWindowsStats({ lastAttack, lastSync, logCount, attackCount });
+      } catch (error) {
+        console.error("Fehler beim Laden der Windows-Logs:", error);
+      }
+    };
+
+    fetchLogGeneratorData();
+    fetchAttackData();
+    fetchWindowsData();
+  }, []);
+
   return (
     <div className="task-overview">
       <h3>Task Übersicht</h3>
-      <table>
+      <Table className="logOverviewTable" striped bordered hover>
         <thead>
           <tr>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Progress</th>
-            <th>Reports</th>
-            <th>Last Scan</th>
-            <th>Target</th>
+            <th>System</th>
+            <th>Last Attack (TimeStamp)</th>
+            <th>Last Sync (TimeStamp)</th>
+            <th>Anzahl Logs</th>
+            <th>Anzahl Attacken</th>
+            <th>Checked? (boolean)</th>
+            <th>Last Checked</th>
           </tr>
         </thead>
         <tbody>
-          {mockTasks.map((t, i) => (
-            <tr key={i}>
-              <td>{t.task}</td>
-              <td>{t.status}</td>
-              <td>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${t.progress}%` }}
-                  />
-                </div>
-              </td>
-              <td>{t.reports}</td>
-              <td>{t.lastScan}</td>
-              <td>{t.target}</td>
-            </tr>
-          ))}
+          <tr>
+            <td><strong>Log-Generator</strong></td>
+            <td>{logGenStats.lastAttack}</td>
+            <td>{logGenStats.lastSync}</td>
+            <td>{logGenStats.logCount}</td>
+            <td>{logGenStats.attackCount}</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><strong>Windows-Logs</strong></td>
+            <td>{windowsStats.lastAttack}</td>
+            <td>{windowsStats.lastSync}</td>
+            <td>{windowsStats.logCount}</td>
+            <td>{windowsStats.attackCount}</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><strong>Attacks</strong></td>
+            <td>{attackStats.lastAttack}</td>
+            <td>{attackStats.lastSync}</td>
+            <td>{attackStats.logCount}</td>
+            <td>{attackStats.attackCount}</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
         </tbody>
-      </table>
-
-
-      <Table className="logOverviewTable" striped bordered hover>
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Status</th>
-                <th>Progress</th>
-                <th>Reports</th>
-                <th>Last Scan</th>
-                <th>Target</th>
-
-              </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                  <td>abcd</td>
-                  <td>abcd</td>
-                  <td>abcd</td>
-                  <td>abcd</td>
-                  <td>abcd</td>
-                  <td>abcd</td>
-
-                </tr>
-              
-            </tbody>
-
-          </Table>
-
-
+      </Table>
     </div>
   );
 };

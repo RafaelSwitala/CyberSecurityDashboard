@@ -25,8 +25,7 @@
 }
 
 .footer a {
-    color: #58a6ff;
-    text-decoration: none;
+    color: var(--cream);
 }
 
 .footer a:hover {

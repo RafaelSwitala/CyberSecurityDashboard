@@ -2,11 +2,11 @@ import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import "./charts.css";
 
-const ProtocolChart = ({ data }) => (
+const ReasonChartFirewall = ({ data }) => (
   <ResponsiveContainer width="100%" height={250}>
     <BarChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="protocol" />
+      <XAxis dataKey="reason" />
       <YAxis allowDecimals={false} />
       <Tooltip />
       <Bar dataKey="count" />
@@ -14,4 +14,4 @@ const ProtocolChart = ({ data }) => (
   </ResponsiveContainer>
 );
 
-export default ProtocolChart;
+export default ReasonChartFirewall;

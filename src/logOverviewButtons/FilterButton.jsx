@@ -21,17 +21,21 @@ const FilterButton = ({
   filterPort,
   filterProtocol,
   filterAction,
+  filterReason, 
   handleSourceIPChange,
   handleDestinationIPChange,
   handlePortChange,
   handleProtocolChange,
   handleActionChange,
+  handleReasonChange,
   sourceIpOptions,
   destinationIpOptions,
   portOptions,
   protocolOptions,
   actionOptions,
+  reasonOptions,
 }) => (
+
   <div>
     {showFilters && (
       <div className="filterDropdowns">
@@ -65,6 +69,13 @@ const FilterButton = ({
           onChange={handleActionChange}
           options={actionOptions}
         />
+        <Select
+          label="Grund"
+          value={filterReason}
+          onChange={handleReasonChange}
+          options={reasonOptions}
+        />
+
       </div>
     )}
   </div>

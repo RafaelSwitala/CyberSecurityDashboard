@@ -1,7 +1,7 @@
 {
   "SEND_TO_API": true,
   "API_URL": "http://localhost:9555/api/logs",
-  "INTERVAL_MS": 3000,
+  "INTERVAL_MS": 30,
   "ATTACK_CHANCE": 0.3,
   "protocols": ["TCP", "UDP", "HTTP", "HTTPS"],
   "reasons": [

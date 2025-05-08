@@ -33,13 +33,18 @@ const Login = ({ onLogin }) => {
         localStorage.setItem('token', token);
         const decoded = jwtDecode(token);
 
-        console.log('✅ Eingeloggt als:', decoded.username, 'Rolle:', decoded.role);
+        console.log('Eingeloggt als:', decoded.username, 'Rolle:', decoded.role);
+
+        sessionStorage.setItem('username', decoded.username);
+        sessionStorage.setItem('role', decoded.role);
+        
         onLogin(token);
+        
       } else {
         setErrorMessage(data.message || 'Login fehlgeschlagen');
       }
     } catch (error) {
-      console.error('❌ Login-Fehler:', error);
+      console.error('Login-Fehler:', error);
       alert('Serverfehler beim Login');
     }
   };

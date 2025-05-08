@@ -46,25 +46,22 @@ Admin-User:
 <!-- 5.	Als Admin möchte ich alle importierten Logs einsehen, durchsuchen und filtern können, um verdächtige Aktivitäten zu analysieren. -->
 
 Analyst-User:
-6.	Als Analyst möchte ich die wichtigsten Kennzahlen auf einen Blick sehen (z. B. Angriffe pro Tag), um den Sicherheitsstatus einzuschätzen.
+<!-- 6.	Als Analyst möchte ich die wichtigsten Kennzahlen auf einen Blick sehen (z. B. Angriffe pro Tag), um den Sicherheitsstatus einzuschätzen. -->
 <!-- 7.	Als Analyst möchte ich Visualisierungen zu Angriffstypen und Zeitverläufen sehen, um Muster zu erkennen. -->
-8.	Als Analyst möchte ich einzelne Logs aufklappen können, um Details wie Quell-IP, Port und Angriffstyp zu prüfen.
+8.	Als Analyst möchte ich einzelne Logs aufklappen können, um Details wie Quell-IP, Port und Angriffstyp zu prüfen. ???
 9.	Als Analyst möchte ich Logs exportieren können, um sie in anderen Tools weiterzuverarbeiten.
 
 System:
 <!-- 10. Als System möchte ich neue Logs automatisch verarbeiten und abspeichern, um jederzeit aktuelle Daten bereitzustellen. -->
 11.	 Als System möchte ich automatisch Alerts auslösen, wenn ein kritischer Angriff erkannt wird, um Benutzer zu informieren.
-12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten.
+<!-- 12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten. -->
 
 
 Weitere ToDo´s:
 Oben sollen Diagramme/Angriffsbenachrichtigungen rein
-Unten sollen Tasks rein
 
-Mehrere Geräte hinzufügen: Aktuell ist nur einer da (3. Sprint)
+WindowsLogs Implementieren
 AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
-
-Performance Optimierung
 
 Alle Komponenten erstellen --> Ziel: Keine funktionslose Buttons mehr
 

@@ -1,0 +1,15 @@
+{
+  "firstName": "Admin",
+  "lastName": "ministrator",
+  "address": "",
+  "birthday": "",
+  "gender": "",
+  "language": "",
+  "username": "",
+  "email": "",
+  "phone": "",
+  "currentPassword": "",
+  "newPassword": "",
+  "Userrolle": "ADMIN",
+  "Username": "Administrator"
+}

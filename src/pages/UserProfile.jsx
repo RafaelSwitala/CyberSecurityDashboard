@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './allPages.css';
 
 const UserProfile = () => {
@@ -14,28 +14,61 @@ const UserProfile = () => {
     phone: '',
     currentPassword: '',
     newPassword: '',
+    Userrolle: ''
   });
+  const [isEditable, setIsEditable] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const username = sessionStorage.getItem("username");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`http://localhost:9555/api/user-profile/${username}`);
+        if (!response.ok) {
+          throw new Error(`Fehler beim Laden des Profils: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setFormData(prev => ({ ...prev, ...data }));
+      } catch (err) {
+        console.error("Fehler beim Laden des Profils:", err);
+        setError("Profil konnte nicht geladen werden.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (username) fetchUserData();
+  }, [username]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    console.log("Gespeicherte Daten:", formData);
-    alert("Profil gespeichert!");
-  };
+  const handleSave = async () => {
+    try {
+      const response = await fetch(`http://localhost:9555/api/user-profile/${username}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-  const handleDeleteAccount = () => {
-    const confirmed = window.confirm("Willst du dein Konto wirklich löschen?");
-    if (confirmed) {
-      console.log("Konto gelöscht");
-      alert("Konto gelöscht");
+      if (!response.ok) {
+        throw new Error("Fehler beim Speichern des Profils");
+      }
+
+      alert("Profil erfolgreich gespeichert.");
+      setIsEditable(false);
+    } catch (error) {
+      console.error("Fehler beim Speichern:", error);
+      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
     }
   };
+
+  if (loading) return <div>Lade Benutzerdaten...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="mainPageContainer mainPageContainerUserProfile">
@@ -45,19 +78,19 @@ const UserProfile = () => {
           <h3>Persönliche Daten</h3>
 
           <label>Vorname:</label>
-          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} disabled={!isEditable} />
 
           <label>Nachname:</label>
-          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} disabled={!isEditable} />
 
           <label>Adresse:</label>
-          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+          <input type="text" name="address" value={formData.address} onChange={handleChange} disabled={!isEditable} />
 
           <label>Geburtstag:</label>
-          <input type="date" name="birthday" value={formData.birthday} onChange={handleChange} />
+          <input type="date" name="birthday" value={formData.birthday} onChange={handleChange} disabled={!isEditable} />
 
           <label>Geschlecht:</label>
-          <select name="gender" value={formData.gender} onChange={handleChange}>
+          <select name="gender" value={formData.gender} onChange={handleChange} disabled={!isEditable}>
             <option value="">Bitte wählen</option>
             <option value="male">Männlich</option>
             <option value="female">Weiblich</option>
@@ -65,7 +98,7 @@ const UserProfile = () => {
           </select>
 
           <label>Sprache:</label>
-          <select name="language" value={formData.language} onChange={handleChange}>
+          <select name="language" value={formData.language} onChange={handleChange} disabled={!isEditable}>
             <option value="">Bitte wählen</option>
             <option value="de">Deutsch</option>
             <option value="en">Englisch</option>
@@ -77,24 +110,19 @@ const UserProfile = () => {
           <h3>Kontodaten</h3>
 
           <label>Benutzername:</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          <input type="text" name="username" value={formData.username} disabled />
+
+          <label>Rolle:</label>
+          <input type="text" name="Userrolle" value={formData.Userrolle} disabled />
 
           <label>E-Mail-Adresse:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} disabled={!isEditable} />
 
           <label>Telefonnummer:</label>
-          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
+          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} disabled={!isEditable} />
 
-          <label>Aktuelles Passwort:</label>
-          <input type="password" name="currentPassword" value={formData.currentPassword} onChange={handleChange} />
-
-          <label>Neues Passwort:</label>
-          <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
-
-          <button onClick={handleSave}>Änderungen speichern</button>
-          <button onClick={handleDeleteAccount} className="deleteBtn">
-            Konto löschen
-          </button>
+          {!isEditable && <button onClick={() => setIsEditable(true)}>Bearbeiten</button>}
+          {isEditable && <button onClick={handleSave}>Änderungen speichern</button>}
         </div>
       </div>
     </div>
