@@ -13,7 +13,6 @@ import AttackSimulator from './tools/AttackSimulator';
 import Alarme from './pages/Alarme';
 import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
-import Alarme from './pages/Alarme';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -23,7 +22,6 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [username, setUsername] = useState('');
-  const [userId, setUserId] = useState(null); // ✅ HINZUGEFÜGT
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -34,7 +32,6 @@ const App = () => {
           setIsAuthenticated(true);
           setUserRole(decoded.role);
           setUsername(decoded.username);
-          setUserId(decoded.id); // ✅ KORREKT VERWENDET
         } else {
           localStorage.removeItem('token');
         }
@@ -50,15 +47,14 @@ const App = () => {
     setIsAuthenticated(true);
     setUsername(decoded.username);
     setUserRole(decoded.role);
-    setUserId(decoded.id); // ✅ HINZUGEFÜGT
   };
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setUserRole(null);
     setUsername('');
-    setUserId(null); // ✅ Optional: zurücksetzen
   };
 
   if (!isAuthenticated) {
@@ -67,7 +63,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <NavBar username={username} userId={userId} onLogout={handleLogout} />
+      <NavBar username={username} onLogout={handleLogout} />
       <div className="mainPage">
         <NavAccordion />
         <Routes>
@@ -78,8 +74,8 @@ const App = () => {
           {userRole === 'ADMIN' && (
             <Route path="/Benutzerverwaltung" element={<Benutzer />} />
           )}
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/alarme" element={<Alarme />} />
+            <Route path="/alarme" element={<Alarme />} />
+            <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </div>
       <Footer />
