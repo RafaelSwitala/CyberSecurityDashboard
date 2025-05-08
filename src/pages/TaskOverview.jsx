@@ -110,7 +110,7 @@ const TaskOverview = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Log-Generator</td>
+            <td><strong>Log-Generator</strong></td>
             <td>{logGenStats.lastAttack}</td>
             <td>{logGenStats.lastSync}</td>
             <td>{logGenStats.logCount}</td>
@@ -118,8 +118,9 @@ const TaskOverview = () => {
             <td>-</td>
             <td>-</td>
           </tr>
+
           <tr>
-            <td>Windows-Logs</td>
+            <td><strong>Windows-Logs</strong></td>
             <td>abcd</td>
             <td>abcd</td>
             <td>abcd</td>
@@ -128,7 +129,7 @@ const TaskOverview = () => {
             <td>-</td>
           </tr>
           <tr>
-            <td>Attacks</td>
+            <td><strong>Attacks</strong></td>
             <td>{attackStats.lastAttack}</td>
             <td>{attackStats.lastSync}</td>
             <td>{attackStats.logCount}</td>

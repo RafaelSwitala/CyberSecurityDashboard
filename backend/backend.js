@@ -162,19 +162,73 @@ app.post('/api/logs', async (req, res) => {
   }
 });
 
-// Logs abrufen (z. B. für Alerts im Dashboard)
+
+
+// Alarm bei Angriff:
 app.get('/api/logs', async (req, res) => {
   try {
-    const logs = await prisma.logData.findMany({ orderBy: { timestamp: 'desc' }, take: 20 });
-    res.json(logs);
+    const filePath = path.join(__dirname, 'public', 'tools', 'attackLogs.ndjson');
+
+    if (!fs.existsSync(filePath)) {
+      return res.json({ logs: [], alerts: [] });
+    }
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const logLines = fileContent.trim().split('\n');
+    const logs = logLines.map(line => JSON.parse(line));
+
+    console.log("Alle Logs:", logs); 
+
+    const bruteForceLogs = logs.filter(log => log.reason?.includes("Brute Force"));
+    console.log("Gefilterte Brute-Force-Logs:", bruteForceLogs); 
+
+    const alertClusters = [];
+    let cluster = [];
+
+    const sortedLogs = bruteForceLogs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    console.log("Sortierte Brute-Force-Logs:", sortedLogs);
+
+    for (let i = 0; i < sortedLogs.length; i++) {
+      cluster.push(sortedLogs[i]);
+
+      const windowStart = new Date(cluster[0].timestamp).getTime();
+      const windowEnd = new Date(sortedLogs[i].timestamp).getTime();
+      console.log(`Window Start: ${windowStart}, Window End: ${windowEnd}`);
+
+      if (windowEnd - windowStart > 10000 || i === sortedLogs.length - 1) {
+        if (cluster.length >= 10) {
+          alertClusters.push({
+            reason: 'Brute Force Login',
+            count: cluster.length,
+            time: new Date(cluster[0].timestamp).toLocaleString(),
+          });
+        }
+        cluster = [sortedLogs[i]];
+      }
+    }
+
+    console.log("Gefundene Alerts:", alertClusters);
+    res.json({
+      logs,
+      alerts: alertClusters,
+    });
   } catch (err) {
-    console.error(err);
+    console.error('Fehler beim Verarbeiten der Logs:', err);
     res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
   }
 });
 
 
+
 // Erstellen von Attack-Simulator Logs
+const logDir = path.join(__dirname, '../public/tools');
+const filePath = path.join(logDir, 'attackLogs.ndjson');
+
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir, { recursive: true });
+}
+
+const logStream = fs.createWriteStream(filePath, { flags: 'a' });
 
 app.post('/api/simulated-log', async (req, res) => {
   try {
@@ -184,17 +238,10 @@ app.post('/api/simulated-log', async (req, res) => {
       return res.status(400).json({ message: 'Fehlende erforderliche Felder in den Log-Daten.' });
     }
 
-    const logDir = path.join(__dirname, '../public/tools');
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
-    }
-
-    const filePath = path.join(logDir, 'attackLogs.ndjson');
     const logLine = JSON.stringify(log) + '\n';
-
     await fs.promises.appendFile(filePath, logLine);
-    console.log(`🛡️  Angriff-Log gespeichert unter: ${filePath}`);
 
+    console.log('Angriff empfangen:', log.reason);
     res.status(200).json({ message: 'Angriff erfolgreich gespeichert.' });
   } catch (err) {
     console.error('Fehler beim Schreiben der Log-Datei:', err);

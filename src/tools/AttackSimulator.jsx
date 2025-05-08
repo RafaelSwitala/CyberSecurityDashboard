@@ -16,6 +16,7 @@ const AttackSimulator = () => {
   });
 
   const sendLog = async (log) => {
+    console.log("Sende Log:", log);
     try {
       await fetch(API_URL, {
         method: "POST",
@@ -26,17 +27,17 @@ const AttackSimulator = () => {
       console.error("Fehler beim Senden des Logs:", err);
     }
   };
-
+  
   const simulate = async (reason) => {
     const log = generateLog(reason);
     await sendLog(log);
     alert(`Angriff gesendet: ${reason}`);
   };
 
-  const simulateAttackBurst = (reason, count = 5, duration = 10000) => {
+  const simulateAttackBurst = (reason, count = 10, duration = 6000) => {
     const interval = duration / count;
     let sent = 0;
-
+  
     const sendNext = () => {
       if (sent < count) {
         sendLog(generateLog(reason));
@@ -44,20 +45,21 @@ const AttackSimulator = () => {
         setTimeout(sendNext, interval);
       }
     };
-
+  
     sendNext();
   };
+  
 
   const simulateBruteForce = () => {
-    const attempts = 10;
-    const interval = 300;
+    const attempts = 5;
+    const interval = 2000; // 20 Sekunden / 5 Logs
     let count = 0;
-
+  
     const attack_id = `brute-${Date.now()}`;
-
+  
     const tryLogin = () => {
       if (count >= attempts) return;
-
+  
       const log = {
         timestamp: new Date().toISOString(),
         source_ip: `192.168.1.50`,
@@ -68,19 +70,20 @@ const AttackSimulator = () => {
         reason: 'Brute Force Login',
         attack_id
       };
-
+  
       sendLog(log);
       count++;
       setTimeout(tryLogin, interval);
     };
-
+  
     tryLogin();
   };
+  
 
   const simulatePortScanBurst = () => {
-    const ports = [21, 22, 23, 80, 443, 445, 3389, 8080];
+    const ports = [21, 22, 23, 80, 443, 445, 3389, 8080, 3306, 25]; // 10 Ports
     const attack_id = `portscan-${Date.now()}`;
-
+  
     ports.forEach((port, index) => {
       setTimeout(() => {
         const log = {
@@ -94,16 +97,17 @@ const AttackSimulator = () => {
           attack_id
         };
         sendLog(log);
-      }, index * 300);
+      }, index * 600); // 10 Logs in 6 Sekunden
     });
   };
+  
 
   const simulateMalwareBeacon = () => {
-    const beaconCount = 5;
-    const interval = 2000;
+    const beaconCount = 10;
+    const interval = 600;
     const attack_id = `malware-${Date.now()}`;
     let sent = 0;
-
+  
     const beacon = () => {
       if (sent >= beaconCount) return;
       const log = {
@@ -120,9 +124,10 @@ const AttackSimulator = () => {
       sent++;
       setTimeout(beacon, interval);
     };
-
+  
     beacon();
   };
+  
 
   const simulateRandom = () => {
     const reasons = ["SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"];
