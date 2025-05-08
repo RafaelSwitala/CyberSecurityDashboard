@@ -1,0 +1,10 @@
+{"timestamp":"2025-05-08T19:14:42.627Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731682627"}
+{"timestamp":"2025-05-08T19:14:44.605Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731684605"}
+{"timestamp":"2025-05-08T19:14:44.635Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731682627"}
+{"timestamp":"2025-05-08T19:14:46.611Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731684605"}
+{"timestamp":"2025-05-08T19:14:46.644Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731682627"}
+{"timestamp":"2025-05-08T19:14:48.627Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731684605"}
+{"timestamp":"2025-05-08T19:14:48.665Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731682627"}
+{"timestamp":"2025-05-08T19:14:50.643Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731684605"}
+{"timestamp":"2025-05-08T19:14:50.691Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731682627"}
+{"timestamp":"2025-05-08T19:14:52.648Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746731684605"}

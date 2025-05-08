@@ -332,29 +332,6 @@ app.get('/api/attack-stats/types', async (req, res) => {
   }
 });
 
-// Attack Simulator Logs (in Datei)
-app.post('/api/simulated-log', async (req, res) => {
-  try {
-    const log = req.body;
-
-    if (!log.timestamp || !log.source_ip || !log.destination_ip || !log.port || !log.protocol || !log.action || !log.reason) {
-      return res.status(400).json({ message: 'Fehlende Felder in Log-Daten.' });
-    }
-
-    const logDir = path.join(__dirname, '../src/tools');
-    if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
-
-    const filePath = path.join(logDir, 'attackLogs.ndjson');
-    await fs.promises.appendFile(filePath, JSON.stringify(log) + '\n');
-
-    console.log(`🛡️  Angriff-Log gespeichert unter: ${filePath}`);
-    res.status(200).json({ message: 'Angriff erfolgreich gespeichert.' });
-  } catch (err) {
-    console.error('Fehler beim Schreiben der Log-Datei:', err);
-    res.status(500).json({ message: 'Fehler beim Schreiben der Datei.' });
-  }
-});
-
 // GET /api/alerts/unreviewed/:userId – prüft, ob es neue Alerts seit der letzten Bestätigung gibt
 app.get('/api/alerts/unreviewed/:userId', async (req, res) => {
   const userId = parseInt(req.params.userId);
