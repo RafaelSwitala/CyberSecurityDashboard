@@ -59,8 +59,10 @@ export default function LogExportButton() {
       a.href = urlBlob;
       a.download = 'logs.json';
       a.click();
+
+      alert('✅ Export abgeschlossen');
     } catch (err) {
-      alert('Fehler beim Herunterladen: ' + err.message);
+      alert('❌ Fehler beim Herunterladen: ' + err.message);
     }
   };
 
