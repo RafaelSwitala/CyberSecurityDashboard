@@ -15,16 +15,17 @@ const Dashboard = () => {
         .then(res => res.text())
         .then(text => text.trim().split("\n").map(JSON.parse))
         .then(logs => {
-          // Auswertung nach reason
           const reasonObj = logs.reduce((acc, { reason }) => {
             acc[reason] = (acc[reason] || 0) + 1;
             return acc;
           }, {});
           setReasonData(
-            Object.entries(reasonObj).map(([reason, count]) => ({ reason, count }))
+            Object.entries(reasonObj)
+              .filter(([reason]) => reason !== "normal traffic")
+              .map(([reason, count]) => ({ reason, count }))
           );
+          
 
-          // Auswertung der Access Trends (allowed vs. blocked pro Stunde)
           const trendObj = {};
           logs.forEach(({ timestamp, action }) => {
             const logTime = new Date(timestamp);
