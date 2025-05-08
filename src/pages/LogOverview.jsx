@@ -20,7 +20,7 @@ const LogOverview = () => {
   const [pageSize, setPageSize]   = useState(PAGE_SIZES[0]);
   const [currentPage, setCurrent] = useState(1);
   const [logView, setLogView] = useState('ALL');
-
+  const [filterReason, setFilterReason] = useState('ALL');
 
   const DATA_SOURCE = 'file'; // 'file' oder 'api'
 
@@ -69,22 +69,25 @@ const LogOverview = () => {
 
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
 
-  const { sourceIps, destinationIps, actions } = useMemo(() => {
-    
+  const { sourceIps, destinationIps, actions, reasons } = useMemo(() => {
     const ipsSrc = new Set();
     const ipsDst = new Set();
     const acts = new Set();
+    const reas = new Set();
     logs.forEach(l => {
       ipsSrc.add(l.sourceIP);
       ipsDst.add(l.destinationIP);
       acts.add(l.action);
+      if (l.reason) reas.add(l.reason);
     });
     return {
       sourceIps: [...ipsSrc].sort(),
       destinationIps: [...ipsDst].sort(),
       actions: [...acts].sort(),
+      reasons: [...reas].sort(),
     };
   }, [logs]);
+  
 
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
@@ -118,7 +121,8 @@ const LogOverview = () => {
     const logTime = new Date(log.timestamp);
     const threshold = getTimeThreshold(timeFilter);
     const timeMatches = !threshold || logTime >= threshold;
-    return sourceIPMatches && destinationIPMatches && portMatches && protocolMatches && actionMatches && timeMatches;
+    const reasonMatches = filterReason === 'ALL' || log.reason === filterReason;
+    return sourceIPMatches && destinationIPMatches && portMatches && protocolMatches && actionMatches && timeMatches && reasonMatches;
   });
 
   const resetFilters = () => {
@@ -127,7 +131,9 @@ const LogOverview = () => {
     setFilterPort('ALL');
     setFilterProtocol('ALL');
     setFilterAction('ALL');
+    setFilterReason('ALL');
     setTimeFilter('ALL');
+    setLogView('ALL');
     setShowFilters(false);
     setShowLastX(false);
   };
@@ -198,10 +204,10 @@ const LogOverview = () => {
             Filtern nach...
           </button>
           <button className="logOverviewTableButtons" onClick={toggleLastX}>
-            Letzte...
+            Zeitraum wählen
           </button>
           <button className="logOverviewTableButtons" onClick={resetFilters}>
-            Filter zurücksetzen
+            Alles zurücksetzen
           </button>
 
 
@@ -227,6 +233,9 @@ const LogOverview = () => {
           portOptions={portCfg.map(String)}
           protocolOptions={protocolCfg}
           actionOptions={actions}
+          filterReason={filterReason}
+          handleReasonChange={e => setFilterReason(e.target.value)}
+          reasonOptions={reasons}
         />
 
         <LastXButton showLastX={showLastX} setTimeFilter={setTimeFilter} currentFilter={timeFilter} />
@@ -297,7 +306,7 @@ const LogOverview = () => {
           <button onClick={() => goto(pageCount)}     disabled={currentPage===pageCount}>≫</button>
         </nav>
 
-        <span className="totalCount">Gesamt: {logs.length}</span>
+        <span className="totalCount">Gefilterte Logs: {filteredLogs.length}</span>
       </div>
 
 
