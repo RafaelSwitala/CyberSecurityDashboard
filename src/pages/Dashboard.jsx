@@ -6,29 +6,26 @@ import TaskOverview from "./TaskOverview";
 import "./allPages.css";
 
 const Dashboard = () => {
-  const [protocolData, setProtocolData] = useState([]);
-  const [trendData, setTrendData]       = useState([]);
+  const [reasonData, setReasonData] = useState([]);
+  const [trendData, setTrendData] = useState([]);
 
   useEffect(() => {
     const fetchAndProcessData = () => {
-    fetch("/generated_logs.ndjson")
-      .then(res => res.text())
-      .then(text => text.trim().split("\n").map(JSON.parse))
-      .then(logs => {
-
-
-          const protoObj = logs.reduce((acc, { protocol }) => {
-            acc[protocol] = (acc[protocol] || 0) + 1;
+      fetch("/generated_logs.ndjson")
+        .then(res => res.text())
+        .then(text => text.trim().split("\n").map(JSON.parse))
+        .then(logs => {
+          // Auswertung nach reason
+          const reasonObj = logs.reduce((acc, { reason }) => {
+            acc[reason] = (acc[reason] || 0) + 1;
             return acc;
           }, {});
-          setProtocolData(
-            Object.entries(protoObj).map(([protocol, count]) => ({ protocol, count }))
+          setReasonData(
+            Object.entries(reasonObj).map(([reason, count]) => ({ reason, count }))
           );
 
-        const now = new Date();
-        const currentHour = new Date(now);
-        currentHour.setMinutes(0, 0, 0);
-        const trendObj = {};
+          // Auswertung der Access Trends (allowed vs. blocked pro Stunde)
+          const trendObj = {};
           logs.forEach(({ timestamp, action }) => {
             const logTime = new Date(timestamp);
             const hourBucket = new Date(logTime);
@@ -48,7 +45,7 @@ const Dashboard = () => {
 
           const sorted = Object.values(trendObj)
             .sort((a, b) => a.time.localeCompare(b.time))
-            .filter((_, idx, arr) => idx >= arr.length -7);
+            .filter((_, idx, arr) => idx >= arr.length - 7);
 
           setTrendData(sorted);
         })
@@ -67,8 +64,8 @@ const Dashboard = () => {
         <Carousel>
           <Carousel.Item>
             <div className="carousel">
-              <h3>Verteilung der Protokolle</h3>
-              {protocolData.length ? <ProtocolChart data={protocolData} /> : <p>lade …</p>}
+              <h3>Angriffsgründe (Reason)</h3>
+              {reasonData.length ? <ProtocolChart data={reasonData} /> : <p>lade …</p>}
             </div>
           </Carousel.Item>
 
