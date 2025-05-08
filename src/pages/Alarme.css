@@ -1,20 +1,126 @@
-.alertBox {
-    border: 2px solid #ccc;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    background-color: #f9f9f9;
-  }
-  
-  .firewallAlert {
-    border-left: 6px solid #dc3545; /* rot */
-  }
-  
-  .windowsAlert {
-    border-left: 6px solid #007bff; /* blau */
-  }
-  
-  .alertHint {
-    margin-bottom: 1.5rem;
-    color: #555;
-  }
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: var(--cream);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  color: var(--darkgrey);
+}
+
+.tab.active {
+  background-color: var(--white);
+  color: var(--darkgrey);
+}
+
+.tab:hover {
+  background-color: #ddd;
+}
+
+
+.reviewButton {
+  display: block;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px 20px;
+  background-color: var(--red);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.reviewButton:hover {
+  background-color: var(--cream);
+  color: var(--darkgrey);
+}
+
+/* Wrapper für die Tabelle */
+.alertsTableWrapper {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.alertsTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.alertsTable th, .alertsTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.alertsTable th {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
+
+.alertsTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.alertsTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.firewallAlert {
+  border-left: 6px solid #dc3545;
+  background-color: #f8d7da;
+}
+
+.windowsAlert {
+  border-left: 6px solid #007bff;
+  background-color: #d1ecf1;
+}
+
+.reviewHistory {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+}
+
+.reviewHistory h4 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.reviewHistory ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reviewHistory li {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.reviewHistory li::before {
+  content: "→";
+  margin-right: 8px;
+  color: #007bff;
+}
+
+.reviewHistory p {
+  font-size: 1rem;
+  color: #888;
+  text-align: center;
+}

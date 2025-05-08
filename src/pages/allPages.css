@@ -267,19 +267,75 @@
     background-color: red;
     color: white;
   }
+
+  .tabContainer {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
   
-.thStandart {
-    width: 14.5%;
-}
+  .tab {
+    padding: 8px 16px;
+    background-color: var(--darkgrey);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .tab:hover {
+    background-color: var(--mediumgrey);
+  }
+  
+  .tab.active {
+    background-color: var(--orange);
+    color: black;
+  }
+  
+  .alertsTableWrapper {
+    overflow-x: auto;
+  }
+  
+  .alertsTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .alertsTable th,
+  .alertsTable td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .mainPageContainerAlarme{
+    color: var(--cream);
+  }
 
-.nav-link {
-    background-color: var(--cream) !important;
-    color: var(--darkBlue) !important;
-    border: 1px solid var(--darkgrey) !important;
-    font-weight: 700 !important;
-    width: 180px !important;
-}
-
-.nav-link.active {
-    background-color: var(--white) !important;
-}
+  .reviewButton {
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 16px;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .reviewHistory {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .reviewHistory ul {
+    padding-left: 20px;
+  }
+  .reviewHistory li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  
