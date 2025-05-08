@@ -10,12 +10,13 @@ import UserProfile from './pages/UserProfile';
 import AttackSimulator from './tools/AttackSimulator';
 // import TaskOverview from './pages/TaskOverview';
 // import UserManagement from './pages/UserManagement';
-
+import Alarme from './pages/Alarme';
 import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -73,6 +74,7 @@ const App = () => {
           {userRole === 'ADMIN' && (
             <Route path="/Benutzerverwaltung" element={<Benutzer />} />
           )}
+            <Route path="/alarme" element={<Alarme />} />
             <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </div>

@@ -209,3 +209,18 @@
     color: white;
   }
   
+.thStandart {
+    width: 14.5%;
+}
+
+.nav-link {
+    background-color: var(--cream) !important;
+    color: var(--darkBlue) !important;
+    border: 1px solid var(--darkgrey) !important;
+    font-weight: 700 !important;
+    width: 180px !important;
+}
+
+.nav-link.active {
+    background-color: var(--white) !important;
+}
