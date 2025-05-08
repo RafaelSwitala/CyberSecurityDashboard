@@ -1,6 +1,5 @@
 import React from 'react';
 import './AttackSimulator.css';
-// import "../../public/"
 
 const AttackSimulator = () => {
   const API_URL = "http://localhost:9555/api/simulated-log";
@@ -143,9 +142,7 @@ const AttackSimulator = () => {
         <button onClick={simulateBruteForce}>Brute Force Login</button>
         <button onClick={simulatePortScanBurst}>Massives Port Scanning</button>
         <button onClick={simulateMalwareBeacon}>Malware Beaconing</button>
-
-        <hr />
-
+        <br />
         <button className='attackButton' onClick={() => simulateAttackBurst('SQL injection')}>SQL Injection (Burst)</button>
         <button className='attackButton' onClick={() => simulateAttackBurst('port scan')}>Portscan (Burst)</button>
         <button className='attackButton' onClick={() => simulate('SQL injection')}>Einzelner SQL Injection</button>

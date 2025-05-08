@@ -1,11 +1,48 @@
 .attacksimulator {
     color: #e6e6dd;
+    padding: 40px;
+    text-align: center;
+    background-color: var(--darkBlue);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
-.attackButton {
+.attacksimulator h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.attacksimulator p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #cfcfcf;
+    margin-bottom: 120px;
+}
+
+.attackButton,
+.attacksimulator button {
     background-color: #bc3813;
     color: #e6e6dd;
-    height: 50px;
-    width: 180px;
-    margin-right: 10px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 10px 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 8px rgba(188, 56, 19, 0.4);
+}
+
+.attackButton:hover,
+.attacksimulator button:hover {
+    background-color: #a8320f;
+    box-shadow: 0 0 10px rgba(188, 56, 19, 0.8);
+    transform: translateY(-2px);
+}
+
+hr {
+    margin: 30px auto;
+    width: 60%;
+    border: 1px solid #444;
 }

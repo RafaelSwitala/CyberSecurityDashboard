@@ -128,35 +128,91 @@
 }
   
 /* BenutzerVerwaltung */
-.userList, .createNewUser {
+.mainPageContainerBenutzerVerwaltung {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
     color: var(--cream);
-    padding: 10px;
-    width: 50%;
-    height: 600px;
-    display: inline-block;
-    border-bottom: 2px solid var(--cream);
 }
 
-.userList {
-    float: left;
-    border-right: 2px solid var(--cream);
+.userList, .createNewUser {
+    background-color: var(--darkgblue); 
+    border: 2px solid var(--cream);
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
 }
 
-.deleteButton {
-    width: 24px;
-    height: 24px;
-    background-image: url('../img/icons/delete.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.userList table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.userList th, .userList td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--cream);
+    text-align: left;
+}
+
+.userList th {
+    background-color: var(--cream);
+    color: var(--darkgrey);
+    font-weight: bold;
+}
+
+.userList td button {
+    padding: 4px 8px;
+    background-color: var(--red);
+    color: white;
     border: none;
-    background-color: transparent;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.deleteButton:hover {
-    filter: brightness(0.8); 
+.userList td button:hover {
+    background-color: var(--cream);
+    color: var(--darkgrey);
 }
+
+.createNewUser input[type="text"],
+.createNewUser input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    background-color: var(--cream);
+    border: 1px solid var(--cream);
+    color: var(--darkgrey);
+    border-radius: 6px;
+}
+
+.createNewUser label {
+    margin-right: 10px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.createNewUser button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: var(--cream);
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.createNewUser button:hover {
+    background-color: white;
+}
+
+.createNewUser p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
   
 
   /* UserProfile */
