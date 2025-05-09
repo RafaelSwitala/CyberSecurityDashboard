@@ -1,0 +1,40 @@
+{
+    "SEND_TO_API": true,
+    "API_URL": "http://localhost:9555/api/windows-logs",
+    "INTERVAL_MS": 5000,
+    "hosts": ["Client-01", "Laptop-42", "Server-03"],
+    "users": ["j.doe", "admin", "system", "support"],
+    "events": [
+      {
+        "eventID": 4624,
+        "level": "Information",
+        "message": "Erfolgreiche Anmeldung: Benutzer \"j.doe\""
+      },
+      {
+        "eventID": 4625,
+        "level": "Warning",
+        "message": "Fehlgeschlagene Anmeldung für Benutzer \"admin\""
+      },
+      {
+        "eventID": 1102,
+        "level": "Error",
+        "message": "Das Sicherheitsprotokoll wurde gelöscht"
+      },
+      {
+        "eventID": 6005,
+        "level": "Information",
+        "message": "Der Ereignisprotokollierungsdienst wurde gestartet"
+      },
+      {
+        "eventID": 4720,
+        "level": "Information",
+        "message": "Neues Benutzerkonto erstellt: \"support\""
+      },
+      {
+        "eventID": 4726,
+        "level": "Warning",
+        "message": "Benutzerkonto \"gast\" wurde gelöscht"
+      }
+    ]
+  }
+  
