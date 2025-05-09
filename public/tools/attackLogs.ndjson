@@ -276,3 +276,4 @@
 {"timestamp":"2025-05-08T09:46:44.216Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":21,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746697604215"}
 {"timestamp":"2025-05-08T15:47:32.702Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746719252702"}
 {"timestamp":"2025-05-08T15:47:47.639Z","source_ip":"192.168.1.99","destination_ip":"10.0.0.2","port":21,"protocol":"TCP","action":"blocked","reason":"Port Scanning","attack_id":"portscan-1746719267638"}
+{"timestamp":"2025-05-09T05:07:51.794Z","source_ip":"192.168.1.50","destination_ip":"10.0.0.1","port":443,"protocol":"HTTPS","action":"blocked","reason":"Brute Force Login","attack_id":"brute-1746767271794"}

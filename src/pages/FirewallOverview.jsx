@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import FilterButton from '../logOverviewButtons/FilterButton';
 import LastXButton from '../logOverviewButtons/LastXButton';
 import config from '../tools/log-generator/config.json';
+import LogExportButton from "../components/LogExportButton";
 import './allPages.css';
 
 const PAGE_SIZES = [10, 20, 50, 100];
@@ -21,6 +22,7 @@ const FirewallOverview = () => {
   const [currentPage, setCurrent] = useState(1);
   const [logView, setLogView] = useState('ALL');
   const [filterReason, setFilterReason] = useState('ALL');
+
 
   const DATA_SOURCE = 'file'; // 'file' oder 'api'
 
@@ -186,6 +188,32 @@ const FirewallOverview = () => {
       return formattedData;
     };
     
+    const exportToCSV = () => {
+      const headers = ['Timestamp', 'System', 'Source IP', 'Destination IP', 'Port', 'Protocol', 'Action', 'Reason'];
+      const rows = filteredLogs.map(log => [
+        log.timestamp,
+        log.system,
+        log.sourceIP,
+        log.destinationIP,
+        log.port,
+        log.protocol,
+        log.action,
+        log.reason ?? ''
+      ]);
+    
+      const csvContent =
+        'data:text/csv;charset=utf-8,' +
+        [headers, ...rows].map(e => e.join(',')).join('\n');
+    
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'logs.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+    
 
   return (
     <div>
@@ -210,8 +238,8 @@ const FirewallOverview = () => {
             Alles zurücksetzen
           </button>
 
+          <LogExportButton logs={logs} timeFilter={timeFilter} />
 
-          <button className="logOverviewTableButtons importExportButton">Export</button>
         </div>
       </div>
 
