@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Table from 'react-bootstrap/Table';
 import FilterButtonWindows from '../logOverviewButtons/FilterButtonWindows';
 import LastXButton from '../logOverviewButtons/LastXButton';
+import LogExportButton from "../components/LogExportButton";
 import './allPages.css';
 
 const PAGE_SIZES = [10, 20, 50, 100];
@@ -124,7 +125,8 @@ const WindowsOverview = () => {
           <button className="logOverviewTableButtons" onClick={resetFilters}>
             Alles zurücksetzen
           </button>
-          <button className="logOverviewTableButtons importExportButton">Export</button>
+          
+      <LogExportButton logs={logs} timeFilter={timeFilter} />
         </div>
       </div>
 
