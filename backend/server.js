@@ -12,12 +12,12 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 
-// 🔹 Test-Endpunkt
+// Test-Endpunkt
 app.get('/api/ping', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// 🔹 Benutzer registrieren
+// Benutzer registrieren
 app.post('/register', async (req, res) => {
   const { username, password, role = 'ANALYST' } = req.body; // Default role to 'ANALYST'
   try {
@@ -31,13 +31,13 @@ app.post('/register', async (req, res) => {
     });
     res.json(user);
   } catch (err) {
-    console.error('❌ Fehler bei Registrierung:', err.message);
-    console.error('➡️ Eingehende Daten:', req.body);
+    console.error('Fehler bei Registrierung:', err.message);
+    console.error('Eingehende Daten:', req.body);
     res.status(500).json({ error: 'Registrierung fehlgeschlagen' });
   }
 });
 
-// 🔹 Benutzer anmelden
+// Benutzer anmelden
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -54,12 +54,12 @@ app.post('/login', async (req, res) => {
       res.status(401).send('Invalid credentials');
     }
   } catch (err) {
-    console.error('❌ Fehler beim Login:', err.message);
+    console.error('Fehler beim Login:', err.message);
     res.status(500).json({ error: 'Login fehlgeschlagen' });
   }
 });
 
-// 🔹 Logs speichern (vom Log-Generator oder Dashboard)
+// Logs speichern (vom Log-Generator oder Dashboard)
 app.post('/api/logs', async (req, res) => {
   const { message, port, sourceIP, destinationIP, protocol, action, reason, timestamp } = req.body;
   try {
@@ -77,13 +77,13 @@ app.post('/api/logs', async (req, res) => {
     });
     res.status(201).json(log);
   } catch (err) {
-    console.error('❌ Fehler beim Log-Speichern:', err.message);
-    console.error('➡️ Eingehende Daten:', req.body);
+    console.error('Fehler beim Log-Speichern:', err.message);
+    console.error('Eingehende Daten:', req.body);
     res.status(500).json({ error: 'Log-Speicherung fehlgeschlagen' });
   }
 });
 
-// 🔹 Logs abrufen (für das Dashboard)
+// Logs abrufen (für das Dashboard)
 app.get('/api/logs', async (req, res) => {
   try {
     const logs = await prisma.logData.findMany({
@@ -91,12 +91,12 @@ app.get('/api/logs', async (req, res) => {
     });
     res.json(logs);
   } catch (err) {
-    console.error('❌ Fehler beim Abrufen der Logs:', err.message);
+    console.error('Fehler beim Abrufen der Logs:', err.message);
     res.status(500).json({ error: 'Fehler beim Abrufen der Logs' });
   }
 });
 
-// 🔹 Benutzer abrufen (für Admin-Dashboard)
+// Benutzer abrufen (für Admin-Dashboard)
 app.get('/api/users', async (req, res) => {
   try {
     const users = await prisma.userAuthentication.findMany({
@@ -110,27 +110,27 @@ app.get('/api/users', async (req, res) => {
     });
     res.json(users);
   } catch (err) {
-    console.error('❌ Fehler beim Abrufen der Benutzer:', err.message);
+    console.error('Fehler beim Abrufen der Benutzer:', err.message);
     res.status(500).json({ error: 'Fehler beim Abrufen der Benutzer' });
   }
 });
 
-// 🔹 Benutzer löschen
+// Benutzer löschen
 app.delete('/api/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.userAuthentication.delete({
       where: { id: Number(id) },
     });
-    res.status(204).send(); // Kein Inhalt, aber erfolgreich
+    res.status(204).send();
   } catch (err) {
-    console.error('❌ Fehler beim Löschen:', err.message);
+    console.error('Fehler beim Löschen:', err.message);
     res.status(500).json({ error: 'Benutzer konnte nicht gelöscht werden' });
   }
 });
 
-// 🔹 Server starten
+// Server starten
 const PORT = process.env.PORT || 9555;
 app.listen(PORT, () => {
-  console.log(`✅ Server läuft auf http://localhost:${PORT}`);
+  console.log(`Server läuft auf http://localhost:${PORT}`);
 });

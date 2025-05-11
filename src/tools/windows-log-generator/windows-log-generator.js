@@ -36,16 +36,16 @@ function writeToFile(log) {
   }
 
   fs.appendFile(filePath, JSON.stringify(log) + '\n', err => {
-    if (err) console.error('❌ Fehler beim Schreiben:', err);
-    else console.log('📝 Windows-Log gespeichert (Datei)');
+    if (err) console.error('Fehler beim Schreiben:', err);
+    else console.log('Windows-Log gespeichert (Datei)');
   });
 }
 
 function sendToApi(log) {
   axios.post(API_URL, log)
-    .then(res => console.log(`📤 Gesendet an API (${res.status})`))
+    .then(res => console.log(`Gesendet an API (${res.status})`))
     .catch(err => {
-      console.error("❌ Fehler beim Senden:");
+      console.error("Fehler beim Senden:");
       if (err.response) {
         console.error("Status:", err.response.status);
         console.error("Daten:", err.response.data);
@@ -61,11 +61,9 @@ function main() {
   setInterval(() => {
     const log = generateWindowsLog();
     console.log("📋 Log:", log);
-
     sendToApi(log);      // immer an API senden
     writeToFile(log);    // immer in Datei schreiben
   }, INTERVAL_MS);
 }
 
 main();
-

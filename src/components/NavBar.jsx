@@ -16,7 +16,7 @@ const NavBar = ({ username, userId, onLogout }) => {
         const res = await axios.get(`http://localhost:9555/api/alerts/unreviewed/${userId}`);
         setHasUnreviewedAlerts(res.data.hasNewAlerts);
       } catch (err) {
-        console.error('❌ Fehler beim Alert-Check:', err);
+        console.error('Fehler beim Alert-Check:', err);
       }
     };
 
@@ -38,7 +38,7 @@ const NavBar = ({ username, userId, onLogout }) => {
 
       <div className="alerts">
         <Link to="/alarme" className="alertLink">
-          🔔 Alarme
+        🔔 Alarme {/* Ersetzen durch ein Image?  */}
           {hasUnreviewedAlerts && (
             <strong className="alertNotice">Neue Alerts verfügbar</strong>
           )}

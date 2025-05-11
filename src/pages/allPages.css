@@ -216,8 +216,6 @@
     font-weight: bold;
 }
 
-  
-
   /* UserProfile */
   .mainPageContainerUserProfile {
     color: var(--cream);
@@ -283,5 +281,3 @@
 .nav-link.active {
     background-color: var(--white) !important;
 }
-
-

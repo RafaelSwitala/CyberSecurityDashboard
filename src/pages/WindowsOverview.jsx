@@ -63,7 +63,6 @@ const WindowsOverview = () => {
     };
   }, [logs]);
   
-
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
 

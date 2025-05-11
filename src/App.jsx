@@ -8,15 +8,12 @@ import Dashboard from './pages/Dashboard';
 import LogOverview from './pages/LogOverview';
 import UserProfile from './pages/UserProfile';
 import AttackSimulator from './tools/AttackSimulator';
-// import TaskOverview from './pages/TaskOverview';
-// import UserManagement from './pages/UserManagement';
 import Alarme from './pages/Alarme';
 import Benutzer from './pages/Benutzer';
 import { jwtDecode } from 'jwt-decode';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,7 +46,6 @@ const App = () => {
     setUserRole(decoded.role);
   };
   
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
@@ -70,7 +66,6 @@ const App = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/LogOverview" element={<LogOverview />} />
           <Route path="/AttackSimulator" element={<AttackSimulator />} />
-          {/* <Route path="/Page2" element={<UserProfile />} /> */}
           {userRole === 'ADMIN' && (
             <Route path="/Benutzerverwaltung" element={<Benutzer />} />
           )}

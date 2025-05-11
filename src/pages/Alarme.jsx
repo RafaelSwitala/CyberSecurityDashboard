@@ -45,9 +45,9 @@ const Alarme = () => {
         setConfirmed(true);
         setTimeout(() => setConfirmed(false), 1000);
   
-        // 🚨 Seite neuladen, damit AlertIcon den neuen Status abruft
+        // Seite neuladen, damit AlertIcon den neuen Status abruft
         setTimeout(() => {
-          window.location.reload();  // funktioniert sofort, aber etwas brachial
+          window.location.reload();
         }, 300);
       })
       .catch((err) => console.error("Fehler beim Senden der Review:", err));

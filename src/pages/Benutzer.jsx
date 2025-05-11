@@ -28,12 +28,12 @@ const Benutzer = () => {
 
     const data = await response.json();
     if (response.ok) {
-      setMessage('✅ Benutzer erstellt!');
+      setMessage('Benutzer erstellt!');
       setUsername('');
       setPassword('');
       fetchUsers();
     } else {
-      setMessage(data.message || '❌ Fehler bei der Erstellung');
+      setMessage(data.message || 'Fehler bei der Erstellung');
     }
   };
 
@@ -47,7 +47,7 @@ const Benutzer = () => {
       setMessage('🗑️ Benutzer gelöscht.');
     } else {
       const data = await response.json();
-      setMessage(data.message || '❌ Fehler beim Löschen');
+      setMessage(data.message || 'Fehler beim Löschen');
     }
   };
 

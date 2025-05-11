@@ -90,8 +90,6 @@ app.post('/api/user-profile/:username', async (req, res) => {
   }
 });
 
-
-
 // Benutzer anmelden (Login)
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
@@ -154,15 +152,13 @@ app.post('/api/logs', async (req, res) => {
 
   try {
     const log = await prisma.logData.create({ data: { message, port, sourceIP } });
-    console.log('📝 Log gespeichert:', log.id);
+    console.log('Log gespeichert:', log.id);
     res.json(log);
   } catch (error) {
     console.error('Fehler beim Speichern des Logs:', error);
     res.status(500).json({ message: 'Fehler beim Speichern des Logs' });
   }
 });
-
-
 
 // Alarm bei Angriff:
 app.get('/api/logs', async (req, res) => {
@@ -218,8 +214,6 @@ app.get('/api/logs', async (req, res) => {
   }
 });
 
-
-
 // Erstellen von Attack-Simulator Logs
 const logDir = path.join(__dirname, '../public/tools');
 const filePath = path.join(logDir, 'attackLogs.ndjson');
@@ -248,10 +242,6 @@ app.post('/api/simulated-log', async (req, res) => {
     res.status(500).json({ message: 'Fehler beim Schreiben der Datei.' });
   }
 });
-
-
-
-
 
 // Prisma Disconnect beim Beenden
 process.on('SIGINT', async () => {

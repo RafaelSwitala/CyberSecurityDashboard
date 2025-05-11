@@ -1,4 +1,3 @@
-// backend-with-roles.js
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -12,7 +11,7 @@ const prisma = new PrismaClient();
 
 app.use(cors({ origin: 'http://localhost:9000' }));
 app.use(express.json());
-console.log('✅ Richtiges Backend geladen: backend-with-roles.js');
+console.log('Richtiges Backend geladen: backend-with-roles.js');
 
 function authorizeRoles(...allowedRoles) {
   return (req, res, next) => {
@@ -64,7 +63,7 @@ app.post('/api/create-user', async (req, res) => {
     });
     res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
   } catch (error) {
-    console.error('❌ Fehler beim Erstellen:', error.message);
+    console.error('Fehler beim Erstellen:', error.message);
     res.status(500).json({ message: 'Fehler beim Erstellen des Benutzers', details: error.message });
   }
 });
@@ -80,7 +79,7 @@ app.post('/api/login', async (req, res) => {
     const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (err) {
-    console.error('❌ Fehler beim Login:', err.message);
+    console.error('Fehler beim Login:', err.message);
     res.status(500).json({ message: 'Login fehlgeschlagen', details: err.message });
   }
 });
@@ -103,7 +102,7 @@ app.post('/api/change-password', authorizeRoles('ADMIN', 'ANALYST'), async (req,
     });
     res.json({ message: 'Passwort erfolgreich geändert' });
   } catch (err) {
-    console.error('❌ Fehler beim Passwortwechsel:', err.message);
+    console.error('Fehler beim Passwortwechsel:', err.message);
     res.status(500).json({ message: 'Fehler beim Ändern des Passworts', details: err.message });
   }
 });
@@ -126,8 +125,8 @@ app.post('/api/logs', async (req, res) => {
     });
     res.status(201).json(log);
   } catch (err) {
-    console.error('❌ Fehler beim Log-Speichern:', err.message);
-    console.error('➡️ Eingehende Daten:', req.body);
+    console.error('Fehler beim Log-Speichern:', err.message);
+    console.error('Eingehende Daten:', req.body);
     res.status(500).json({ error: 'Log-Speicherung fehlgeschlagen' });
   }
 });
@@ -150,7 +149,7 @@ app.get('/api/logs', authorizeRoles('ADMIN', 'ANALYST'), async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(logs, null, 2));
   } catch (err) {
-    console.error('❌ Fehler beim Laden der Logs:', err.message);
+    console.error('Fehler beim Laden der Logs:', err.message);
     res.status(500).json({ message: 'Logs konnten nicht geladen werden' });
   }
 });

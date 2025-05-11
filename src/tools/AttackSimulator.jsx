@@ -77,10 +77,9 @@ const AttackSimulator = () => {
   
     tryLogin();
   };
-  
 
   const simulatePortScanBurst = () => {
-    const ports = [21, 22, 23, 80, 443, 445, 3389, 8080, 3306, 25]; // 10 Ports
+    const ports = [21, 22, 23, 80, 443, 445, 3389, 8080, 3306, 25];
     const attack_id = `portscan-${Date.now()}`;
   
     ports.forEach((port, index) => {
@@ -100,7 +99,6 @@ const AttackSimulator = () => {
     });
   };
   
-
   const simulateMalwareBeacon = () => {
     const beaconCount = 10;
     const interval = 600;
@@ -127,7 +125,6 @@ const AttackSimulator = () => {
     beacon();
   };
   
-
   const simulateRandom = () => {
     const reasons = ["SQL injection", "XSS attempt", "port scan", "malware", "unauthorized access"];
     simulate(reasons[Math.floor(Math.random() * reasons.length)]);

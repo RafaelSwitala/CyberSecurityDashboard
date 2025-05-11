@@ -123,8 +123,6 @@ const TaskOverview = () => {
             <th>Last Sync (TimeStamp)</th>
             <th>Anzahl Logs</th>
             <th>Anzahl Attacken</th>
-            {/* <th>Checked? (boolean)</th> */}
-            {/* <th>Last Checked</th> */}
           </tr>
         </thead>
         <tbody>
@@ -134,8 +132,6 @@ const TaskOverview = () => {
             <td>{logGenStats.lastSync}</td>
             <td>{logGenStats.logCount}</td>
             <td>{logGenStats.attackCount}</td>
-            {/* <td>-</td> */}
-            {/* <td>-</td> */}
           </tr>
           <tr>
             <td><strong>Windows-Logs</strong></td>
@@ -143,8 +139,6 @@ const TaskOverview = () => {
             <td>{windowsStats.lastSync}</td>
             <td>{windowsStats.logCount}</td>
             <td>{windowsStats.attackCount}</td>
-            {/* <td>-</td> */}
-            {/* <td>-</td> */}
           </tr>
           <tr>
             <td><strong>Attacks</strong></td>
@@ -152,8 +146,6 @@ const TaskOverview = () => {
             <td>{attackStats.lastSync}</td>
             <td>{attackStats.logCount}</td>
             <td>{attackStats.attackCount}</td>
-            {/* <td>-</td> */}
-            {/* <td>-</td> */}
           </tr>
         </tbody>
       </Table>

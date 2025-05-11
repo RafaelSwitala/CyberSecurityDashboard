@@ -1,7 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
-
 const config = require('./config.json');
 
 const {
@@ -47,9 +46,9 @@ function sendToApi(log) {
   };
 
   axios.post(API_URL, payload)
-    .then(res => console.log(`✅ Gesendet (${res.status})`))
+    .then(res => console.log(`Gesendet (${res.status})`))
     .catch(err => {
-      console.error("❌ Fehler beim Senden:");
+      console.error("Fehler beim Senden:");
       if (err.response) {
         console.error("Status:", err.response.status);
         console.error("Daten:", err.response.data);
@@ -60,11 +59,8 @@ function sendToApi(log) {
         console.error("Fehler beim Erstellen der Anfrage:", err.message);
       }
     });
-
   }
-    
-
-
+  
 function main() {
   setInterval(() => {
     const log = generateLog();

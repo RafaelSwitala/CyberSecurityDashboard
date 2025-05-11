@@ -24,7 +24,7 @@ const FirewallOverview = () => {
   const [filterReason, setFilterReason] = useState('ALL');
 
 
-  const DATA_SOURCE = 'file'; // 'file' oder 'api'
+  const DATA_SOURCE = 'file';
 
   useEffect(() => {
     const loadLogs = async () => {
@@ -55,7 +55,6 @@ const FirewallOverview = () => {
           allLogs.push(...parsed);
         }
         
-  
         allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setLogs(allLogs);
   
@@ -67,10 +66,7 @@ const FirewallOverview = () => {
     loadLogs();
   }, [logView]);
   
-  
-
   const { protocols: protocolCfg = [], ports: portCfg = [] } = config;
-
   const { sourceIps, destinationIps, actions, reasons } = useMemo(() => {
     const ipsSrc = new Set();
     const ipsDst = new Set();
@@ -90,7 +86,6 @@ const FirewallOverview = () => {
     };
   }, [logs]);
   
-
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
 
@@ -214,7 +209,6 @@ const FirewallOverview = () => {
       document.body.removeChild(link);
     };
     
-
   return (
     <div>
       <div className="logOverviewTableButtonField">
@@ -300,7 +294,6 @@ const FirewallOverview = () => {
           </Table>
         </div>
 
-
         <div className="tablePagination">
         <label>
           Zeilen pro Seite:&nbsp;
@@ -337,11 +330,9 @@ const FirewallOverview = () => {
         <span className="totalCount">Gefilterte Logs: {filteredLogs.length}</span>
       </div>
 
-
       </div>
     </div>
   );
 };
 
 export default FirewallOverview;
-
