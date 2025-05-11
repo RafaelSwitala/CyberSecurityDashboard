@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./allPages.css";
-import { jwtDecode } from "jwt-decode";
 import "./Alarme.css";
+import { jwtDecode } from "jwt-decode";
 
 const Alarme = () => {
   const [alerts, setAlerts] = useState([]);
@@ -13,67 +13,29 @@ const Alarme = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setCurrentUser({ id: decoded.id, username: decoded.username, role: decoded.role });
-      } catch (err) {
-        console.error("Token konnte nicht dekodiert werden:", err);
-      }
+      const decoded = jwtDecode(token);
+      setCurrentUser({ id: decoded.id, username: decoded.username, role: decoded.role });
     }
 
     fetch("http://localhost:9555/api/alerts")
-    .then((res) => {
-      if (!res.ok) {
-        console.error("Fehlerhafte Antwort vom Server:", res);
-        throw new Error("Fehlerhafte Serverantwort");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      if (Array.isArray(data)) {
-        setAlerts(data);
-      } else {
-        console.error("Unerwartetes Format für Alerts:", data);
-        setAlerts([]);
-      }
-    })
-    .catch((err) => {
-      console.error("Fehler beim Laden der Alerts:", err);
-      setAlerts([]);
-    });
-  
+      .then((res) => res.json())
+      .then(setAlerts)
+      .catch((err) => console.error("Fehler beim Laden der Alerts:", err));
 
     fetch("http://localhost:9555/api/alerts/review-history")
-      .then((res) => {
-        if (!res.ok) throw new Error("Fehlerhafte Serverantwort");
-        return res.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setReviewHistory(data);
-        } else {
-          console.error("Unerwartetes Format von review-history:", data);
-          setReviewHistory([]);
-        }
-      })
-      .catch((err) => {
-        console.error("Fehler beim Laden der History:", err);
-        setReviewHistory([]);
-      });
+      .then((res) => res.json())
+      .then(setReviewHistory)
+      .catch((err) => console.error("Fehler beim Laden der History:", err));
   }, [confirmed]);
 
-  const filteredAlerts = Array.isArray(alerts)
-    ? alerts.filter((alert) => {
-        if (activeTab === "all") return true;
-        if (activeTab === "firewall") return alert.hasOwnProperty("reason");
-        if (activeTab === "windows") return alert.hasOwnProperty("eventID");
-        return true;
-      })
-    : [];
+  const filteredAlerts = alerts.filter((alert) => {
+    if (activeTab === "all") return true;
+    if (activeTab === "firewall") return alert.hasOwnProperty("reason");
+    if (activeTab === "windows") return alert.hasOwnProperty("eventID");
+    return true;
+  });
 
   const handleReviewConfirmation = () => {
-    if (!currentUser) return;
-
     fetch("http://localhost:9555/api/alerts/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -82,9 +44,10 @@ const Alarme = () => {
       .then(() => {
         setConfirmed(true);
         setTimeout(() => setConfirmed(false), 1000);
-
+  
+        // 🚨 Seite neuladen, damit AlertIcon den neuen Status abruft
         setTimeout(() => {
-          window.location.reload();
+          window.location.reload();  // funktioniert sofort, aber etwas brachial
         }, 300);
       })
       .catch((err) => console.error("Fehler beim Senden der Review:", err));
@@ -141,17 +104,13 @@ const Alarme = () => {
         {currentUser?.role === "ADMIN" && (
           <div className="reviewHistory">
             <h4>Verlauf: Wer hat wann Alerts bestätigt?</h4>
-            {Array.isArray(reviewHistory) && reviewHistory.length > 0 ? (
-              <ul>
-                {reviewHistory.map((entry, idx) => (
-                  <li key={idx}>
-                    {entry.username} – {new Date(entry.reviewedAt).toLocaleString()}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Noch keine Überprüfungen durchgeführt.</p>
-            )}
+            <ul>
+              {reviewHistory.map((entry, idx) => (
+                <li key={idx}>
+                  {entry.username} – {new Date(entry.reviewedAt).toLocaleString()}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>

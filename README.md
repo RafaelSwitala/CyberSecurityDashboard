@@ -66,4 +66,7 @@ Dokumentation-Inhalt:
 - Umgesetzte Anforderungen pro Sprint, Meilensteine, offene Punke: Rafael
 - Sicherheitsbezug: Atakan 
 
-abc
+
+- Entwicklerdokumentation
+- Technische Dokumente
+- Projektmanagement

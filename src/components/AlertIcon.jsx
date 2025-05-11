@@ -40,6 +40,6 @@ const AlertIcon = () => {
       )}
     </Link>
   );
-}
+};
 
 export default AlertIcon;
