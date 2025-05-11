@@ -15,13 +15,13 @@ const PieChartLevelStats = ({ data }) => {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-    <PieChart width={600} height={600}> 
+    <PieChart width={500} height={500}> 
 
         <Pie
           data={chartData}
           dataKey="value"
           nameKey="name"
-          outerRadius={110}
+          outerRadius={100}
           label
         >
           {chartData.map((entry, index) => (
