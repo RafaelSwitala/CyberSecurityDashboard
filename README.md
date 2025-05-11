@@ -1,7 +1,7 @@
 # CyberSecurityDashboard
 Fallstudie - Software Engineering - Projekt
 
-Stand: 09.05.2025
+Stand: 07.05.2025
 
 Tools:
 - Git
@@ -41,8 +41,8 @@ User Stories: Cybersecurity-Dashboard
 Admin-User: 
 <!-- 1.	Als Admin möchte ich mich sicher mit Benutzername und Passwort einloggen, um auf das Dashboard zugreifen zu können. -->
 <!-- 2.	Als Admin möchte ich neue Benutzer anlegen oder löschen können, um den Zugriff zu kontrollieren. -->
-<!-- 3.	Als Admin möchte ich eine Liste aktueller sicherheitsrelevanter Alarme sehen, um schnell auf Vorfälle reagieren zu können. -->
-<!-- 4.	Als Admin möchte ich bei kritischen Angriffen per Mail oder in der UI gewarnt werden, um rechtzeitig Maßnahmen zu ergreifen. -->
+3.	Als Admin möchte ich eine Liste aktueller sicherheitsrelevanter Alarme sehen, um schnell auf Vorfälle reagieren zu können.
+4.	Als Admin möchte ich bei kritischen Angriffen per Mail oder in der UI gewarnt werden, um rechtzeitig Maßnahmen zu ergreifen.
 <!-- 5.	Als Admin möchte ich alle importierten Logs einsehen, durchsuchen und filtern können, um verdächtige Aktivitäten zu analysieren. -->
 
 Analyst-User:
@@ -53,8 +53,17 @@ Analyst-User:
 
 System:
 <!-- 10. Als System möchte ich neue Logs automatisch verarbeiten und abspeichern, um jederzeit aktuelle Daten bereitzustellen. -->
-<!-- 11.	 Als System möchte ich automatisch Alerts auslösen, wenn ein kritischer Angriff erkannt wird, um Benutzer zu informieren. -->
+11.	 Als System möchte ich automatisch Alerts auslösen, wenn ein kritischer Angriff erkannt wird, um Benutzer zu informieren.
 <!-- 12.	 Als System möchte ich API-Anfragen innerhalb von 300ms beantworten, um ein flüssiges Nutzererlebnis zu gewährleisten. -->
+
+
+Weitere ToDo´s:
+Oben sollen Diagramme/Angriffsbenachrichtigungen rein
+
+WindowsLogs Implementieren
+AlertSystem: Je nach Log soll alarmiert werden (Priorisierung?, Ranking?, Enums? Alert-Stufen(Grün, gelb, rot)?)
+
+Alle Komponenten erstellen --> Ziel: Keine funktionslose Buttons mehr
 
 Dokumentation-Inhalt:
 - Projekttitel, Zielsetzung, Zielgruppe, Motivation: Offen

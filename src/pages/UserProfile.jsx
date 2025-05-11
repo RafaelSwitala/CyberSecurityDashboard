@@ -49,87 +49,21 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/change-password', {
+      const response = await fetch(`http://localhost:9555/api/user-profile/${username}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-  'Authorization': `Bearer ${localStorage.getItem('token')}` 
-        },
-        body: JSON.stringify({
-          oldPassword: formData.currentPassword,
-          newPassword: formData.newPassword
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        alert('✅ Passwort erfolgreich geändert!');
-        setFormData({ ...formData, currentPassword: '', newPassword: '' });
-      } else {
-        alert(data.message || '❌ Fehler beim Ändern des Passworts');
+      if (!response.ok) {
+        throw new Error("Fehler beim Speichern des Profils");
       }
+
+      alert("Profil erfolgreich gespeichert.");
+      setIsEditable(false);
     } catch (error) {
-      console.error('Netzwerkfehler:', error);
-      alert('❌ Fehler beim Senden der Anfrage');
-    }
-  };
-
-  const handleProfileUpdate = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/update-profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          address: formData.address,
-          birthday: formData.birthday,
-          gender: formData.gender,
-          language: formData.language,
-          email: formData.email,
-          phone: formData.phone
-        })
-      });
-  
-      const data = await response.json();
-      if (response.ok) {
-        alert('✅ Profildaten erfolgreich gespeichert!');
-      } else {
-        alert(data.message || '❌ Fehler beim Speichern der Profildaten');
-      }
-    } catch (error) {
-      console.error('Netzwerkfehler beim Profil speichern:', error);
-      alert('❌ Netzwerkfehler beim Speichern');
-    }
-  };
-  
-
-  const handleDeleteAccount = async () => {
-    const confirmed = window.confirm("Willst du dein Konto wirklich löschen?");
-    if (!confirmed) return;
-  
-    try {
-      const response = await fetch('http://localhost:3000/api/delete-own-account', {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-  
-      if (response.ok) {
-        alert("✅ Dein Konto wurde gelöscht.");
-        localStorage.removeItem('token');
-        window.location.href = '/'; // oder: navigate('/') bei React Router
-      } else {
-        const data = await response.json();
-        alert(data.message || "❌ Fehler beim Löschen des Kontos.");
-      }
-    } catch (err) {
-      console.error("Fehler:", err);
-      alert("❌ Netzwerkfehler beim Löschen.");
+      console.error("Fehler beim Speichern:", error);
+      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
     }
   };
 
@@ -185,25 +119,10 @@ const UserProfile = () => {
           <input type="email" name="email" value={formData.email} onChange={handleChange} disabled={!isEditable} />
 
           <label>Telefonnummer:</label>
-          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
+          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} disabled={!isEditable} />
 
-          <label>Aktuelles Passwort:</label>
-          <input type="password" name="currentPassword" value={formData.currentPassword} onChange={handleChange} />
-
-          <label>Neues Passwort:</label>
-          <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
-
-          
-          <button onClick={handleDeleteAccount} className="deleteBtn">
-            Konto löschen
-          </button>
-          <button onClick={() => {
-  handleSave();
-  handleProfileUpdate();
-}}>
-  Änderungen speichern
-</button>
-
+          {!isEditable && <button onClick={() => setIsEditable(true)}>Bearbeiten</button>}
+          {isEditable && <button onClick={handleSave}>Änderungen speichern</button>}
         </div>
       </div>
     </div>
