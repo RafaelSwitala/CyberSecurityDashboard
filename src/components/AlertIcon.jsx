@@ -36,7 +36,7 @@ const AlertIcon = () => {
     <Link to="/alarme" className="alertIcon">
       <div className="icon" />
       {hasNewAlerts && (
-        <span className="alertText">⚠ Neue Alerts verfügbar</span>
+        <span className="alertText">Neue Alerts verfügbar</span>
       )}
     </Link>
   );

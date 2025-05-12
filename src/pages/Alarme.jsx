@@ -14,43 +14,63 @@ const Alarme = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setCurrentUser({ id: decoded.id, username: decoded.username, role: decoded.role });
+      setCurrentUser({
+        id: decoded.id,
+        username: decoded.username,
+        role: decoded.role,
+      });
     }
 
     fetch("http://localhost:9555/api/alerts")
       .then((res) => res.json())
-      .then(setAlerts)
-      .catch((err) => console.error("Fehler beim Laden der Alerts:", err));
+      .then((data) => {
+        console.log("ALERTS:", data);
+        setAlerts(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Fehler beim Laden der Alerts:", err);
+        setAlerts([]);
+      });
 
     fetch("http://localhost:9555/api/alerts/review-history")
       .then((res) => res.json())
-      .then(setReviewHistory)
-      .catch((err) => console.error("Fehler beim Laden der History:", err));
+      .then((data) => {
+        console.log("REVIEW HISTORY:", data);
+        setReviewHistory(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Fehler beim Laden der History:", err);
+        setReviewHistory([]);
+      });
   }, [confirmed]);
 
-  const filteredAlerts = alerts.filter((alert) => {
-    if (activeTab === "all") return true;
-    if (activeTab === "firewall") return alert.hasOwnProperty("reason");
-    if (activeTab === "windows") return alert.hasOwnProperty("eventID");
-    return true;
-  });
+  const filteredAlerts = Array.isArray(alerts)
+    ? alerts.filter((alert) => {
+        if (activeTab === "all") return true;
+        if (activeTab === "firewall") return alert.hasOwnProperty("reason");
+        if (activeTab === "windows") return alert.hasOwnProperty("eventID");
+        return true;
+      })
+    : [];
 
   const handleReviewConfirmation = () => {
+    if (!currentUser) return;
     fetch("http://localhost:9555/api/alerts/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: currentUser.id, username: currentUser.username }),
+      body: JSON.stringify({
+        userId: currentUser.id,
+        username: currentUser.username,
+      }),
     })
       .then(() => {
         setConfirmed(true);
         setTimeout(() => setConfirmed(false), 1000);
-  
-        // Seite neuladen, damit AlertIcon den neuen Status abruft
-        setTimeout(() => {
-          window.location.reload();
-        }, 300);
+        setTimeout(() => window.location.reload(), 300);
       })
-      .catch((err) => console.error("Fehler beim Senden der Review:", err));
+      .catch((err) =>
+        console.error("Fehler beim Senden der Review:", err)
+      );
   };
 
   return (
@@ -59,9 +79,24 @@ const Alarme = () => {
         <h2>Kritische Sicherheitsalarme</h2>
 
         <div className="tabContainer">
-          <button className={activeTab === "all" ? "tab active" : "tab"} onClick={() => setActiveTab("all")}>Alle</button>
-          <button className={activeTab === "firewall" ? "tab active" : "tab"} onClick={() => setActiveTab("firewall")}>Firewall</button>
-          <button className={activeTab === "windows" ? "tab active" : "tab"} onClick={() => setActiveTab("windows")}>Windows</button>
+          <button
+            className={activeTab === "all" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("all")}
+          >
+            Alle
+          </button>
+          <button
+            className={activeTab === "firewall" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("firewall")}
+          >
+            Firewall
+          </button>
+          <button
+            className={activeTab === "windows" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("windows")}
+          >
+            Windows
+          </button>
         </div>
 
         <button className="reviewButton" onClick={handleReviewConfirmation}>
@@ -104,13 +139,18 @@ const Alarme = () => {
         {currentUser?.role === "ADMIN" && (
           <div className="reviewHistory">
             <h4>Verlauf: Wer hat wann Alerts bestätigt?</h4>
-            <ul>
-              {reviewHistory.map((entry, idx) => (
-                <li key={idx}>
-                  {entry.username} – {new Date(entry.reviewedAt).toLocaleString()}
-                </li>
-              ))}
-            </ul>
+            {Array.isArray(reviewHistory) && reviewHistory.length > 0 ? (
+              <ul>
+                {reviewHistory.map((entry, idx) => (
+                  <li key={idx}>
+                    {entry.username} {" "}
+                    {new Date(entry.reviewedAt).toLocaleString()}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Verlauf konnte nicht geladen werden oder ist leer.</p>
+            )}
           </div>
         )}
       </div>

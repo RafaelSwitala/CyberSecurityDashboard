@@ -160,60 +160,6 @@ app.post('/api/logs', async (req, res) => {
   }
 });
 
-// Alarm bei Angriff:
-app.get('/api/logs', async (req, res) => {
-  try {
-    const filePath = path.join(__dirname, 'public', 'tools', 'attackLogs.ndjson');
-
-    if (!fs.existsSync(filePath)) {
-      return res.json({ logs: [], alerts: [] });
-    }
-
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const logLines = fileContent.trim().split('\n');
-    const logs = logLines.map(line => JSON.parse(line));
-
-    console.log("Alle Logs:", logs); 
-
-    const bruteForceLogs = logs.filter(log => log.reason?.includes("Brute Force"));
-    console.log("Gefilterte Brute-Force-Logs:", bruteForceLogs); 
-
-    const alertClusters = [];
-    let cluster = [];
-
-    const sortedLogs = bruteForceLogs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-    console.log("Sortierte Brute-Force-Logs:", sortedLogs);
-
-    for (let i = 0; i < sortedLogs.length; i++) {
-      cluster.push(sortedLogs[i]);
-
-      const windowStart = new Date(cluster[0].timestamp).getTime();
-      const windowEnd = new Date(sortedLogs[i].timestamp).getTime();
-      console.log(`Window Start: ${windowStart}, Window End: ${windowEnd}`);
-
-      if (windowEnd - windowStart > 10000 || i === sortedLogs.length - 1) {
-        if (cluster.length >= 10) {
-          alertClusters.push({
-            reason: 'Brute Force Login',
-            count: cluster.length,
-            time: new Date(cluster[0].timestamp).toLocaleString(),
-          });
-        }
-        cluster = [sortedLogs[i]];
-      }
-    }
-
-    console.log("Gefundene Alerts:", alertClusters);
-    res.json({
-      logs,
-      alerts: alertClusters,
-    });
-  } catch (err) {
-    console.error('Fehler beim Verarbeiten der Logs:', err);
-    res.status(500).json({ message: 'Fehler beim Abrufen der Logs' });
-  }
-});
-
 // Erstellen von Attack-Simulator Logs
 const logDir = path.join(__dirname, '../public/tools');
 const filePath = path.join(logDir, 'attackLogs.ndjson');
@@ -240,6 +186,168 @@ app.post('/api/simulated-log', async (req, res) => {
   } catch (err) {
     console.error('Fehler beim Schreiben der Log-Datei:', err);
     res.status(500).json({ message: 'Fehler beim Schreiben der Datei.' });
+  }
+});
+
+// POST /api/alerts/review – speichert wer wann bestätigt hat
+app.post('/api/alerts/review', async (req, res) => {
+  const { userId, username } = req.body;
+  if (!userId || !username) {
+    return res.status(400).json({ message: 'Benutzerdaten fehlen' });
+  }
+
+  try {
+    await prisma.alertReview.create({
+      data: {
+        userId,
+        username,
+        reviewedAt: new Date(),
+      },
+    });
+    res.json({ message: 'Review gespeichert' });
+  } catch (error) {
+    console.error('Fehler beim Speichern der Review:', error);
+    res.status(500).json({ message: 'Fehler beim Speichern der Bestätigung' });
+  }
+});
+
+// GET /api/alerts/review-history – liefert Verlauf für Admins
+app.get('/api/alerts/review-history', async (req, res) => {
+  try {
+    const history = await prisma.alertReview.findMany({
+      orderBy: { reviewedAt: 'desc' }
+    });
+    res.json(history);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der History:', error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der History' });
+  }
+});
+
+// GET /api/alerts/unreviewed/:userId – prüft, ob es neue Alerts seit der letzten Bestätigung gibt
+app.get('/api/alerts/unreviewed/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const lastReview = await prisma.alertReview.findFirst({
+      where: { userId },
+      orderBy: { reviewedAt: 'desc' },
+    });
+
+    const lastReviewTime = lastReview?.reviewedAt || new Date(0);
+
+    const newFirewallLogs = await prisma.logData.findFirst({
+      where: {
+        action: 'blocked',
+        timestamp: { gt: lastReviewTime }
+      }
+    });
+
+    const newWindowsLogs = await prisma.windowsLog.findFirst({
+      where: {
+        OR: [{ level: 'Error' }, { eventID: 4625 }],
+        timestamp: { gt: lastReviewTime }
+      }
+    });
+
+    const hasNewAlerts = !!newFirewallLogs || !!newWindowsLogs;
+    res.json({ hasNewAlerts });
+  } catch (error) {
+    console.error('Fehler bei Alert-Check:', error);
+    res.status(500).json({ message: 'Fehler beim Prüfen neuer Alerts' });
+  }
+});
+
+// Windows Logs speichern
+app.post('/api/windows-logs', async (req, res) => {
+  const { timestamp, host, user, eventID, level, message } = req.body;
+
+  if (!timestamp || !host || !user || !eventID || !level || !message) {
+    return res.status(400).json({ message: 'Alle Felder sind erforderlich.' });
+  }
+
+  try {
+    const log = await prisma.windowsLog.create({
+      data: {
+        timestamp: new Date(timestamp),
+        host,
+        user,
+        eventID,
+        level,
+        message
+      }
+    });
+
+    // ✉️ Mail bei kritischen Logs
+    if (eventID === 4625 || level.toLowerCase() === 'error') {
+      console.log('Kritisches Windows-Log erkannt, sende E-Mail...');
+      await sendMailToAdmin({ timestamp, host, user, eventID, level, message });
+    }
+
+    res.status(201).json(log);
+  } catch (error) {
+    console.error('Fehler beim Speichern des Windows-Logs:', error);
+    res.status(500).json({ message: 'Fehler beim Speichern.' });
+  }
+});
+
+app.get('/api/alerts', async (req, res) => {
+  try {
+    const firewallLogs = await prisma.logData.findMany({
+      where: { action: 'blocked' },
+      orderBy: { timestamp: 'desc' }
+    });
+
+    const windowsLogs = await prisma.windowsLog.findMany({
+      where: {
+        OR: [
+          { level: 'Error' },
+          { eventID: 4625 }
+        ]
+      },
+      orderBy: { timestamp: 'desc' }
+    });
+
+    const allAlerts = [...firewallLogs, ...windowsLogs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    res.json(allAlerts);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Alerts:', error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der kritischen Logs.' });
+  }
+});
+
+// Monatsstatistik
+app.get('/api/attack-stats/monthly', async (req, res) => {
+  try {
+    const result = await prisma.$queryRaw`
+      SELECT TO_CHAR("timestamp", 'Mon YYYY') AS monat, COUNT(*) AS anzahl
+      FROM "LogData"
+      WHERE "action" = 'blocked'
+      GROUP BY monat
+      ORDER BY MIN("timestamp");
+    `;
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Monatsstatistik' });
+  }
+});
+
+// Angriffsarten-Statistik
+app.get('/api/attack-stats/types', async (req, res) => {
+  try {
+    const result = await prisma.$queryRaw`
+      SELECT "reason", COUNT(*) AS anzahl
+      FROM "LogData"
+      WHERE "action" = 'blocked'
+      GROUP BY "reason"
+      ORDER BY anzahl DESC;
+    `;
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Angriffsarten' });
   }
 });
 
