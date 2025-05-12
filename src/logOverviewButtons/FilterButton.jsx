@@ -2,12 +2,17 @@ import React from 'react';
 
 const Select = ({ label, value, onChange, options }) => (
   <label className="filterOptions">
-    {label}
+    {label} {/* Beschriftung für das Dropdown-Menü */}
+    
+    {/* Das eigentliche Dropdown-Menü */}
     <select className="filterOptionsSelect" value={value} onChange={onChange}>
+      {/* Standardoption zum Zurücksetzen auf "Alle" */}
       <option value="ALL">Alle {label}</option>
+
+      {/* Dynamisches Erzeugen der Optionen basierend auf dem übergebenen Array */}
       {options.map(opt => (
         <option key={opt} value={opt}>
-          {opt}
+          {opt} {/* Anzeige der Option im Dropdown */}
         </option>
       ))}
     </select>
@@ -15,6 +20,7 @@ const Select = ({ label, value, onChange, options }) => (
 );
 
 const FilterButton = ({
+  // Zustand und Änderungsfunktionen für die jeweiligen Filter
   showFilters,
   filterSourceIP,
   filterDestinationIP,
@@ -35,10 +41,12 @@ const FilterButton = ({
   actionOptions,
   reasonOptions,
 }) => (
-
+  // Wrapper-Div für den gesamten Filterbereich
   <div>
+    {/* Filtermenüs nur anzeigen, wenn showFilters true ist */}
     {showFilters && (
       <div className="filterDropdowns">
+        {/* Jedes Select-Element steht für ein bestimmtes Filterkriterium */}
         <Select
           label="Source IP"
           value={filterSourceIP}
@@ -75,7 +83,6 @@ const FilterButton = ({
           onChange={handleReasonChange}
           options={reasonOptions}
         />
-
       </div>
     )}
   </div>

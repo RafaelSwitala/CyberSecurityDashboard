@@ -4,6 +4,7 @@ import "./Alarme.css";
 import { jwtDecode } from "jwt-decode";
 
 const Alarme = () => {
+  // State-Variablen zur Verwaltung von Alarmen, Review-Historie, aktivem Tab usw.
   const [alerts, setAlerts] = useState([]);
   const [reviewHistory, setReviewHistory] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
@@ -11,6 +12,7 @@ const Alarme = () => {
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
+    // Token aus dem LocalStorage holen
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
@@ -21,6 +23,7 @@ const Alarme = () => {
       });
     }
 
+    // Alerts von der API laden
     fetch("http://localhost:9555/api/alerts")
       .then((res) => res.json())
       .then((data) => {
@@ -32,6 +35,7 @@ const Alarme = () => {
         setAlerts([]);
       });
 
+    // Review-Historie laden
     fetch("http://localhost:9555/api/alerts/review-history")
       .then((res) => res.json())
       .then((data) => {
@@ -42,8 +46,9 @@ const Alarme = () => {
         console.error("Fehler beim Laden der History:", err);
         setReviewHistory([]);
       });
-  }, [confirmed]);
+  }, [confirmed]); // Neu laden, wenn eine Review bestätigt wurde
 
+  // Filterung der angezeigten Alerts basierend auf dem aktiven Tab
   const filteredAlerts = Array.isArray(alerts)
     ? alerts.filter((alert) => {
         if (activeTab === "all") return true;
@@ -53,8 +58,10 @@ const Alarme = () => {
       })
     : [];
 
+  // Funktion zum Absenden der "Review-Bestätigung"
   const handleReviewConfirmation = () => {
     if (!currentUser) return;
+
     fetch("http://localhost:9555/api/alerts/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -78,6 +85,7 @@ const Alarme = () => {
       <div className="mainPageContainerAlarme">
         <h2>Kritische Sicherheitsalarme</h2>
 
+        {/* Tabs zur Auswahl der Alarm-Kategorie */}
         <div className="tabContainer">
           <button
             className={activeTab === "all" ? "tab active" : "tab"}
@@ -99,10 +107,12 @@ const Alarme = () => {
           </button>
         </div>
 
+        {/* Button zur Markierung der Alerts als "überprüft" */}
         <button className="reviewButton" onClick={handleReviewConfirmation}>
           Alerts als überprüft markieren
         </button>
 
+        {/* Anzeige der gefilterten Alarme in Tabellenform */}
         <div className="alertsTableWrapper">
           {filteredAlerts.length === 0 ? (
             <p>Keine Alarme gefunden.</p>
@@ -120,6 +130,7 @@ const Alarme = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Darstellung jeder Alarmzeile */}
                 {filteredAlerts.map((alert, index) => (
                   <tr key={index}>
                     <td>{new Date(alert.timestamp).toLocaleString()}</td>
@@ -136,6 +147,7 @@ const Alarme = () => {
           )}
         </div>
 
+        {/* Nur Administratoren sehen die Review-Historie */}
         {currentUser?.role === "ADMIN" && (
           <div className="reviewHistory">
             <h4>Verlauf: Wer hat wann Alerts bestätigt?</h4>
