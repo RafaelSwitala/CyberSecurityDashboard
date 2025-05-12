@@ -1,6 +1,9 @@
 import React from 'react';
 
+// Komponente zum Exportieren von Log-Daten als JSON-Datei
 const LogExportButton = ({ logs, timeFilter }) => {
+
+  // Funktion zur Berechnung des Zeitstempels, ab dem Logs berücksichtigt werden sollen
   const getTimeThreshold = filter => {
     const now = new Date();
     switch (filter) {
@@ -14,26 +17,33 @@ const LogExportButton = ({ logs, timeFilter }) => {
     }
   };
 
+  // Funktion zum Exportieren der Logs als JSON-Datei
   const exportToJSON = () => {
     const threshold = getTimeThreshold(timeFilter);
+    // Logs filtern, wenn ein Zeitfilter aktiv ist
     const filtered = threshold
       ? logs.filter(log => new Date(log.timestamp) >= threshold)
       : logs;
 
+    // Logs als JSON-String formatieren
     const json = JSON.stringify(filtered, null, 2);
+    // Blob-Objekt aus dem JSON erzeugen
     const blob = new Blob([json], { type: 'application/json' });
+    // URL für den Download erstellen
     const url = URL.createObjectURL(blob);
 
+    // Temporärer Link zum Auslösen des Downloads
     const link = document.createElement('a');
     link.href = url;
-    link.download = `logs_${timeFilter || 'ALL'}.json`;
+    link.download = `logs_${timeFilter || 'ALL'}.json`; // Dateiname je nach Filter
     document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    link.click();                    // Download starten
+    document.body.removeChild(link); // Link entfernen
+    URL.revokeObjectURL(url);        // URL wieder freigeben
   };
 
   return (
+    // Button, der beim Klicken den Export auslöst
     <button className="logOverviewTableButtons importExportButton" onClick={exportToJSON}>
       Export als JSON
     </button>
