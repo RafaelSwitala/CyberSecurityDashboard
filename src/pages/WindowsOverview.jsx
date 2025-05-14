@@ -5,27 +5,31 @@ import LastXButton from '../logOverviewButtons/LastXButton';
 import LogExportButton from "../components/LogExportButton";
 import './allPages.css';
 
+// Unterstützte Seitengrößen für die Pagination
 const PAGE_SIZES = [10, 20, 50, 100];
 
 const WindowsOverview = () => {
+  // State-Variablen für Logs und Filter
   const [logs, setLogs] = useState([]);
   const [filterHost, setFilterHost] = useState('ALL');
   const [filterUser, setFilterUser] = useState('ALL');
   const [filterEventID, setFilterEventID] = useState('ALL');
   const [filterLevel, setFilterLevel] = useState('ALL');
   const [filterMessage, setFilterMessage] = useState('ALL');
+  const [timeFilter, setTimeFilter] = useState('ALL');
   const [showFilters, setShowFilters] = useState(false);
   const [showLastX, setShowLastX] = useState(false);
-  const [timeFilter, setTimeFilter] = useState('ALL');
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [currentPage, setCurrent] = useState(1);
 
-  // Logs laden
+  // Logs beim Laden der Komponente einlesen
   useEffect(() => {
     const loadLogs = async () => {
       try {
         const res = await fetch('/windows-logs.ndjson');
         const text = await res.text();
+
+        // NDJSON parsen und chronologisch absteigend sortieren
         const parsed = text
           .trim()
           .split('\n')
@@ -41,12 +45,14 @@ const WindowsOverview = () => {
     loadLogs();
   }, []);
 
+  // Einmalig aus den Logs alle einzigartigen Werte für Filteroptionen extrahieren
   const { hosts, users, messages, eventIDs, levels } = useMemo(() => {
     const hostsSet = new Set();
     const usersSet = new Set();
     const messagesSet = new Set();
     const eventIDSet = new Set();
     const levelSet = new Set();
+
     logs.forEach(l => {
       hostsSet.add(l.host);
       usersSet.add(l.user);
@@ -54,6 +60,7 @@ const WindowsOverview = () => {
       eventIDSet.add(l.eventID);
       levelSet.add(l.level);
     });
+
     return {
       hosts: [...hostsSet].sort(),
       users: [...usersSet].sort(),
@@ -62,10 +69,12 @@ const WindowsOverview = () => {
       levels: [...levelSet].sort(),
     };
   }, [logs]);
-  
+
+  // Sichtbarkeit der Filter toggeln
   const toggleFilters = () => setShowFilters(!showFilters);
   const toggleLastX = () => setShowLastX(!showLastX);
 
+  // Berechnung des Zeitfensters für zeitliche Filter
   const getTimeThreshold = filter => {
     const now = new Date();
     switch (filter) {
@@ -79,6 +88,7 @@ const WindowsOverview = () => {
     }
   };
 
+  // Filterlogik für Logs
   const filteredLogs = logs.filter(log => {
     const hostMatches = filterHost === 'ALL' || log.host === filterHost;
     const userMatches = filterUser === 'ALL' || log.user === filterUser;
@@ -90,6 +100,7 @@ const WindowsOverview = () => {
     return hostMatches && userMatches && eventIDMatches && levelMatches && messageMatches && timeMatches;
   });
 
+  // Filter zurücksetzen
   const resetFilters = () => {
     setFilterHost('ALL');
     setFilterUser('ALL');
@@ -101,14 +112,25 @@ const WindowsOverview = () => {
     setShowLastX(false);
   };
 
+  // Berechnung der Seitenanzahl & Pagination
   const pageCount = Math.max(1, Math.ceil(filteredLogs.length / pageSize));
   const pagedLogs = filteredLogs.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize,
+    currentPage * pageSize
   );
 
-  useEffect(() => setCurrent(1), [filterHost, filterUser, filterEventID, filterLevel, filterMessage, timeFilter, pageSize]);
+  // Bei Filteränderung zur ersten Seite springen
+  useEffect(() => setCurrent(1), [
+    filterHost,
+    filterUser,
+    filterEventID,
+    filterLevel,
+    filterMessage,
+    timeFilter,
+    pageSize
+  ]);
 
+  // Seitenwechsel
   const goto = p => setCurrent(Math.min(Math.max(1, p), pageCount));
 
   return (
@@ -124,8 +146,7 @@ const WindowsOverview = () => {
           <button className="logOverviewTableButtons" onClick={resetFilters}>
             Alles zurücksetzen
           </button>
-          
-      <LogExportButton logs={logs} timeFilter={timeFilter} />
+          <LogExportButton logs={logs} timeFilter={timeFilter} />
         </div>
       </div>
 

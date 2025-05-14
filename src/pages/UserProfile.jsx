@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './allPages.css';
 
 const UserProfile = () => {
+  // Zustand für alle Formularfelder
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,12 +17,17 @@ const UserProfile = () => {
     newPassword: '',
     Userrolle: ''
   });
+
+  // Zeigt an, ob das Formular bearbeitbar ist
   const [isEditable, setIsEditable] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Benutzername aus der Session holen
   const username = sessionStorage.getItem("username");
 
+  // useEffect lädt die Benutzerdaten bei erstem Rendern
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -39,7 +45,7 @@ const UserProfile = () => {
       }
     };
 
-    if (username) fetchUserData();
+    if (username) fetchUserData(); // Nur wenn Benutzername vorhanden ist
   }, [username]);
 
   const handleChange = (e) => {
@@ -47,6 +53,7 @@ const UserProfile = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Speichert die geänderten Profildaten auf dem Server
   const handleSave = async () => {
     try {
       const response = await fetch(`http://localhost:9555/api/user-profile/${username}`, {
@@ -70,10 +77,13 @@ const UserProfile = () => {
   if (loading) return <div>Lade Benutzerdaten...</div>;
   if (error) return <div>{error}</div>;
 
+  // JSX für das Formular
   return (
     <div className="mainPageContainer mainPageContainerUserProfile">
       <h2>Benutzerprofil</h2>
       <div className="profileGrid">
+
+        {/* Linker Bereich – persönliche Daten */}
         <div className="profileSection">
           <h3>Persönliche Daten</h3>
 
@@ -106,6 +116,7 @@ const UserProfile = () => {
           </select>
         </div>
 
+        {/* Rechter Bereich – Anwendungsdaten */}
         <div className="profileSection">
           <h3>Kontodaten</h3>
 
@@ -121,6 +132,7 @@ const UserProfile = () => {
           <label>Telefonnummer:</label>
           <input type="tel" name="phone" value={formData.phone} onChange={handleChange} disabled={!isEditable} />
 
+          {/* Bearbeiten/Speichern */}
           {!isEditable && <button onClick={() => setIsEditable(true)}>Bearbeiten</button>}
           {isEditable && <button onClick={handleSave}>Änderungen speichern</button>}
         </div>

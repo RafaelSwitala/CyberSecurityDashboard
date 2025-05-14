@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import "./allPages.css";
 
+// Funktion zur Umwandlung eines ISO-Zeitstempels in ein lesbares Datumsformat
 const formatDate = (isoString) => {
   const date = new Date(isoString);
   return date.toLocaleString("de-DE", {
@@ -13,6 +14,7 @@ const formatDate = (isoString) => {
   });
 };
 
+// Hauptkomponente zur Übersicht aller Tasks
 const TaskOverview = () => {
   const [logGenStats, setLogGenStats] = useState({
     lastAttack: "-",
@@ -21,6 +23,7 @@ const TaskOverview = () => {
     attackCount: 0,
   });
 
+  // Zustand für Angriffsdaten
   const [attackStats, setAttackStats] = useState({
     lastAttack: "-",
     lastSync: "-",
@@ -28,6 +31,7 @@ const TaskOverview = () => {
     attackCount: 0,
   });
 
+  // Zustand für Windows-Logdaten
   const [windowsStats, setWindowsStats] = useState({
     lastAttack: "-",
     lastSync: "-",
@@ -35,24 +39,25 @@ const TaskOverview = () => {
     attackCount: 0,
   });
 
+  // useEffect wird beim ersten Rendern ausgeführt, um Daten zu laden
   useEffect(() => {
     const fetchLogGeneratorData = async () => {
       try {
         const res = await fetch("/generated_logs.ndjson");
         const text = await res.text();
         const lines = text.trim().split("\n");
-        const logs = lines.map(line => JSON.parse(line));
+        const logs = lines.map(line => JSON.parse(line)); // jede Zeile ist ein JSON-Objekt
 
         const logCount = logs.length;
-        const attackLogs = logs.filter(log => log.action === "blocked");
+        const attackLogs = logs.filter(log => log.action === "blocked"); // nur geblockte Angriffe
         const attackCount = attackLogs.length;
 
         const lastAttack = attackLogs.length > 0
-          ? formatDate(attackLogs[attackLogs.length - 1].timestamp)
+          ? formatDate(attackLogs[attackLogs.length - 1].timestamp) // letzter Angriff
           : "-";
 
         const lastSync = logs.length > 0
-          ? formatDate(logs[logs.length - 1].timestamp)
+          ? formatDate(logs[logs.length - 1].timestamp) // letzter Log-Eintrag
           : "-";
 
         setLogGenStats({ lastAttack, lastSync, logCount, attackCount });
@@ -61,6 +66,7 @@ const TaskOverview = () => {
       }
     };
 
+    // Funktion zum Laden und Verarbeiten der Angriffsdaten
     const fetchAttackData = async () => {
       try {
         const res = await fetch("/tools/attackLogs.ndjson");
@@ -82,6 +88,7 @@ const TaskOverview = () => {
       }
     };
 
+    // Funktion zum Laden und Verarbeiten der Windows-Logs
     const fetchWindowsData = async () => {
       try {
         const res = await fetch("/windows-logs.ndjson");
@@ -107,12 +114,14 @@ const TaskOverview = () => {
       }
     };
 
+    // Alle Datenquellen abrufen
     fetchLogGeneratorData();
     fetchAttackData();
     fetchWindowsData();
   }, []);
 
   return (
+    // Darstellung der Übersicht als Tabelle
     <div className="task-overview">
       <h3>Task Übersicht</h3>
       <Table className="logOverviewTable" striped bordered hover>

@@ -4,10 +4,11 @@ import { jwtDecode } from 'jwt-decode';
 import './Login.css';
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [username, setUsername] = useState('');         // Benutzername
+  const [password, setPassword] = useState('');         // Passwort
+  const [errorMessage, setErrorMessage] = useState(''); // Fehlermeldung bei Loginproblemen
 
+  // Funktion wird aufgerufen, wenn das Formular abgeschickt wird
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -17,6 +18,7 @@ const Login = ({ onLogin }) => {
     }
 
     try {
+      // API-Aufruf an den Login-Endpunkt
       const response = await fetch('http://localhost:9555/api/login', {
         method: 'POST',
         headers: {
@@ -28,10 +30,11 @@ const Login = ({ onLogin }) => {
 
       const data = await response.json();
 
+      // Wenn Login erfolgreich
       if (response.ok) {
-        const { token } = data;
-        localStorage.setItem('token', token);
-        const decoded = jwtDecode(token);
+        const { token } = data; // Token aus der Antwort extrahieren
+        localStorage.setItem('token', token); // Token im lokalen Speicher speichern
+        const decoded = jwtDecode(token); // Token dekodieren, um an Benutzerinfos zu kommen
 
         console.log('Eingeloggt als:', decoded.username, 'Rolle:', decoded.role);
 
@@ -44,6 +47,7 @@ const Login = ({ onLogin }) => {
         setErrorMessage(data.message || 'Login fehlgeschlagen');
       }
     } catch (error) {
+      // Netzwerk- oder Serverfehler
       console.error('Login-Fehler:', error);
       alert('Serverfehler beim Login');
     }
@@ -71,6 +75,7 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
+
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 

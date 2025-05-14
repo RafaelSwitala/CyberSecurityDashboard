@@ -278,7 +278,7 @@ app.post('/api/windows-logs', async (req, res) => {
       }
     });
 
-    // ✉️ Mail bei kritischen Logs
+    // Mail bei kritischen Logs
     if (eventID === 4625 || level.toLowerCase() === 'error') {
       console.log('Kritisches Windows-Log erkannt, sende E-Mail...');
       await sendMailToAdmin({ timestamp, host, user, eventID, level, message });
